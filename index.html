@@ -15097,6 +15097,175 @@ applyLiveSiteSettings(); // apply site name, desc, logo, etc. from saved setting
 if(!db.pages || !db.pages.length) getPages(); // seed defaults
 renderPagesNav();
 updBadges();
+
+/* ══════════════════════════════════════════════════════════════
+   LIVE SYNC SYSTEM — Real-time cross-tab & cross-device updates
+══════════════════════════════════════════════════════════════ */
+(function(){
+  const SYNC_KEY  = 'مكسب | Maksab_sync_ts';
+  const SYNC_MSG  = 'مكسب | Maksab_broadcast';
+  let   _isSyncing = false;
+
+  /* ── 1. BroadcastChannel: instant same-browser tab sync ── */
+  let _bc = null;
+  try {
+    _bc = new BroadcastChannel(SYNC_MSG);
+    _bc.onmessage = e => {
+      if(e.data?.type === 'db_updated' && !_isSyncing) _applyRemoteUpdate(e.data);
+    };
+  } catch(err) { /* Safari private / old browsers — fall back to storage event */ }
+
+  /* ── 2. storage event: fallback for same-origin cross-tab ── */
+  window.addEventListener('storage', e => {
+    if(e.key === SK && e.newValue && !_isSyncing) {
+      try {
+        const fresh = JSON.parse(e.newValue);
+        _applyRemoteUpdate({ db: fresh, source: 'storage' });
+      } catch(err) {}
+    }
+  });
+
+  /* ── 3. Polling fallback for cross-device on same shared storage ── */
+  let _lastTS = Date.now();
+  setInterval(() => {
+    try {
+      const ts = parseInt(localStorage.getItem(SYNC_KEY) || '0');
+      if(ts > _lastTS && !_isSyncing) {
+        _lastTS = ts;
+        const raw = localStorage.getItem(SK);
+        if(raw) _applyRemoteUpdate({ db: JSON.parse(raw), source: 'poll' });
+      }
+    } catch(err) {}
+  }, 2000);
+
+  /* ── 4. Patch saveDB to broadcast on every save ── */
+  const _origSaveDB = window.saveDB;
+  window.saveDB = function() {
+    _origSaveDB && _origSaveDB();
+    const ts = Date.now();
+    _lastTS = ts;
+    try { localStorage.setItem(SYNC_KEY, ts); } catch(err) {}
+    try {
+      if(_bc) _bc.postMessage({ type:'db_updated', db: JSON.parse(localStorage.getItem(SK)||'{}'), ts });
+    } catch(err) {}
+  };
+
+  /* ── 5. Apply remote DB update + re-render current view ── */
+  function _applyRemoteUpdate(data) {
+    try {
+      const fresh = data.db || JSON.parse(localStorage.getItem(SK) || '{}');
+      if(!fresh || !fresh.posts) return;
+      _isSyncing = true;
+
+      // Merge fresh data into current db object
+      Object.assign(db, fresh);
+
+      // Re-render whatever is visible right now
+      _syncRefresh();
+      _showSyncBadge();
+
+      setTimeout(() => { _isSyncing = false; }, 300);
+    } catch(err) { _isSyncing = false; }
+  }
+
+  /* ── 6. Smart re-render based on active view ── */
+  function _syncRefresh() {
+    try {
+      // Always update badges + nav
+      if(typeof updBadges === 'function') updBadges();
+      if(typeof renderPagesNav === 'function') renderPagesNav();
+      if(typeof applyLiveSiteSettings === 'function') applyLiveSiteSettings();
+
+      // Find which page is visible
+      const visible = id => {
+        const el = document.getElementById(id);
+        return el && el.style.display !== 'none' && !el.classList.contains('hidden');
+      };
+
+      if(visible('page-home'))   { if(typeof renderBlog === 'function') renderBlog(); }
+      if(visible('page-admin'))  {
+        const sec = document.querySelector('.sec:not([style*="none"])');
+        const secId = sec?.id || '';
+        if(secId === 'sec-posts'      && typeof renderPT      === 'function') renderPT();
+        if(secId === 'sec-categories' && typeof renderCats    === 'function') renderCats();
+        if(secId === 'sec-users'      && typeof renderUT      === 'function') renderUT();
+        if(secId === 'sec-comments'   && typeof renderComments=== 'function') renderComments();
+        if(secId === 'sec-overview'   && typeof renderOV      === 'function') renderOV();
+        if(secId === 'sec-pages'      && typeof renderPagesAdmin==='function') renderPagesAdmin();
+      }
+    } catch(err) {}
+  }
+
+  /* ── 7. Sync status badge (top-left toast) ── */
+  let _syncBadge = null;
+  let _syncHideTimer = null;
+  function _showSyncBadge() {
+    if(!_syncBadge) {
+      _syncBadge = document.createElement('div');
+      _syncBadge.id = 'liveSyncBadge';
+      _syncBadge.style.cssText = [
+        'position:fixed','bottom:1.2rem','left:1.2rem','z-index:99999',
+        'display:flex','align-items:center','gap:.5rem',
+        'background:linear-gradient(135deg,rgba(34,211,165,.95),rgba(16,185,129,.9))',
+        'color:#fff','font-family:Tajawal,sans-serif','font-size:.78rem','font-weight:800',
+        'padding:.45rem .9rem .45rem .7rem','border-radius:50px',
+        'box-shadow:0 6px 24px rgba(34,211,165,.4)',
+        'transform:translateY(80px)','transition:transform .35s cubic-bezier(.34,1.56,.64,1)',
+        'pointer-events:none','backdrop-filter:blur(10px)',
+      ].join(';');
+      _syncBadge.innerHTML = '<span style="width:8px;height:8px;border-radius:50%;background:#fff;display:inline-block;animation:syncPulse 1s infinite"></span> تم التحديث تلقائياً';
+      // Add keyframe
+      if(!document.getElementById('syncStyle')) {
+        const s = document.createElement('style');
+        s.id = 'syncStyle';
+        s.textContent = '@keyframes syncPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}';
+        document.head.appendChild(s);
+      }
+      document.body.appendChild(_syncBadge);
+    }
+    clearTimeout(_syncHideTimer);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      _syncBadge.style.transform = 'translateY(0)';
+    }));
+    _syncHideTimer = setTimeout(() => {
+      if(_syncBadge) _syncBadge.style.transform = 'translateY(80px)';
+    }, 2800);
+  }
+
+  /* ── 8. Connection status indicator in header ── */
+  function _buildSyncIndicator() {
+    const hi = document.querySelector('.hi');
+    if(!hi || document.getElementById('syncStatusDot')) return;
+    const dot = document.createElement('div');
+    dot.id = 'syncStatusDot';
+    dot.title = 'المزامنة التلقائية مفعّلة';
+    dot.style.cssText = [
+      'display:flex','align-items:center','gap:.35rem',
+      'font-size:.7rem','font-weight:700','color:var(--accent3)',
+      'padding:.28rem .6rem','border-radius:50px',
+      'background:rgba(34,211,165,.1)','border:1px solid rgba(34,211,165,.25)',
+      'cursor:default','white-space:nowrap','flex-shrink:0',
+    ].join(';');
+    dot.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#22d3a5;display:inline-block;animation:syncPulse 2s infinite ease-in-out"></span><span class="sync-dot-label">مباشر</span>';
+    // Insert after theme button
+    const tb = document.getElementById('themeBtn') || hi.lastElementChild;
+    hi.insertBefore(dot, tb?.nextSibling || null);
+
+    // Hide label on small screens
+    const mq = window.matchMedia('(max-width:480px)');
+    const toggle = q => { const lbl = dot.querySelector('.sync-dot-label'); if(lbl) lbl.style.display = q.matches ? 'none' : ''; };
+    toggle(mq); mq.addEventListener('change', toggle);
+  }
+
+  // Build indicator after DOM ready
+  if(document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', _buildSyncIndicator);
+  } else {
+    setTimeout(_buildSyncIndicator, 600);
+  }
+
+})();
+
 // Apply saved dashboard layout when page becomes visible
 setTimeout(applyDashLayout, 10);
 
