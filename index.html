@@ -12701,17 +12701,32 @@ function deleteAllRejected(){
    CATEGORIES
 ══════════════════════════════════════════ */
 function renderCats(){
-  const colors=['rgba(79,142,247,.12)','rgba(168,85,247,.12)','rgba(34,211,165,.12)','rgba(245,158,11,.12)','rgba(239,68,68,.12)','rgba(236,72,153,.12)','rgba(249,115,22,.12)'];
+  const colors=[
+    ['rgba(79,142,247,.15)','#4f8ef7'],
+    ['rgba(168,85,247,.15)','#a855f7'],
+    ['rgba(34,211,165,.15)','#22d3a5'],
+    ['rgba(245,158,11,.15)','#f59e0b'],
+    ['rgba(239,68,68,.15)','#ef4444'],
+    ['rgba(236,72,153,.15)','#ec4899'],
+    ['rgba(249,115,22,.15)','#f97316']
+  ];
   document.getElementById('catsGrid').innerHTML=db.categories.map((c,i)=>{
     const count=db.posts.filter(p=>p.category===c.name).length;
     const pubCount=db.posts.filter(p=>p.category===c.name&&p.status==='published').length;
     const slug=catSlug(c.name);
-    return`<div class="cat-card">
-      <div class="cat-ic" style="background:${colors[i%colors.length]}">${c.icon}</div>
-      <div class="cat-info"><div class="cat-name">${c.name}</div><div class="cat-count">${count} مقال • ${pubCount} منشور</div><div style="font-size:.68rem;color:var(--accent);margin-top:.1rem;font-family:monospace">/${slug}</div></div>
-      <div class="acts">
-        <button class="btn btn-ghost btn-xs" onclick="openCategoryPage('${c.name}')" title="معاينة صفحة التصنيف">👁</button>
-        ${db.categories.length>1?`<button class="btn btn-danger btn-xs" onclick="removeCat(${c.id})">🗑️</button>`:''}
+    const [bg,clr]=colors[i%colors.length];
+    return`<div class="cat-card" style="border-color:${clr}22;position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;width:3px;height:100%;background:${clr};opacity:.7;border-radius:0 var(--r2) var(--r2) 0"></div>
+      <div class="cat-ic" style="background:${bg};border:1px solid ${clr}33;color:${clr};min-width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.35rem">${c.icon}</div>
+      <div class="cat-info" style="flex:1;min-width:0">
+        <div class="cat-name" style="font-size:.95rem;font-weight:800">${c.name}</div>
+        <div class="cat-count">${count} مقال • <span style="color:var(--accent3)">${pubCount} منشور</span></div>
+        <div style="font-size:.67rem;color:${clr};margin-top:.15rem;font-family:monospace;opacity:.8">/${slug}</div>
+      </div>
+      <div class="acts" style="gap:.3rem;flex-shrink:0">
+        <button class="btn btn-ghost btn-xs" onclick="openCategoryPage('${c.name}')" title="معاينة">👁</button>
+        <button class="btn btn-ghost btn-xs" onclick="openCatEdit(${c.id})" title="تعديل" style="color:var(--accent)">✏️</button>
+        ${db.categories.length>1?`<button class="btn btn-danger btn-xs" onclick="removeCat(${c.id})" title="حذف">🗑️</button>`:''}
       </div>
     </div>`;
   }).join('');
@@ -12733,6 +12748,48 @@ function removeCat(id){
     addAct('del','حُذف التصنيف: '+c?.name);
     saveDB();renderCats();renderPagesNav();toast('تم حذف التصنيف','tinf');
   });
+}
+function openCatEdit(id){
+  const c=db.categories.find(x=>x.id===id);
+  if(!c)return;
+  document.getElementById('catEditId').value=id;
+  document.getElementById('catEditName').value=c.name;
+  document.getElementById('catEditIcon').value=c.icon||'📁';
+  document.getElementById('catEditPreviewIcon').textContent=c.icon||'📁';
+  document.getElementById('catEditPreviewName').textContent=c.name;
+  document.getElementById('catEditPreviewSlug').textContent='/'+catSlug(c.name);
+  document.getElementById('catEditSub').textContent='تعديل: '+c.icon+' '+c.name;
+  const ov=document.getElementById('catEditOv');
+  ov.style.display='flex';
+  setTimeout(()=>document.getElementById('catEditName').focus(),100);
+}
+function closeCatEdit(){
+  document.getElementById('catEditOv').style.display='none';
+}
+function saveCatEdit(){
+  const id=parseInt(document.getElementById('catEditId').value);
+  const newName=document.getElementById('catEditName').value.trim();
+  const newIcon=document.getElementById('catEditIcon').value.trim()||'📁';
+  if(!newName){toast('يرجى إدخال اسم التصنيف','terr');return;}
+  const c=db.categories.find(x=>x.id===id);
+  if(!c)return;
+  const oldName=c.name;
+  // If name changed, update all posts using this category
+  if(oldName!==newName){
+    if(db.categories.find(x=>x.id!==id&&x.name===newName)){
+      toast('هذا الاسم مستخدم في تصنيف آخر','terr');return;
+    }
+    db.posts.forEach(p=>{ if(p.category===oldName) p.category=newName; });
+  }
+  c.name=newName;
+  c.icon=newIcon;
+  addAct('set','تم تعديل التصنيف: '+oldName+(oldName!==newName?' → '+newName:''));
+  saveDB();renderCats();renderPagesNav();
+  // Also refresh post filter dropdown
+  const sel=document.getElementById('ptCatFilt');
+  if(sel){sel.innerHTML='<option value="all">كل التصنيفات</option>'+db.categories.map(ct=>`<option value="${ct.name}">${ct.icon} ${ct.name}</option>`).join('');}
+  closeCatEdit();
+  toast('تم حفظ التعديلات ✅ '+newIcon+' '+newName,'tok');
 }
 
 /* ══════════════════════════════════════════
@@ -18508,5 +18565,52 @@ document.addEventListener('keydown', e => {
   if(e.key === 'Escape') closeShareModal();
 });
 </script>
+
+<!-- ══ CATEGORY EDIT MODAL ══ -->
+<div class="modal-ov" id="catEditOv" onclick="if(event.target===this)closeCatEdit()" style="display:none;position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:1rem">
+  <div class="modal" style="max-width:440px;width:100%;animation:popIn .3s cubic-bezier(.34,1.56,.64,1)">
+    <div style="background:linear-gradient(135deg,var(--s2),rgba(79,142,247,.06));border-bottom:1px solid var(--border);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.75rem">
+      <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">✏️</div>
+      <div style="flex:1">
+        <div style="font-size:.98rem;font-weight:900;color:var(--text)">تعديل التصنيف</div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem" id="catEditSub">تغيير الاسم والأيقونة</div>
+      </div>
+      <button onclick="closeCatEdit()" style="width:30px;height:30px;border-radius:50%;background:var(--s3);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .15s" onmouseover="this.style.background='var(--danger)';this.style.color='#fff'" onmouseout="this.style.background='var(--s3)';this.style.color='var(--muted)'">✕</button>
+    </div>
+    <div style="padding:1.4rem">
+      <!-- Icon preview -->
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.4rem;padding:1rem;background:var(--s2);border:1px solid var(--border);border-radius:var(--r2)">
+        <div id="catEditPreviewIcon" style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,rgba(79,142,247,.18),rgba(168,85,247,.1));border:1px solid rgba(79,142,247,.25);display:flex;align-items:center;justify-content:center;font-size:2rem;transition:all .2s;flex-shrink:0">📁</div>
+        <div style="flex:1">
+          <div id="catEditPreviewName" style="font-size:1.1rem;font-weight:900;color:var(--text)">اسم التصنيف</div>
+          <div id="catEditPreviewSlug" style="font-size:.72rem;color:var(--accent);font-family:monospace;margin-top:.2rem">/category</div>
+        </div>
+      </div>
+      <!-- Fields -->
+      <div class="fg" style="margin-bottom:1rem">
+        <label style="font-size:.75rem;font-weight:800;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase;margin-bottom:.4rem;display:block">اسم التصنيف</label>
+        <input type="text" id="catEditName" placeholder="مثال: تقنية" style="font-size:.95rem"
+          oninput="document.getElementById('catEditPreviewName').textContent=this.value||'اسم التصنيف';document.getElementById('catEditPreviewSlug').textContent='/'+catSlug(this.value||'')">
+      </div>
+      <div class="fg" style="margin-bottom:1.2rem">
+        <label style="font-size:.75rem;font-weight:800;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase;margin-bottom:.4rem;display:block">الأيقونة (إيموجي)</label>
+        <input type="text" id="catEditIcon" placeholder="💻" maxlength="2" style="font-size:1.4rem;text-align:center;letter-spacing:.2rem"
+          oninput="document.getElementById('catEditPreviewIcon').textContent=this.value||'📁'">
+      </div>
+      <!-- Quick emoji picker -->
+      <div style="margin-bottom:1.4rem">
+        <div style="font-size:.7rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:.5rem">اختر سريعاً</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem">
+          ${['💻','🎨','🌱','🔬','💼','📚','⚽','🎵','🍕','✈️','💡','🏆','🎬','📸','🔐','🌍','🧠','⚡','🎯','🌟'].map(e=>`<button onclick="document.getElementById('catEditIcon').value='${e}';document.getElementById('catEditPreviewIcon').textContent='${e}'" style="width:34px;height:34px;border-radius:8px;border:1px solid var(--border);background:var(--s2);cursor:pointer;font-size:1.1rem;transition:all .15s" onmouseover="this.style.background='var(--s3)';this.style.transform='scale(1.15)'" onmouseout="this.style.background='var(--s2)';this.style.transform='scale(1)'">${e}</button>`).join('')}
+        </div>
+      </div>
+      <input type="hidden" id="catEditId">
+      <div style="display:flex;gap:.65rem;justify-content:flex-end">
+        <button class="btn btn-ghost" onclick="closeCatEdit()">إلغاء</button>
+        <button class="btn btn-primary" onclick="saveCatEdit()" style="gap:.4rem">💾 حفظ التعديلات</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
