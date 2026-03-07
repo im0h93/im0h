@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>مدونة مكسب | Maksab</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <!-- Jodit Editor - أفضل محرر WYSIWYG بدون API key -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/4.2.37/jodit.min.css">
@@ -153,7 +153,21 @@ select option{background:var(--s2);}
 .hc{max-width:1200px;margin:0 auto;padding:3rem 2rem;}
 .hero{text-align:center;padding:4rem 0 2.5rem;}
 .hp{display:inline-flex;align-items:center;gap:.5rem;background:rgba(79,142,247,.1);border:1px solid rgba(79,142,247,.22);color:var(--accent);padding:.3rem 1rem;border-radius:50px;font-size:.76rem;font-weight:700;letter-spacing:1px;margin-bottom:1.5rem;}
-.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1rem;background:linear-gradient(150deg,var(--text) 40%,var(--muted));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero h1{
+  font-size:clamp(2.4rem,5.5vw,4.2rem);
+  font-family:'Noto Naskh Arabic','Tajawal',serif;
+  font-weight:700;
+  line-height:1.35;
+  margin-bottom:1rem;
+  background:linear-gradient(135deg,#fff 0%,rgba(255,255,255,.85) 40%,var(--accent) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  letter-spacing:.01em;
+  filter:drop-shadow(0 2px 24px rgba(79,142,247,.18));
+}
+[data-theme="light"] .hero h1{
+  background:linear-gradient(135deg,#1e293b 0%,#334155 50%,var(--accent) 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
 .hero p{color:var(--muted2);font-size:1.02rem;max-width:560px;margin:0 auto;}
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1.5rem;margin-top:2.5rem;}
 .pc{background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;cursor:pointer;transition:all .3s;animation:ri .5s ease both;display:flex;flex-direction:column;}
@@ -2582,63 +2596,155 @@ document.addEventListener('click', function(e){
 .qb-badge.red{background:var(--danger);color:#fff;}
 
 /* ═══════════════════════════════════
-   ROLES — permission matrix
+   ROLES — permission matrix  (v2 — full redesign)
 ═══════════════════════════════════ */
-.roles-overview{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  gap:1rem;margin-bottom:1.5rem;
-}
+
+/* ── Role cards ── */
+.roles-overview{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:1.5rem;}
 .role-ov-card{
-  background:var(--s1);border:1px solid var(--border);
-  border-radius:var(--r2);padding:1.2rem;
+  background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);
+  overflow:hidden;cursor:pointer;transition:all .2s;position:relative;
 }
-.role-ov-hd{display:flex;align-items:center;gap:.75rem;margin-bottom:.65rem;}
+.role-ov-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.25);border-color:var(--border2);}
+.role-ov-card.active-card{border-color:var(--accent)!important;box-shadow:0 0 0 2px rgba(79,142,247,.2),0 8px 32px rgba(0,0,0,.25);}
+.role-ov-banner{height:5px;width:100%;}
+.role-ov-body{padding:1.1rem 1.2rem;}
+.role-ov-hd{display:flex;align-items:flex-start;gap:.85rem;margin-bottom:.75rem;}
 .role-ov-icon{
-  width:38px;height:38px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.2rem;flex-shrink:0;
+  width:46px;height:46px;border-radius:13px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:1.45rem;
+  box-shadow:0 4px 14px rgba(0,0,0,.2);
 }
-.role-ov-name{font-size:.88rem;font-weight:800;}
-.role-ov-cnt{font-size:.7rem;color:var(--muted);margin-top:.12rem;}
-.role-ov-desc{font-size:.76rem;color:var(--muted2);line-height:1.55;margin-bottom:.65rem;}
-.role-ov-perms-count{
-  font-size:.68rem;font-weight:800;
-  color:var(--accent);background:rgba(79,142,247,.1);
-  border-radius:50px;padding:.18rem .55rem;
-  display:inline-block;
+.role-ov-meta{flex:1;min-width:0;}
+.role-ov-name{font-size:.95rem;font-weight:900;line-height:1.2;}
+.role-ov-cnt{font-size:.7rem;color:var(--muted);margin-top:.2rem;display:flex;align-items:center;gap:.4rem;}
+.role-ov-edit{
+  width:28px;height:28px;border-radius:8px;border:1px solid var(--border);
+  background:var(--s2);cursor:pointer;display:flex;align-items:center;justify-content:center;
+  font-size:.82rem;transition:all .15s;flex-shrink:0;
 }
-/* Matrix */
+.role-ov-edit:hover{background:var(--accent);border-color:var(--accent);color:#fff;}
+.role-ov-desc{font-size:.75rem;color:var(--muted2);line-height:1.6;margin-bottom:.85rem;}
+.role-ov-footer{display:flex;align-items:center;justify-content:space-between;gap:.5rem;}
+.role-ov-perms-pill{
+  font-size:.68rem;font-weight:800;border-radius:50px;
+  padding:.2rem .65rem;display:inline-flex;align-items:center;gap:.3rem;
+}
+.role-ov-actions{display:flex;gap:.35rem;}
+.role-ov-btn{
+  font-size:.68rem;padding:.22rem .6rem;border-radius:6px;border:1px solid var(--border);
+  background:var(--s2);color:var(--muted2);cursor:pointer;font-family:'Tajawal',sans-serif;
+  font-weight:700;transition:all .15s;white-space:nowrap;
+}
+.role-ov-btn:hover{background:var(--s3);border-color:var(--border2);color:var(--text);}
+.role-ov-btn.danger:hover{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.4);color:#ef4444;}
+
+/* ── Roles Tabs ── */
+.roles-tabs{display:flex;gap:.4rem;margin-bottom:1.2rem;background:var(--s2);border-radius:var(--r);padding:.3rem;}
+.roles-tab{
+  flex:1;padding:.5rem .75rem;border-radius:calc(var(--r) - 3px);border:none;
+  background:transparent;color:var(--muted);font-family:'Tajawal',sans-serif;
+  font-size:.8rem;font-weight:700;cursor:pointer;transition:all .18s;
+  display:flex;align-items:center;justify-content:center;gap:.4rem;
+}
+.roles-tab:hover{color:var(--text);}
+.roles-tab.active{background:var(--s4);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.2);}
+[data-theme="light"] .roles-tab.active{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.1);}
+.roles-tab-panel{display:none;}
+.roles-tab-panel.active{display:block;}
+
+/* ── Matrix ── */
 .perm-matrix-wrap{
   background:var(--s1);border:1px solid var(--border);
   border-radius:var(--r2);overflow:hidden;margin-bottom:1.5rem;
 }
-.perm-matrix-title{
-  padding:.85rem 1.2rem;border-bottom:1px solid var(--border);
-  font-size:.85rem;font-weight:800;color:var(--muted2);
-  background:var(--s2);
+.perm-matrix-toolbar{
+  padding:.85rem 1.2rem;border-bottom:1px solid var(--border);background:var(--s2);
+  display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;
 }
-.perm-matrix-scroll{overflow-x:auto;}
+.perm-search{
+  flex:1;min-width:160px;padding:.42rem .85rem;background:var(--s3);
+  border:1.5px solid var(--border);border-radius:var(--r);
+  color:var(--text);font-family:'Tajawal',sans-serif;font-size:.82rem;outline:none;transition:all .2s;
+}
+.perm-search:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,.1);}
+.perm-cat-filter{
+  padding:.4rem .75rem;border-radius:50px;border:1px solid var(--border);
+  background:var(--s3);color:var(--muted2);font-family:'Tajawal',sans-serif;
+  font-size:.75rem;font-weight:700;cursor:pointer;transition:all .15s;
+}
+.perm-cat-filter.active{background:rgba(79,142,247,.15);border-color:rgba(79,142,247,.4);color:var(--accent);}
+.perm-matrix-scroll{overflow-x:auto;max-height:600px;overflow-y:auto;}
 .perm-table{width:100%;border-collapse:collapse;font-size:.8rem;}
-.perm-table th{
-  padding:.7rem 1rem;background:var(--s2);
+.perm-table thead th{
+  position:sticky;top:0;z-index:3;
+  padding:.75rem 1rem;background:var(--s1);
   color:var(--muted);font-size:.72rem;font-weight:800;
-  letter-spacing:.4px;border-bottom:1px solid var(--border);
+  letter-spacing:.4px;border-bottom:2px solid var(--border);
   white-space:nowrap;
 }
-.perm-table td{padding:.55rem 1rem;border-bottom:1px solid rgba(31,45,74,.3);vertical-align:middle;}
-.pm-cat-row td{background:var(--s2);}
-.pm-cat-lbl{font-size:.65rem;font-weight:800;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;padding:.45rem 1rem !important;}
-.pm-perm-name{color:var(--muted2);font-size:.8rem;}
-.pm-cell{text-align:center;}
-.pm-role-hd{display:flex;flex-direction:column;align-items:center;gap:.18rem;font-size:.75rem;color:var(--muted2);}
-/* Toggle switch for permissions */
-.pm-toggle{position:relative;display:inline-block;width:34px;height:18px;cursor:pointer;}
+.perm-table thead th:first-child{text-align:right;min-width:200px;position:sticky;top:0;left:0;z-index:4;background:var(--s1);}
+.perm-table td{padding:.5rem .75rem;border-bottom:1px solid rgba(31,45,74,.25);vertical-align:middle;}
+.perm-table td:first-child{position:sticky;left:0;z-index:1;background:var(--s1);}
+.perm-table tr:hover td{background:rgba(79,142,247,.04);}
+.perm-table tr:hover td:first-child{background:var(--s2);}
+.pm-cat-row td{background:var(--s2);position:sticky;left:0;}
+.pm-cat-lbl{
+  font-size:.65rem;font-weight:900;color:var(--accent);letter-spacing:.9px;
+  text-transform:uppercase;padding:.5rem 1rem !important;
+  display:flex;align-items:center;gap:.5rem;
+}
+.pm-cat-lbl::after{content:'';flex:1;height:1px;background:rgba(79,142,247,.2);}
+.pm-perm-name{color:var(--muted2);font-size:.8rem;white-space:nowrap;}
+.pm-perm-key{font-size:.62rem;color:var(--muted);font-family:monospace;display:block;margin-top:.05rem;}
+.pm-cell{text-align:center;min-width:80px;}
+.pm-role-hd{display:flex;flex-direction:column;align-items:center;gap:.22rem;}
+.pm-role-icon{font-size:1.1rem;}
+.pm-role-name{font-size:.7rem;font-weight:800;}
+.pm-bulk-row td{background:var(--s3)!important;padding:.3rem .75rem!important;}
+.pm-bulk-lbl{font-size:.62rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;}
+.pm-bulk-btn{
+  font-size:.62rem;padding:.15rem .45rem;border-radius:4px;border:1px solid var(--border);
+  background:var(--s2);color:var(--muted2);cursor:pointer;font-family:'Tajawal',sans-serif;
+  transition:all .12s;display:inline-flex;align-items:center;gap:.2rem;
+}
+.pm-bulk-btn:hover{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.35);color:var(--accent);}
+.pm-bulk-btn.deny:hover{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#ef4444;}
+
+/* Toggle switch */
+.pm-toggle{position:relative;display:inline-block;width:36px;height:20px;cursor:pointer;}
 .pm-toggle input{opacity:0;width:0;height:0;}
-.pm-slider{position:absolute;inset:0;background:var(--s3);border:1px solid var(--border2);border-radius:50px;transition:background .18s;}
-.pm-slider::before{content:'';position:absolute;width:12px;height:12px;left:2px;top:2px;background:var(--muted);border-radius:50%;transition:transform .18s,background .18s;}
-.pm-toggle input:checked+.pm-slider{background:rgba(34,211,165,.2);border-color:var(--accent3);}
+.pm-slider{
+  position:absolute;inset:0;background:var(--s3);border:1.5px solid var(--border2);
+  border-radius:50px;transition:all .2s;
+}
+.pm-slider::before{
+  content:'';position:absolute;width:13px;height:13px;left:2px;top:2px;
+  background:var(--muted);border-radius:50%;transition:transform .2s,background .2s;
+}
+.pm-toggle input:checked+.pm-slider{background:rgba(34,211,165,.18);border-color:var(--accent3);}
 .pm-toggle input:checked+.pm-slider::before{transform:translateX(16px);background:var(--accent3);}
-.pm-toggle input:disabled+.pm-slider{opacity:.45;cursor:not-allowed;}
+.pm-toggle input:disabled+.pm-slider{opacity:.4;cursor:not-allowed;}
+.pm-toggle:not(.disabled):hover .pm-slider{border-color:var(--accent);}
+
+/* ── By-Role view ── */
+.by-role-wrap{display:flex;gap:1rem;flex-wrap:wrap;}
+.by-role-col{
+  flex:1;min-width:260px;background:var(--s1);border:1px solid var(--border);
+  border-radius:var(--r2);overflow:hidden;
+}
+.by-role-hd{padding:.85rem 1.1rem;background:var(--s2);border-bottom:1px solid var(--border);}
+.by-role-name{font-size:.88rem;font-weight:900;}
+.by-role-stats{font-size:.7rem;color:var(--muted);margin-top:.15rem;}
+.by-role-perms{padding:.65rem;}
+.by-role-cat{font-size:.65rem;font-weight:800;color:var(--muted);letter-spacing:.7px;text-transform:uppercase;margin:.6rem 0 .35rem;}
+.by-role-perm{
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  padding:.32rem .5rem;border-radius:6px;margin-bottom:.18rem;transition:background .12s;
+}
+.by-role-perm:hover{background:var(--s2);}
+.by-role-perm-lbl{font-size:.75rem;color:var(--muted2);}
+.by-role-perm.granted .by-role-perm-lbl{color:var(--text);}
 
 /* ═══════════════════════════════════
    NOTIFICATIONS FILTER BAR
@@ -7379,8 +7485,8 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
   <div class="hc">
     <div class="hero">
       <div class="hp" id="heroTagline">✦ مدونة مكسب |Maksab</div>
-      <h1 id="heroTitle">أفكار، مقالات<br>وإلهام</h1>
-      <p id="heroDesc">مساحة للتعبير والتعلّم — محتوى منتقى بعناية من فريق التحرير</p>
+      <h1 id="heroTitle">مكسبك الحقيقي هو المعرفة.</h1>
+      <p id="heroDesc">مساحة للتعبير و التعلّم</p>
     </div>
     <!-- FEATURED SLIDER -->
     <div id="featuredSliderWrap"></div>
@@ -8149,7 +8255,7 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
               <div class="fg" style="margin-bottom:.65rem"><label>وصف الميتا</label><textarea id="eMetaDesc" rows="2" placeholder="وصف مختصر يظهر في محركات البحث (150 حرف)..." style="min-height:60px" oninput="updSEO()"></textarea></div>
               <div class="fg" style="margin-bottom:0"><label>كلمات مفتاحية</label><input type="text" id="eKeywords" placeholder="تقنية، برمجة، تصميم..."></div>
               <div id="seoPreview" style="margin-top:.65rem;padding:.65rem;background:var(--bg);border-radius:var(--r);font-size:.8rem">
-                <div style="color:#8ab4f8;font-size:.82rem;margin-bottom:.2rem" id="seoPrevTitle">عنوان المقال | مكسب | Maksab.online</div>
+                <div style="color:#8ab4f8;font-size:.82rem;margin-bottom:.2rem" id="seoPrevTitle">عنوان المقال | مكسب | Maksab</div>
                 <div style="color:#bdc1c6;font-size:.76rem" id="seoPrevDesc">وصف الميتا سيظهر هنا...</div>
               </div>
             </div>
@@ -8353,21 +8459,45 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
 
       <!-- ROLES -->
       <div id="sec-roles" class="sec">
-        <div class="sh">
-          <div><div class="st">🛡️ الأدوار والصلاحيات</div><div class="ss">تخصيص الأدوار وإدارة الصلاحيات الكاملة</div></div>
-          <div class="sh-actions">
-            <button class="btn btn-ghost btn-sm" onclick="openRoleNamesModal()">✏️ تخصيص مسميات الأدوار</button>
-            <button class="btn btn-primary btn-sm" onclick="saveRolePerms()">💾 حفظ الصلاحيات</button>
+        <!-- Header banner -->
+        <div style="background:linear-gradient(135deg,rgba(79,142,247,.1),rgba(168,85,247,.06));border:1px solid rgba(79,142,247,.2);border-radius:var(--r2);padding:1.2rem 1.5rem;margin-bottom:1.4rem;display:flex;align-items:center;gap:1rem">
+          <div style="width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;box-shadow:0 4px 16px rgba(79,142,247,.3)">🛡️</div>
+          <div style="flex:1">
+            <div style="font-size:1.05rem;font-weight:900;color:var(--text)">الأدوار والصلاحيات</div>
+            <div style="font-size:.78rem;color:var(--muted);margin-top:.2rem">تحكم كامل بما يستطيع كل دور رؤيته وتعديله داخل المنصة</div>
+          </div>
+          <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+            <button class="btn btn-ghost btn-sm" onclick="rolesExportPerms()">📤 تصدير</button>
+            <button class="btn btn-ghost btn-sm" onclick="openRoleNamesModal()">✏️ تعديل الأسماء</button>
+            <button class="btn btn-primary btn-sm" onclick="saveRolePerms()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));border:none">💾 حفظ الصلاحيات</button>
           </div>
         </div>
-        <!-- Role cards row -->
+
+        <!-- Role cards -->
         <div class="roles-overview" id="rolesOverview"></div>
-        <!-- Permission matrix -->
-        <div class="perm-matrix-wrap">
-          <div class="perm-matrix-title">مصفوفة الصلاحيات الكاملة</div>
-          <div class="perm-matrix-scroll">
-            <table class="perm-table" id="permTable"></table>
+
+        <!-- Tabs -->
+        <div class="roles-tabs" id="rolesTabs">
+          <button class="roles-tab active" id="roleTabMatrix" onclick="switchRolesTab('matrix',this)">📊 مصفوفة الصلاحيات</button>
+          <button class="roles-tab" id="roleTabByRole" onclick="switchRolesTab('byrole',this)">🗂 عرض حسب الدور</button>
+        </div>
+
+        <!-- Tab: Matrix -->
+        <div class="roles-tab-panel active" id="rolesPanelMatrix">
+          <div class="perm-matrix-wrap">
+            <div class="perm-matrix-toolbar">
+              <input class="perm-search" id="permSearch" placeholder="🔍 ابحث عن صلاحية..." oninput="filterPermTable(this.value)">
+              <div id="permCatFilters" style="display:flex;gap:.35rem;flex-wrap:wrap"></div>
+            </div>
+            <div class="perm-matrix-scroll">
+              <table class="perm-table" id="permTable"></table>
+            </div>
           </div>
+        </div>
+
+        <!-- Tab: By Role -->
+        <div class="roles-tab-panel" id="rolesPanelByRole">
+          <div class="by-role-wrap" id="byRoleWrap"></div>
         </div>
       </div>
 
@@ -8434,19 +8564,19 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
           <div class="settings-grid">
             <div class="settings-card">
               <div class="settings-title">🌐 معلومات الموقع</div>
-              <div class="fg"><label>اسم الموقع</label><input type="text" id="siteName" placeholder="مكسب | Maksab.online" oninput="livePreviewSetting('name',this.value)"></div>
+              <div class="fg"><label>اسم الموقع</label><input type="text" id="siteName" placeholder="مكسب | Maksab" oninput="livePreviewSetting('name',this.value)"></div>
               <div class="fg"><label>وصف الموقع</label><textarea id="siteDesc" rows="2" placeholder="مساحة للتعبير والتعلّم..." oninput="livePreviewSetting('desc',this.value)"></textarea></div>
               <div class="fg">
                 <label>عنوان الصفحة الرئيسية <span style="font-size:.68rem;color:var(--accent);font-weight:600;background:rgba(79,142,247,.1);padding:.1rem .4rem;border-radius:4px;margin-right:.3rem">الجملة الكبيرة</span></label>
-                <input type="text" id="siteHeroTitle" placeholder="أفكار، مقالات وإلهام" oninput="livePreviewSetting('heroTitle',this.value);document.getElementById('heroTitlePreview').textContent=this.value||'أفكار، مقالات وإلهام'">
+                <input type="text" id="siteHeroTitle" placeholder="مكسبك الحقيقي هو المعرفة." oninput="livePreviewSetting('heroTitle',this.value);document.getElementById('heroTitlePreview').textContent=this.value||'مكسبك الحقيقي هو المعرفة.'">
                 <div style="display:flex;align-items:center;gap:.5rem;margin-top:.4rem;padding:.45rem .7rem;background:var(--s2);border-radius:var(--r);border:1px solid var(--border)">
                   <span style="font-size:.8rem">👁</span>
                   <span style="font-size:.72rem;color:var(--muted)">معاينة:</span>
-                  <strong id="heroTitlePreview" style="font-size:.78rem;color:var(--accent)">أفكار، مقالات وإلهام</strong>
+                  <strong id="heroTitlePreview" style="font-size:.78rem;color:var(--accent)">مكسبك الحقيقي هو المعرفة.</strong>
                 </div>
               </div>
               <div class="fg"><label>شعار الموقع (إيموجي)</label><input type="text" id="siteLogo" placeholder="✦" maxlength="3" oninput="livePreviewSetting('logo',this.value)"></div>
-              <div class="fg"><label>URL الرسمي</label><input type="text" id="siteUrl" placeholder="https://مكسب | Maksab.online"></div>
+              <div class="fg"><label>URL الرسمي</label><input type="text" id="siteUrl" placeholder="https://مكسب | Maksab"></div>
               <div class="fg" style="margin:0"><label>الكلمات المفتاحية</label><input type="text" id="siteKeywords" placeholder="مدونة، تقنية، تصميم..."></div>
             </div>
             <div class="settings-card">
@@ -8986,7 +9116,7 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
         <div class="sh">
           <div><div class="st">📤 استيراد / تصدير</div><div class="ss">احتفظ بنسخة احتياطية من بياناتك</div></div>
         </div>
-        <div class="st" style="font-size:1rem;margin-bottom:1rem;color:var(--muted2)">📦 تصدير البيانات</div>
+        <div class="st" style="font-size:1rem;margin-bottom:1rem;color:var(--muted2)">📦 تصدير البيانات <span style="font-size:.72rem;color:var(--accent);background:rgba(79,142,247,.1);padding:.1rem .45rem;border-radius:4px;font-weight:600;margin-right:.4rem">HTML</span></div>
         <div class="export-grid">
           <div class="export-card" onclick="exportData('all')">
             <div class="export-ic">📦</div>
@@ -9008,10 +9138,13 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
         <div class="st" style="font-size:1rem;margin-bottom:1rem;color:var(--muted2)">📥 استيراد البيانات</div>
         <div class="import-zone" onclick="document.getElementById('importFile').click()">
           <div style="font-size:2.5rem;margin-bottom:.75rem">📂</div>
-          <div style="font-weight:700;margin-bottom:.35rem">اضغط لاختيار ملف JSON</div>
-          <div style="font-size:.82rem;color:var(--muted)">يدعم ملفات النسخ الاحتياطية المُصدَّرة من هذه المنصة</div>
-          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this)">
+          <div style="font-weight:700;margin-bottom:.35rem">اضغط لاختيار ملف النسخة الاحتياطية</div>
+          <div style="font-size:.82rem;color:var(--muted)">يدعم ملفات <strong>.html</strong> المُصدَّرة من هذه المنصة، وكذلك ملفات <strong>.json</strong> القديمة</div>
+          <input type="file" id="importFile" accept=".html,.json" style="display:none" onchange="importData(this)">
         </div>
+        <button id="refreshSiteBtn" onclick="refreshSite()" style="display:none;width:100%;margin-top:.85rem;padding:.85rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:var(--r2);font-size:.95rem;font-weight:900;cursor:pointer;font-family:'Tajawal',sans-serif;display:none;align-items:center;justify-content:center;gap:.6rem;transition:all .2s;box-shadow:0 4px 18px rgba(79,142,247,.35)" onmouseover="this.style.opacity='.88';this.style.transform='translateY(-1px)'" onmouseout="this.style.opacity='1';this.style.transform='translateY(0)'">
+          🔄 حدّث الموقع
+        </button>
         <div class="divider"></div>
         <div class="st" style="font-size:1rem;margin-bottom:1rem;color:var(--danger)">⚠️ منطقة الخطر</div>
         <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
@@ -10846,7 +10979,7 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
         <!-- Slug -->
         <div style="margin-bottom:.9rem">
           <div class="slug-preview">
-            <span class="slug-base">مكسب | Maksab.online/</span>
+            <span class="slug-base">مكسب | Maksab/</span>
             <span id="pemSlugDisplay" style="font-weight:700">page-slug</span>
           </div>
           <div style="margin-top:.3rem;display:flex;gap:.4rem">
@@ -11031,9 +11164,9 @@ const SK='مكسب | Maksab_v4';
 function loadDB(){
   try{const r=localStorage.getItem(SK);if(r)return JSON.parse(r);}catch(e){}
   return{
-    users:[{id:1,name:'المشرف',email:'hdoa91@gmail.com',password:'admin123',role:'admin',status:'active',joined:'2025-01-01',bio:'مؤسس المنصة ومديرها الرئيسي',social:{x:'@مكسب | Maksab',gh:'مكسب | Maksab',ig:'',web:'https://مكسب | Maksab.online'}}],
+    users:[{id:1,name:'المشرف',email:'hdoa91@gmail.com',password:'admin123',role:'admin',status:'active',joined:'2025-01-01',bio:'مؤسس المنصة ومديرها الرئيسي',social:{x:'@مكسب | Maksab',gh:'مكسب | Maksab',ig:'',web:'https://مكسب | Maksab'}}],
     posts:[
-      {id:1,title:'مرحباً في مكسب | Maksab',content:'أهلاً وسهلاً بكم في مدونتنا!\n\nهذه المدونة مساحة للأفكار والإلهام، حيث نشارك معكم أحدث المقالات في مجالات التقنية والتصميم والحياة والعلوم وغيرها.\n\nنسعى دائماً لتقديم محتوى عالي الجودة يُثري معرفتكم. شكراً لزيارتكم!',category:'ثقافة',emoji:'👋',status:'published',author:'المشرف',authorId:1,date:'2025-01-15',tags:['ترحيب','عام'],pinned:true,featured:true,allowComments:true,views:340,metaDesc:'مرحباً في مكسب | Maksab.online',keywords:'مدونة،ترحيب'},
+      {id:1,title:'مرحباً في مكسب | Maksab',content:'أهلاً وسهلاً بكم في مدونتنا!\n\nهذه المدونة مساحة للأفكار والإلهام، حيث نشارك معكم أحدث المقالات في مجالات التقنية والتصميم والحياة والعلوم وغيرها.\n\nنسعى دائماً لتقديم محتوى عالي الجودة يُثري معرفتكم. شكراً لزيارتكم!',category:'ثقافة',emoji:'👋',status:'published',author:'المشرف',authorId:1,date:'2025-01-15',tags:['ترحيب','عام'],pinned:true,featured:true,allowComments:true,views:340,metaDesc:'مرحباً في مكسب | Maksab',keywords:'مدونة،ترحيب'},
       {id:2,title:'مستقبل الذكاء الاصطناعي في التصميم',content:'يشهد عالم التصميم ثورة حقيقية مع دخول الذكاء الاصطناعي.\n\nأصبح بإمكان المصممين إنجاز مهام معقدة في دقائق بدلاً من ساعات. لكن هل سيحل الذكاء الاصطناعي محل المصمم البشري؟\n\nالجواب البسيط: لا. بل سيصبح أداة قوية في يد المصمم المبدع.',category:'تصميم',emoji:'🎨',status:'published',author:'المشرف',authorId:1,date:'2025-02-01',tags:['ذكاء اصطناعي','تصميم'],pinned:false,featured:true,allowComments:true,views:220,metaDesc:'مستقبل الذكاء الاصطناعي في مجال التصميم',keywords:'تصميم،AI'},
       {id:3,title:'أفضل أدوات البرمجة في 2025',content:'قائمة شاملة بأفضل الأدوات التي يحتاجها كل مطوّر في 2025.\n\n• VS Code: محرر الأكواد الأكثر شعبية\n• GitHub Copilot: مساعد البرمجة الذكي\n• Docker: حاوية التطبيقات\n• Figma: التصميم التعاوني',category:'تقنية',emoji:'💻',status:'draft',author:'المشرف',authorId:1,date:'2025-02-10',tags:['برمجة','أدوات'],pinned:false,featured:false,allowComments:true,views:0,metaDesc:'أفضل أدوات البرمجة لعام 2025',keywords:'برمجة،أدوات'}
     ],
@@ -11057,7 +11190,7 @@ function loadDB(){
       {id:3,type:'user',title:'مستخدم جديد انضم',text:'سارة علي أنشأت حساباً جديداً في المنصة',time:'أمس',read:true},
       {id:4,type:'system',title:'النسخة الاحتياطية',text:'تذكير: لم تقم بتصدير نسخة احتياطية منذ 7 أيام',time:'منذ يومين',read:true}
     ],
-    siteSettings:{name:'مكسب | Maksab.online',desc:'مساحة للتعبير والتعلّم — محتوى منتقى بعناية',logo:'✦',keywords:'مدونة،تقنية،تصميم',mode:'live',postOrder:'newest',comments:true,reg:true,cookies:true,noIndex:false,readOnly:false,social:{x:'@مكسب | Maksab',insta:'',yt:'',tg:'',gh:'مكسب | Maksab'},gaId:'',accentColor:'#4f8ef7',activeTheme:'nebula',customColors:{}},
+    siteSettings:{name:'مكسب | Maksab',desc:'مساحة للتعبير و التعلّم',logo:'✦',keywords:'مدونة،تقنية،تصميم',mode:'live',postOrder:'newest',comments:true,reg:true,cookies:true,noIndex:false,readOnly:false,social:{x:'@مكسب | Maksab',insta:'',yt:'',tg:'',gh:'مكسب | Maksab'},gaId:'',accentColor:'#4f8ef7',activeTheme:'nebula',customColors:{}},
     editingPostId:null,
     trash:[],
     securityLog:[
@@ -12648,7 +12781,7 @@ function renderLivePreview(){
 function updSEO(){
   const t=document.getElementById('eTitle')?.value||'عنوان المقال';
   const d=document.getElementById('eMetaDesc')?.value||'';
-  const sTl=document.getElementById('seoPrevTitle');if(sTl)sTl.textContent=t+' | مكسب | Maksab.online';
+  const sTl=document.getElementById('seoPrevTitle');if(sTl)sTl.textContent=t+' | مكسب | Maksab';
   const sDe=document.getElementById('seoPrevDesc');if(sDe)sDe.textContent=d||'وصف الميتا سيظهر هنا...';
 }
 
@@ -13159,9 +13292,7 @@ function emptyTrash(){
   });
 }
 function exportPosts(){
-  const data=JSON.stringify(db.posts,null,2);
-  downloadJSON(data,'posts_export_'+today()+'.json');
-  toast('تم تصدير المقالات 📤','tok');
+  exportData('posts');
 }
 // Bulk
 function toggleSel(id,cb){if(cb.checked)selPosts.add(id);else selPosts.delete(id);updBulkBar();}
@@ -13426,73 +13557,199 @@ function rmUser(id){
 ══════════════════════════════════════════ */
 // Live perm overrides (volatile — resets on reload; for real app, persist to DB)
 let permOverrides={};
+
 function saveRolePerms(){
-  // Collect current checkboxes
   document.querySelectorAll('.pm-chk').forEach(chk=>{
-    const r=chk.dataset.role,p=chk.dataset.perm;
-    if(!permOverrides[r])permOverrides[r]=new Set(ROLE_PERMS[r]);
-    if(chk.checked)permOverrides[r].add(p);else permOverrides[r].delete(p);
+    const r=chk.dataset.role, p=chk.dataset.perm;
+    if(!ROLE_PERMS[r]) ROLE_PERMS[r]=new Set();
+    if(chk.checked) ROLE_PERMS[r].add(p); else ROLE_PERMS[r].delete(p);
   });
+  if(!db.rolePerms) db.rolePerms={};
+  Object.keys(ROLE_DEFAULTS).forEach(r=>{ db.rolePerms[r]=Array.from(ROLE_PERMS[r]||[]); });
+  saveDB();
+  renderRoles();
   toast('✅ تم حفظ الصلاحيات','tok');
   addAct('set','تم تعديل صلاحيات الأدوار');
 }
+/* Restore saved role perms */
+(function _loadRolePerms(){
+  if(db.rolePerms){
+    Object.keys(ROLE_DEFAULTS).forEach(r=>{
+      if(db.rolePerms[r]) ROLE_PERMS[r]=new Set(db.rolePerms[r]);
+    });
+  }
+})();
+const ROLE_COLORS_HEX={
+  admin:'#4f8ef7',editor:'#22d3a5',moderator:'#f59e0b',
+  author:'#ec4899',contributor:'#f97316',viewer:'#a855f7',user:'#6b7a9e'
+};
 function renderRoles(){
   const defs=getRoleDefs();
-  // Role cards overview
+  const roles=Object.keys(ROLE_DEFAULTS);
+  /* ── Role cards ── */
   const ov=document.getElementById('rolesOverview');
   if(ov){
     ov.innerHTML=Object.entries(defs).map(([key,role])=>{
       const count=db.users.filter(u=>u.role===key).length;
-      const permsCount=(ROLE_PERMS[key]?.size||0);
-      const colRaw=role.color;
-      // Build color swatch safely
-      const swBg=colRaw.startsWith('var(')
-        ?`rgba(0,0,0,.08)`:colRaw;
-      return '<div class="role-ov-card">'
-        +'<div class="role-ov-hd">'
-        +'<div class="role-ov-icon">'+role.icon+'</div>'
-        +'<div>'
-        +'<div class="role-ov-name" style="color:'+colRaw+'">'+role.label+'</div>'
-        +'<div class="role-ov-cnt">'+count+' مستخدم · '+permsCount+' صلاحية</div>'
-        +'</div>'
-        +'<button class="btn btn-ghost btn-xs" style="margin-right:auto" onclick="event.stopPropagation();openRoleNamesModal(\''+key+'\')">✏️</button>'
-        +'</div>'
-        +'<div class="role-ov-desc">'+role.desc+'</div>'
-        +'</div>';
+      const total=ALL_PERMS.length;
+      const granted=ROLE_PERMS[key]?.size||0;
+      const pct=Math.round(granted/total*100);
+      const hex=ROLE_COLORS_HEX[key]||'#4f8ef7';
+      const notLocked=key!=='admin'&&key!=='user';
+      return `<div class="role-ov-card" onclick="highlightRoleCol('${key}')">
+        <div class="role-ov-banner" style="background:linear-gradient(90deg,${hex}cc,${hex}33)"></div>
+        <div class="role-ov-body">
+          <div class="role-ov-hd">
+            <div class="role-ov-icon" style="background:${hex}22;border:1px solid ${hex}44">${role.icon}</div>
+            <div class="role-ov-meta">
+              <div class="role-ov-name" style="color:${hex}">${role.label}</div>
+              <div class="role-ov-cnt"><span>👥 ${count}</span><span>·</span><span>🔐 ${granted}/${total}</span></div>
+            </div>
+            <button class="role-ov-edit" onclick="event.stopPropagation();openRoleNamesModal('${key}')">✏️</button>
+          </div>
+          <div class="role-ov-desc">${role.desc}</div>
+          <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem">
+            <div style="flex:1;height:5px;background:var(--s3);border-radius:50px;overflow:hidden">
+              <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,${hex},${hex}88);border-radius:50px;transition:width .5s"></div>
+            </div>
+            <span style="font-size:.65rem;color:${hex};font-weight:900">${pct}%</span>
+          </div>
+          <div class="role-ov-actions">
+            ${notLocked?`<button class="role-ov-btn" onclick="event.stopPropagation();bulkGrantRole('${key}')">✅ منح الكل</button>
+            <button class="role-ov-btn danger" onclick="event.stopPropagation();bulkRevokeRole('${key}')">🚫 سحب الكل</button>`:'<span style="font-size:.65rem;color:var(--muted)">صلاحيات ثابتة</span>'}
+            <button class="role-ov-btn" onclick="event.stopPropagation();switchRolesTab('byrole',null);setTimeout(()=>highlightRoleCol('${key}'),100)" style="margin-right:auto">👁</button>
+          </div>
+        </div></div>`;
     }).join('');
   }
-  // Permission matrix table
+  /* ── Matrix ── */
   const tbl=document.getElementById('permTable');
-  if(!tbl)return;
-  const roles=Object.keys(ROLE_DEFAULTS);
-  const cats=[...new Set(ALL_PERMS.map(p=>p.cat))];
-  let h='<thead><tr><th style="text-align:right;min-width:180px;padding:.5rem .75rem;background:var(--s2)">الصلاحية</th>';
-  roles.forEach(r=>{
-    const rd=defs[r];
-    h+='<th style="text-align:center;min-width:110px;padding:.5rem .5rem;background:var(--s2)">'
-      +'<div class="pm-role-hd" style="color:'+rd.color+'"><span style="font-size:1rem">'+rd.icon+'</span><span style="font-size:.74rem;font-weight:800">'+rd.label+'</span></div></th>';
-  });
-  h+='</tr></thead><tbody>';
-  cats.forEach(cat=>{
-    h+='<tr class="pm-cat-row"><td colspan="'+(roles.length+1)+'" class="pm-cat-lbl">'+cat+'</td></tr>';
-    ALL_PERMS.filter(p=>p.cat===cat).forEach(perm=>{
-      h+='<tr>';
-      h+='<td class="pm-perm-name">'+perm.label+'</td>';
-      roles.forEach(r=>{
-        const has=ROLE_PERMS[r]?.has(perm.key);
-        const locked=r==='admin'||r==='user';
-        h+='<td class="pm-cell">'
-          +'<label class="pm-toggle">'
-          +'<input type="checkbox" class="pm-chk" data-role="'+r+'" data-perm="'+perm.key+'"'
-          +(has?' checked':'')+(locked?' disabled':'')+'>'
-          +'<span class="pm-slider"></span>'
-          +'</label></td>';
-      });
-      h+='</tr>';
+  if(tbl){
+    const cats=[...new Set(ALL_PERMS.map(p=>p.cat))];
+    const cf=document.getElementById('permCatFilters');
+    if(cf&&!cf.dataset.built){
+      cf.dataset.built='1';
+      cf.innerHTML='<button class="perm-cat-filter active" onclick="filterPermCat(\'الكل\',this)">الكل</button>'
+        +cats.map(cat=>`<button class="perm-cat-filter" onclick="filterPermCat('${cat}',this)">${cat}</button>`).join('');
+    }
+    let h='<thead><tr><th style="text-align:right">الصلاحية</th>';
+    roles.forEach(r=>{
+      const rd=defs[r]; const hex=ROLE_COLORS_HEX[r]||'#4f8ef7';
+      h+=`<th><div class="pm-role-hd"><div class="pm-role-icon">${rd.icon}</div><div class="pm-role-name" style="color:${hex}">${rd.label}</div></div></th>`;
     });
+    h+='</tr><tr class="pm-bulk-row"><td class="pm-bulk-lbl">تحكم سريع</td>';
+    roles.forEach(r=>{
+      const locked=r==='admin'||r==='user';
+      h+=`<td class="pm-cell">${locked?'<span style="font-size:.62rem;color:var(--muted)">ثابت</span>'
+        :`<button class="pm-bulk-btn" onclick="bulkGrantRole('${r}')">✅ كل</button>&nbsp;<button class="pm-bulk-btn deny" onclick="bulkRevokeRole('${r}')">🚫</button>`}</td>`;
+    });
+    h+='</tr></thead><tbody>';
+    cats.forEach(cat=>{
+      h+=`<tr class="pm-cat-row" data-cat="${cat}"><td colspan="${roles.length+1}" class="pm-cat-lbl"><span>${cat}</span></td></tr>`;
+      ALL_PERMS.filter(p=>p.cat===cat).forEach(perm=>{
+        h+=`<tr data-cat="${cat}" data-label="${perm.label}"><td class="pm-perm-name">${perm.label}<span class="pm-perm-key">${perm.key}</span></td>`;
+        roles.forEach(r=>{
+          const has=ROLE_PERMS[r]?.has(perm.key);
+          const locked=r==='admin'||r==='user';
+          h+=`<td class="pm-cell"><label class="pm-toggle${locked?' disabled':''}">
+            <input type="checkbox" class="pm-chk" data-role="${r}" data-perm="${perm.key}"${has?' checked':''}${locked?' disabled':''}>
+            <span class="pm-slider"></span></label></td>`;
+        });
+        h+='</tr>';
+      });
+    });
+    tbl.innerHTML=h+'</tbody>';
+  }
+  /* ── By-Role ── */
+  const byw=document.getElementById('byRoleWrap');
+  if(byw){
+    const cats=[...new Set(ALL_PERMS.map(p=>p.cat))];
+    byw.innerHTML=Object.entries(defs).map(([key,role])=>{
+      const hex=ROLE_COLORS_HEX[key]||'#4f8ef7';
+      const granted=ROLE_PERMS[key]||new Set();
+      const locked=key==='admin'||key==='user';
+      let body='';
+      cats.forEach(cat=>{
+        const catPerms=ALL_PERMS.filter(p=>p.cat===cat);
+        if(!catPerms.length) return;
+        body+=`<div class="by-role-cat">${cat}</div>`;
+        catPerms.forEach(perm=>{
+          const has=granted.has(perm.key);
+          body+=`<div class="by-role-perm${has?' granted':''}">
+            <span class="by-role-perm-lbl">${perm.label}</span>
+            <label class="pm-toggle${locked?' disabled':''}">
+              <input type="checkbox" class="pm-chk" data-role="${key}" data-perm="${perm.key}"${has?' checked':''}${locked?' disabled':''}>
+              <span class="pm-slider"></span></label></div>`;
+        });
+      });
+      return `<div class="by-role-col">
+        <div class="by-role-hd" style="border-top:3px solid ${hex}">
+          <div class="by-role-name">${role.icon} <span style="color:${hex}">${role.label}</span></div>
+          <div class="by-role-stats">👥 ${db.users.filter(u=>u.role===key).length} · 🔐 ${granted.size}/${ALL_PERMS.length}</div>
+        </div>
+        <div class="by-role-perms">${body}</div></div>`;
+    }).join('');
+  }
+}
+function switchRolesTab(name,btn){
+  document.querySelectorAll('.roles-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.roles-tab-panel').forEach(p=>p.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else document.getElementById('roleTab'+(name==='matrix'?'Matrix':'ByRole'))?.classList.add('active');
+  document.getElementById('rolesPanel'+(name==='matrix'?'Matrix':'ByRole'))?.classList.add('active');
+  if(name==='byrole') renderRoles();
+}
+function highlightRoleCol(role){
+  switchRolesTab('matrix',document.getElementById('roleTabMatrix'));
+  setTimeout(()=>{
+    document.querySelectorAll(`.pm-chk[data-role="${role}"]`).forEach(el=>{
+      const td=el.closest('td');
+      if(td){td.style.background='rgba(79,142,247,.15)';setTimeout(()=>td.style.background='',1000);}
+    });
+  },100);
+}
+function bulkGrantRole(role){
+  if(role==='admin')return;
+  if(!ROLE_PERMS[role])ROLE_PERMS[role]=new Set();
+  ALL_PERMS.forEach(p=>ROLE_PERMS[role].add(p.key));
+  document.querySelectorAll(`.pm-chk[data-role="${role}"]:not(:disabled)`).forEach(c=>c.checked=true);
+  saveRolePerms();toast('✅ مُنحت جميع الصلاحيات لـ '+getRoleLabel(role),'tok');
+}
+function bulkRevokeRole(role){
+  if(role==='admin')return;
+  if(!ROLE_PERMS[role])ROLE_PERMS[role]=new Set();
+  ALL_PERMS.forEach(p=>{ if(role!=='admin') ROLE_PERMS[role].delete(p.key); });
+  document.querySelectorAll(`.pm-chk[data-role="${role}"]:not(:disabled)`).forEach(c=>c.checked=false);
+  saveRolePerms();toast('🚫 سُحبت جميع الصلاحيات من '+getRoleLabel(role),'twrn');
+}
+function filterPermTable(q){
+  const rows=document.querySelectorAll('#permTable tbody tr:not(.pm-cat-row)');
+  const cat=document.querySelector('.perm-cat-filter.active')?.textContent||'الكل';
+  rows.forEach(row=>{
+    const lbl=(row.dataset.label||'').toLowerCase();
+    const rc=row.dataset.cat||'';
+    const mq=!q||lbl.includes(q.toLowerCase());
+    const mc=cat==='الكل'||rc===cat;
+    row.style.display=(mq&&mc)?'':'none';
   });
-  h+='</tbody>';
-  tbl.innerHTML=h;
+  document.querySelectorAll('#permTable tbody tr.pm-cat-row').forEach(r=>{
+    const any=[...document.querySelectorAll(`#permTable tbody tr[data-cat="${r.dataset.cat}"]`)].some(tr=>tr.style.display!=='none');
+    r.style.display=any?'':'none';
+  });
+}
+function filterPermCat(cat,btn){
+  document.querySelectorAll('.perm-cat-filter').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  filterPermTable(document.getElementById('permSearch')?.value||'');
+}
+function rolesExportPerms(){
+  const defs=getRoleDefs();
+  let csv='الصلاحية,'+Object.values(defs).map(d=>d.label).join(',')+'\n';
+  ALL_PERMS.forEach(p=>{
+    csv+=p.label+','+Object.keys(ROLE_DEFAULTS).map(r=>ROLE_PERMS[r]?.has(p.key)?'✓':'').join(',')+'\n';
+  });
+  downloadJSON(csv,'permissions_'+today()+'.csv');
+  toast('📤 تم تصدير الصلاحيات','tok');
 }
 
 /* ── Role Names Modal ──────────────────── */
@@ -13621,7 +13878,7 @@ function loadSiteSettings(){
   sv('siteName',s.name); sv('siteDesc',s.desc); sv('siteLogo',s.logo);
   sv('siteHeroTitle',s.heroTitle||'');
   const hprev=document.getElementById('heroTitlePreview');
-  if(hprev) hprev.textContent=s.heroTitle||'أفكار، مقالات وإلهام';
+  if(hprev) hprev.textContent=s.heroTitle||'مكسبك الحقيقي هو المعرفة.';
   sv('siteKeywords',s.keywords); sv('siteMode',s.mode||'live');
   sv('sitePostOrder',s.postOrder||'newest');
   sv('sitePostsPerPage',s.postsPerPage||9);
@@ -13719,7 +13976,7 @@ function applyLiveSiteSettings(){
   const s = db.siteSettings || {};
 
   // ── Header logo
-  const siteName = s.name || 'مكسب | Maksab.online';
+  const siteName = s.name || 'مكسب | Maksab';
   // Split name at last dot for the sub part if it contains a dot
   const dotIdx = siteName.lastIndexOf('.');
   const logoMain = dotIdx > 0 ? siteName.slice(0, dotIdx) : siteName;
@@ -13799,40 +14056,226 @@ function pickColor(c1,c2,el){
 }
 
 /* ══════════════════════════════════════════
-   EXPORT / IMPORT
+   EXPORT / IMPORT  (HTML format)
 ══════════════════════════════════════════ */
 function exportData(type){
-  let data,filename;
-  if(type==='all'){data=db;filename='full_backup_'+today()+'.json';}
-  else if(type==='posts'){data={posts:db.posts};filename='posts_'+today()+'.json';}
-  else if(type==='users'){
-    data={users:db.users.map(u=>({...u,password:undefined}))};
-    filename='users_'+today()+'.json';
+  let data, label, filename;
+  if(type==='all'){
+    data = db;
+    label = 'النسخة الكاملة';
+    filename = 'full_backup_'+today()+'.html';
+  } else if(type==='posts'){
+    data = {posts:db.posts};
+    label = 'المقالات';
+    filename = 'posts_'+today()+'.html';
+  } else if(type==='users'){
+    data = {users: db.users.map(u=>({...u, password:undefined}))};
+    label = 'المستخدمون';
+    filename = 'users_'+today()+'.html';
   }
-  downloadJSON(JSON.stringify(data,null,2),filename);
+  _downloadHTML(data, label, filename);
   toast('تم التصدير بنجاح 📦','tok');
 }
-function downloadJSON(str,filename){
-  const blob=new Blob([str],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+
+function _buildExportHTML(data, label){
+  const siteName = db.siteSettings?.siteName || 'مكسب | Maksab';
+  const exportDate = new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric',hour:'2-digit',minute:'2-digit'});
+  const jsonStr = JSON.stringify(data, null, 2);
+  const postsArr = data.posts || [];
+  const usersArr = data.users || [];
+  const catsArr  = data.categories || [];
+
+  // Build summary rows
+  const postRows = postsArr.map(p=>`
+    <tr>
+      <td>${escH(p.title||'')}</td>
+      <td><span class="badge ${p.status==='published'?'pub':'drf'}">${p.status==='published'?'منشور':'مسودة'}</span></td>
+      <td>${escH(p.category||'')}</td>
+      <td>${escH(p.author||'')}</td>
+      <td>${escH(p.date||'')}</td>
+      <td>${p.views||0}</td>
+    </tr>`).join('');
+
+  const userRows = usersArr.map(u=>`
+    <tr>
+      <td>${escH(u.name||'')}</td>
+      <td>${escH(u.email||'')}</td>
+      <td>${escH(u.role||'')}</td>
+      <td>${escH(u.joined||'')}</td>
+    </tr>`).join('');
+
+  const catRows = catsArr.map(c=>`
+    <tr>
+      <td>${escH(c.icon||'')} ${escH(c.name||'')}</td>
+      <td>${postsArr.filter(p=>p.category===c.name).length}</td>
+    </tr>`).join('');
+
+  return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>نسخة احتياطية — ${escH(label)} — ${escH(siteName)}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#0d1117;color:#e6edf3;min-height:100vh;padding:2rem 1rem;}
+  .wrap{max-width:960px;margin:0 auto;}
+  header{background:linear-gradient(135deg,#161b22,#1c2128);border:1px solid #30363d;border-radius:12px;padding:2rem;margin-bottom:2rem;display:flex;align-items:center;gap:1.5rem;}
+  .logo{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,#4f8ef7,#a855f7);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;}
+  h1{font-size:1.4rem;font-weight:900;margin-bottom:.25rem;}
+  .meta{font-size:.8rem;color:#8b949e;}
+  .stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem;margin-bottom:2rem;}
+  .stat{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:1.1rem;text-align:center;}
+  .stat-num{font-size:1.8rem;font-weight:900;color:#4f8ef7;}
+  .stat-lbl{font-size:.75rem;color:#8b949e;margin-top:.2rem;}
+  .section{background:#161b22;border:1px solid #30363d;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;}
+  .section-hd{padding:1rem 1.4rem;background:#1c2128;border-bottom:1px solid #30363d;font-weight:800;font-size:.9rem;display:flex;align-items:center;gap:.5rem;}
+  table{width:100%;border-collapse:collapse;}
+  th{padding:.65rem 1rem;background:#0d1117;font-size:.75rem;color:#8b949e;text-align:right;font-weight:700;letter-spacing:.3px;}
+  td{padding:.65rem 1rem;font-size:.82rem;border-top:1px solid #21262d;color:#c9d1d9;}
+  tr:hover td{background:rgba(79,142,247,.05);}
+  .badge{padding:.18rem .55rem;border-radius:50px;font-size:.68rem;font-weight:700;}
+  .pub{background:rgba(34,211,165,.15);color:#22d3a5;}
+  .drf{background:rgba(139,148,158,.12);color:#8b949e;}
+  .raw-section{background:#0d1117;border:1px solid #30363d;border-radius:12px;overflow:hidden;margin-bottom:1.5rem;}
+  .raw-section summary{padding:1rem 1.4rem;background:#161b22;border-bottom:1px solid #30363d;cursor:pointer;font-weight:800;font-size:.9rem;display:flex;align-items:center;gap:.5rem;list-style:none;}
+  .raw-section summary::before{content:'▶';font-size:.7rem;color:#8b949e;transition:transform .2s;}
+  .raw-section[open] summary::before{transform:rotate(90deg);}
+  pre{padding:1.2rem;overflow-x:auto;font-size:.72rem;line-height:1.65;color:#a5d6ff;max-height:400px;}
+  .import-btn{display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;background:linear-gradient(135deg,#4f8ef7,#a855f7);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:.88rem;font-weight:800;font-family:inherit;margin-top:1rem;text-decoration:none;}
+  .import-btn:hover{opacity:.9;}
+  footer{text-align:center;color:#8b949e;font-size:.75rem;margin-top:2rem;padding-top:1.5rem;border-top:1px solid #21262d;}
+  @media(prefers-color-scheme:light){body{background:#f6f8fa;color:#24292f;} header,.stat,.section,.section-hd{background:#fff;border-color:#d0d7de;} .section-hd{background:#f6f8fa;} th{background:#f6f8fa;color:#57606a;} td{color:#24292f;} tr:hover td{background:#f0f6ff;} .raw-section,.raw-section summary{background:#f6f8fa;border-color:#d0d7de;} pre{color:#0550ae;} footer{border-color:#d0d7de;color:#57606a;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">📦</div>
+    <div>
+      <h1>نسخة احتياطية — ${escH(label)}</h1>
+      <div class="meta">📅 ${exportDate} &nbsp;|&nbsp; 🌐 ${escH(siteName)}</div>
+      <div class="meta" style="margin-top:.4rem">لاستعادة هذه النسخة: افتح لوحة التحكم ← استيراد / تصدير ← اختر هذا الملف</div>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">${postsArr.length}</div><div class="stat-lbl">مقال</div></div>
+    <div class="stat"><div class="stat-num">${postsArr.filter(p=>p.status==='published').length}</div><div class="stat-lbl">منشور</div></div>
+    <div class="stat"><div class="stat-num">${usersArr.length}</div><div class="stat-lbl">مستخدم</div></div>
+    <div class="stat"><div class="stat-num">${catsArr.length}</div><div class="stat-lbl">تصنيف</div></div>
+  </div>
+
+  ${postsArr.length?`
+  <div class="section">
+    <div class="section-hd">📄 المقالات (${postsArr.length})</div>
+    <table>
+      <thead><tr><th>العنوان</th><th>الحالة</th><th>التصنيف</th><th>الكاتب</th><th>التاريخ</th><th>المشاهدات</th></tr></thead>
+      <tbody>${postRows}</tbody>
+    </table>
+  </div>`:''}
+
+  ${usersArr.length?`
+  <div class="section">
+    <div class="section-hd">👥 المستخدمون (${usersArr.length})</div>
+    <table>
+      <thead><tr><th>الاسم</th><th>البريد</th><th>الدور</th><th>تاريخ الانضمام</th></tr></thead>
+      <tbody>${userRows}</tbody>
+    </table>
+  </div>`:''}
+
+  ${catsArr.length?`
+  <div class="section">
+    <div class="section-hd">🏷️ التصنيفات (${catsArr.length})</div>
+    <table>
+      <thead><tr><th>التصنيف</th><th>عدد المقالات</th></tr></thead>
+      <tbody>${catRows}</tbody>
+    </table>
+  </div>`:''}
+
+  <details class="raw-section">
+    <summary>🗄️ البيانات الخام (JSON) — للاستيراد</summary>
+    <pre id="rawData">${escH(jsonStr)}</pre>
+  </details>
+
+  <footer>
+    تم إنشاء هذه النسخة تلقائياً بواسطة منصة ${escH(siteName)} &nbsp;|&nbsp; ${exportDate}
+  </footer>
+</div>
+<!-- MAKSAB_BACKUP_DATA
+${jsonStr}
+MAKSAB_BACKUP_DATA -->
+</body>
+</html>`;
 }
+
+function _downloadHTML(data, label, filename){
+  const html = _buildExportHTML(data, label);
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+/* Keep downloadJSON for legacy/theme export use */
+function downloadJSON(str, filename){
+  const blob = new Blob([str],{type:'application/json'});
+  const a = document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  URL.revokeObjectURL(a.href);
+}
+
 function importData(input){
-  const file=input.files[0];if(!file)return;
-  const reader=new FileReader();
-  reader.onload=e=>{
-    try{
-      const data=JSON.parse(e.target.result);
-      if(data.posts&&data.users){
-        if(confirm('استيراد البيانات سيستبدل البيانات الحالية. هل تريد المتابعة؟')){
-          db=Object.assign(db,data);saveDB();
-          toast('تم الاستيراد بنجاح 📥','tok');updBadges();
-        }
-      }else if(data.posts){
-        db.posts=[...data.posts,...db.posts];saveDB();toast('تم استيراد المقالات ✅','tok');updBadges();
-      }else{toast('صيغة الملف غير مدعومة','terr');}
-    }catch{toast('الملف تالف أو غير صالح','terr');}
+  const file = input.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const raw = e.target.result;
+    let data = null;
+    // Try HTML format first (extract embedded JSON between markers)
+    if(raw.includes('MAKSAB_BACKUP_DATA')){
+      try{
+        const marker = 'MAKSAB_BACKUP_DATA';
+        const s = raw.indexOf(marker), e = raw.lastIndexOf(marker);
+        const match = (s !== -1 && e !== s) ? [null, raw.slice(s + marker.length + 1, e - 1)] : null;
+        if(match) data = JSON.parse(match[1]);
+      }catch{}
+    }
+    // Fallback: try raw JSON (legacy)
+    if(!data){
+      try{ data = JSON.parse(raw); }catch{}
+    }
+    if(!data){ toast('الملف تالف أو غير صالح','terr'); input.value=''; return; }
+    const _showRefreshBtn = () => {
+      const btn = document.getElementById('refreshSiteBtn');
+      if(btn){ btn.style.display='flex'; btn.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+    };
+    if(data.posts && data.users){
+      showDel('استيراد البيانات سيستبدل البيانات الحالية. هل تريد المتابعة؟', ()=>{
+        db = Object.assign(db, data); saveDB();
+        toast('تم الاستيراد بنجاح 📥 — اضغط "حدّث الموقع" لتطبيق التغييرات','tok');
+        updBadges(); renderOV(); _showRefreshBtn();
+      });
+    } else if(data.posts){
+      db.posts = [...data.posts, ...db.posts]; saveDB();
+      toast('تم استيراد '+data.posts.length+' مقال ✅ — اضغط "حدّث الموقع"','tok');
+      updBadges(); _showRefreshBtn();
+    } else if(data.users){
+      db.users = Object.values(Object.fromEntries([...db.users,...data.users].map(u=>[u.id,u]))); saveDB();
+      toast('تم استيراد المستخدمين ✅ — اضغط "حدّث الموقع"','tok');
+      updBadges(); _showRefreshBtn();
+    } else {
+      toast('صيغة الملف غير مدعومة','terr');
+    }
+    input.value = '';
   };
-  reader.readAsText(file);input.value='';
+  reader.readAsText(file);
+}
+function refreshSite(){
+  const btn = document.getElementById('refreshSiteBtn');
+  if(btn){ btn.innerHTML='⏳ جارٍ التحديث...'; btn.style.opacity='.7'; btn.disabled=true; }
+  saveDB();
+  setTimeout(()=>{ location.reload(); }, 400);
 }
 function resetDB(){
   if(confirm('هل أنت متأكد؟ ستُفقد جميع البيانات!')){
@@ -15634,16 +16077,16 @@ function initDashLayout() {
 /* ── Pages constants (must be declared before INIT runs) ── */
 const DEFAULT_PAGES = [
   {id:1,title:'من نحن',slug:'about',icon:'👥',subtitle:'تعرّف على فريق مكسب | Maksab ورؤيتنا',
-    content:`## من نحن\n\nمرحباً بك في **مكسب | Maksab.online** — مساحة للتعبير، التعلم، والإلهام.\n\nنحن فريق متحمس يؤمن بقوة المحتوى العربي الجيد، ونسعى دائماً إلى تقديم مقالات ذات قيمة حقيقية.\n\n## رؤيتنا\n\n> نريد أن نكون المرجع الأول للمحتوى التقني والثقافي العربي الرقي.\n\n## ماذا نقدم؟\n\n- مقالات تقنية متعمقة\n- محتوى ثقافي متنوع\n- دراسات وتحليلات\n- نصائح عملية`,
+    content:`## من نحن\n\nمرحباً بك في **مكسب | Maksab** — مساحة للتعبير، التعلم، والإلهام.\n\nنحن فريق متحمس يؤمن بقوة المحتوى العربي الجيد، ونسعى دائماً إلى تقديم مقالات ذات قيمة حقيقية.\n\n## رؤيتنا\n\n> نريد أن نكون المرجع الأول للمحتوى التقني والثقافي العربي الرقي.\n\n## ماذا نقدم؟\n\n- مقالات تقنية متعمقة\n- محتوى ثقافي متنوع\n- دراسات وتحليلات\n- نصائح عملية`,
     status:'published',showInNav:true,order:1,metaDesc:'تعرف على فريق مكسب | Maksab ورؤيتنا',created:'2024-01-01',updated:'2024-01-01'},
   {id:4,title:'الفهرس',slug:'index-page',icon:'📚',subtitle:'دليل شامل لجميع محتويات الموقع',
     content:`# 📚 الفهرس الشامل\n\nمرحباً بك في فهرس مكسب | Maksab — دليلك الكامل للتنقل في محتويات الموقع.\n\n## 🎯 الأقسام الرئيسية\n\n### تقنية 💻\nاستكشف أحدث المقالات في عالم التقنية والبرمجة والتطوير. من الأساسيات إلى المتقدم.\n\n### تصميم 🎨\nتعرف على أساليب التصميم الحديثة والإبداعية. نصائح عملية وتجارب ملهمة.\n\n### ثقافة 📖\nمقالات عميقة عن الثقافة والفكر والمجتمع. محتوى يثري معرفتك ورؤيتك.\n\n### حياة 🌟\nنصائح ودروس من الحياة اليومية تساعدك على تحسين نوعية حياتك.\n\n### علوم 🔬\nاستكشف العلوم والاكتشافات الحديثة بطريقة سهلة وممتعة.\n\n## 📖 أحدث المقالات\n\nتصفح آخر المقالات المنشورة على الموقع وابقَ محدثاً مع أحدث الأخبار.\n\n## 🏆 المقالات المميزة\n\nاكتشف المقالات التي حظيت بأعلى التقييمات والمشاهدات من قرائنا.\n\n## 🔍 البحث والتصفية\n\n- ابحث عن موضوع محدد باستخدام شريط البحث\n- صفّح حسب الفئة للعثور على المقالات ذات الصلة\n- رتب حسب التاريخ أو الشهرة\n\n## 📚 الملفات والموارد\n\n- **الكتب الإلكترونية**: موارد قيمة للتحميل\n- **الأدوات المفيدة**: أدوات تساعدك في عملك\n- **القوالب**: قوالب جاهزة للاستخدام\n\n## ❓ الأسئلة الشائعة\n\n**كيف أبحث عن موضوع معين؟**\nاستخدم شريط البحث في الأعلى أو تصفح الفئات.\n\n**كيف أترك تعليقاً على مقالة؟**\nاذهب إلى المقالة وانقر على زر التعليقات في النهاية.\n\n**كيف أتلقى إشعارات بالمقالات الجديدة؟**\nاشترك في النشرة البريدية من صفحة \"تواصل معنا\".\n\n## 🤝 تواصل معنا\n\nهل لديك اقتراح أو استفسار؟ [تواصل معنا الآن](/contact)\n\n---\n\n**آخر تحديث**: ${new Date().toLocaleDateString('ar-SA')}`,
     status:'published',showInNav:true,order:4,metaDesc:'فهرس شامل لجميع محتويات موقع مكسب | Maksab',created:'2024-01-01',updated:'2024-01-01'},
   {id:2,title:'تواصل معنا',slug:'contact',icon:'📬',subtitle:'نحن هنا للإجابة على جميع استفساراتك',
-    content:`## تواصل معنا\n\nيسعدنا سماع رأيك واستفساراتك في أي وقت.\n\n## طرق التواصل\n\n**البريد الإلكتروني:** contact@مكسب | Maksab.online\n\n**تويتر / X:** @مكسب | Maksab\n\n**GitHub:** github.com/مكسب | Maksab\n\n## وقت الرد\n\nنحاول الرد على جميع الرسائل خلال **24–48 ساعة** في أيام العمل.\n\n---\n\n> لا تتردد في التواصل — كل سؤال يُسعدنا!`,
+    content:`## تواصل معنا\n\nيسعدنا سماع رأيك واستفساراتك في أي وقت.\n\n## طرق التواصل\n\n**البريد الإلكتروني:** contact@مكسب | Maksab\n\n**تويتر / X:** @مكسب | Maksab\n\n**GitHub:** github.com/مكسب | Maksab\n\n## وقت الرد\n\nنحاول الرد على جميع الرسائل خلال **24–48 ساعة** في أيام العمل.\n\n---\n\n> لا تتردد في التواصل — كل سؤال يُسعدنا!`,
     status:'published',showInNav:true,order:3,metaDesc:'تواصل مع فريق مكسب | Maksab',created:'2024-01-01',updated:'2024-01-01'},
   {id:3,title:'سياسة الخصوصية',slug:'privacy',icon:'🔒',subtitle:'كيف نحمي بياناتك وخصوصيتك',
-    content:`## سياسة الخصوصية\n\nآخر تحديث: يناير 2025\n\n## المعلومات التي نجمعها\n\nعند استخدام موقعنا، قد نجمع:\n- بيانات التصفح (بشكل مجهول)\n- بيانات التسجيل (الاسم والبريد)\n- التعليقات التي تنشرها\n\n## كيف نستخدم المعلومات\n\nنستخدم المعلومات لـ:\n- تحسين تجربة الموقع\n- إرسال إشعارات مهمة\n- تحليل إحصاءات الزيارات\n\n## حقوقك\n\nيحق لك في أي وقت:\n- طلب حذف بياناتك\n- الاطلاع على بياناتك المحفوظة\n- تعديل معلوماتك الشخصية\n\n---\n\nللاستفسار: privacy@مكسب | Maksab.online`,
+    content:`## سياسة الخصوصية\n\nآخر تحديث: يناير 2025\n\n## المعلومات التي نجمعها\n\nعند استخدام موقعنا، قد نجمع:\n- بيانات التصفح (بشكل مجهول)\n- بيانات التسجيل (الاسم والبريد)\n- التعليقات التي تنشرها\n\n## كيف نستخدم المعلومات\n\nنستخدم المعلومات لـ:\n- تحسين تجربة الموقع\n- إرسال إشعارات مهمة\n- تحليل إحصاءات الزيارات\n\n## حقوقك\n\nيحق لك في أي وقت:\n- طلب حذف بياناتك\n- الاطلاع على بياناتك المحفوظة\n- تعديل معلوماتك الشخصية\n\n---\n\nللاستفسار: privacy@مكسب | Maksab`,
     status:'published',showInNav:true,order:2,metaDesc:'سياسة الخصوصية لموقع مكسب | Maksab',created:'2024-01-01',updated:'2024-01-01'}
 ];
 const PAGE_EMOJIS = ['📄','📋','🗂️','📌','📝','📚','💬','📬','🔒','ℹ️','🏠','🎯','🌐','⭐','💎','🚀','✨','🎨','🔍','⚙️','👥','📊','🏆','💡','🌟','🤝','📡','🎭','🗺️','💼'];
@@ -16215,22 +16658,29 @@ function installUpdate(){
 function clearCache(){
   toast('🗑️ جاري تنظيف التخزين المؤقت...','tok');
   addActivityLog('🧹 جاري مسح ملفات التخزين المؤقت');
-  
   setTimeout(() => {
-    localStorage.clear();
-    addActivityLog('✓ تم تنظيف التخزين المؤقت بنجاح');
+    // حذف المفاتيح المؤقتة فقط — مع الإبقاء على قاعدة البيانات الرئيسية
+    const keep = [SK, 'مكسب | Maksab_sync_ts'];
+    const keysToRemove = [];
+    for(let i = 0; i < localStorage.length; i++){
+      const k = localStorage.key(i);
+      if(k && !keep.includes(k)) keysToRemove.push(k);
+    }
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+    addActivityLog('✓ تم تنظيف التخزين المؤقت (' + keysToRemove.length + ' مفتاح)');
     toast('✅ تم تنظيف التخزين المؤقت','tok');
-  }, 1500);
+  }, 800);
 }
 
 function optimizeDatabase(){
-  toast('⚙️ جاري تحسين قاعدة البيانات...','tok');
-  addActivityLog('📊 جاري تحسين قاعدة البيانات');
-  
-  setTimeout(() => {
-    addActivityLog('✓ اكتمل تحسين قاعدة البيانات بنجاح');
-    toast('✅ تم تحسين قاعدة البيانات','tok');
-  }, 2000);
+  // إزالة المقالات المكررة وترتيب البيانات
+  const before = db.posts.length;
+  const seen = new Set();
+  db.posts = db.posts.filter(p => { if(seen.has(p.id)) return false; seen.add(p.id); return true; });
+  saveDB();
+  const removed = before - db.posts.length;
+  addActivityLog('✓ تحسين قاعدة البيانات: ' + (removed > 0 ? 'حُذف ' + removed + ' مكرر' : 'لا توجد مكررات'));
+  toast('✅ تم تحسين قاعدة البيانات' + (removed > 0 ? ' (حُذف ' + removed + ' مكرر)' : ''),'tok');
 }
 
 function checkBrokenLinks(){
@@ -17231,7 +17681,7 @@ function _aiedBuildPrompt(userPrompt){
 
   if(inclTheme){
     const s = db?.siteSettings||{};
-    parts.push(`\nمعلومات الثيم الحالي:\n- اسم الموقع: ${s.name||'مكسب | Maksab.online'}\n- وصف: ${s.desc||'مدونة عربية'}\n- لون الموقع: ${s.accentColor||'#4f8ef7'}\n- الثيم: ${s.activeTheme||'dark'}`);
+    parts.push(`\nمعلومات الثيم الحالي:\n- اسم الموقع: ${s.name||'مكسب | Maksab'}\n- وصف: ${s.desc||'مدونة عربية'}\n- لون الموقع: ${s.accentColor||'#4f8ef7'}\n- الثيم: ${s.activeTheme||'dark'}`);
   }
 
   if(inclHTML){
@@ -17632,7 +18082,7 @@ const INT_CONFIGS = {
   gsc: {
     icon:'🔍', name:'Google Search Console',
     fields:[
-      {id:'gscSiteUrl',   label:'رابط الموقع',     placeholder:'https://مكسب | Maksab.online', type:'url'},
+      {id:'gscSiteUrl',   label:'رابط الموقع',     placeholder:'https://مكسب | Maksab', type:'url'},
       {id:'gscVerifyTag', label:'Meta Verify Tag', placeholder:'<meta name="google-site-verification" ...>', type:'text'},
     ],
     docs:'https://search.google.com/search-console',
@@ -17914,22 +18364,11 @@ function enableAutoOptimization(){
   }, config.interval);
 }
 
-// نظام الإصلاح التلقائي
+// نظام الإصلاح — يعمل يدوياً فقط عند الطلب
 function enableAutoRepair(){
-  const repairTasks = [
-    { check: () => document.querySelectorAll('img[src=""]').length > 0, fix: 'إصلاح الصور المكسورة', action: fixBrokenImages },
-    { check: () => Math.random() > 0.8, fix: 'تنظيف ملفات التخزين المؤقت', action: clearCache },
-    { check: () => true, fix: 'فحص قاعدة البيانات', action: optimizeDatabase }
-  ];
-  
-  repairTasks.forEach(task => {
-    if(task.check()){
-      setTimeout(() => {
-        addActivityLog('🔧 ' + task.fix);
-        task.action();
-      }, Math.random() * 5000);
-    }
-  });
+  // تم تعطيل التشغيل التلقائي — يُستدعى يدوياً فقط
+  const brokenImgs = document.querySelectorAll('img[src=""]').length;
+  if(brokenImgs > 0) fixBrokenImages();
 }
 
 // إصلاح الصور المكسورة
@@ -17960,15 +18399,8 @@ function generateDetailedReport(){
   return report;
 }
 
-// تنشيط الميزات الذكية عند التحميل
-setTimeout(() => {
-  enableAutoOptimization();
-  enableAutoRepair();
-  const recommendations = getAIRecommendations();
-  recommendations.forEach(rec => {
-    addActivityLog('💡 ' + rec.title + ': ' + rec.desc);
-  });
-}, 2000);
+// الميزات الذكية متاحة يدوياً فقط — لا تعمل تلقائياً عند التحميل
+// enableAutoOptimization / enableAutoRepair: manual triggers only
 
 // دالة لعرض إحصائيات مفصلة
 function showDetailedStats(){
@@ -19033,7 +19465,7 @@ function openShareModal(postId, e) {
   document.getElementById('sharePostCat').textContent = p.category;
 
   // Build shareable URL (simulated)
-  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab.online';
+  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab';
   const url = `${siteUrl}/post/${p.id}`;
   const shareUrl = document.getElementById('shareUrlInput');
   if(shareUrl) shareUrl.value = url;
@@ -19051,7 +19483,7 @@ function closeShareModal() {
 
 function shareToP(platform) {
   if(!_sharePost) return;
-  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab.online';
+  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab';
   const url = encodeURIComponent(`${siteUrl}/post/${_sharePost.id}`);
   const title = encodeURIComponent(_sharePost.title);
   const hashtag = encodeURIComponent(db.siteSettings?.social?.hashtag || 'مكسب | Maksab');
@@ -19111,7 +19543,7 @@ function copyShareLink() {
 function generateShareStrip(postId) {
   const p = db.posts.find(x => x.id === postId);
   if(!p) return '';
-  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab.online';
+  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab';
   const url = encodeURIComponent(`${siteUrl}/post/${p.id}`);
   const title = encodeURIComponent(p.title);
   const miniPlatforms = [
@@ -19152,7 +19584,7 @@ function generateShareStrip(postId) {
     <!-- Copy Link -->
     <div class="share-section-lbl">📎 رابط المقال</div>
     <div class="share-copy-bar">
-      <input class="share-url-input" id="shareUrlInput" readonly value="https://مكسب | Maksab.online/post/1">
+      <input class="share-url-input" id="shareUrlInput" readonly value="https://مكسب | Maksab/post/1">
       <button class="share-copy-btn" id="shareCopyBtn" onclick="copyShareLink()">📋 نسخ</button>
     </div>
 
@@ -19282,7 +19714,7 @@ if(navigator.share) {
 }
 function nativeShare() {
   if(!_sharePost || !navigator.share) return;
-  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab.online';
+  const siteUrl = db.siteSettings?.siteUrl || window.location.origin || 'https://مكسب | Maksab';
   navigator.share({
     title: _sharePost.title,
     text: _sharePost.content?.slice(0, 120) + '...',
