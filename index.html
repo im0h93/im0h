@@ -835,9 +835,10 @@ textarea:focus{
 /* BACKGROUND WITH OVERLAY */
 .nx-bg{
   position:absolute;inset:0;
-  background-size:cover;background-position:center;
+  background-size:cover;background-position:center;background-repeat:no-repeat;
   transition:transform .8s cubic-bezier(.25,.46,.45,.94);
   will-change:transform;
+  display:flex;align-items:center;justify-content:center;
 }
 .nx-slide.nx-in .nx-bg{transform:scale(1.03);}
 .nx-slide:not(.nx-in) .nx-bg{transform:scale(1.15);}
@@ -11667,12 +11668,26 @@ function renderSlider(){
 }
 
 function _nxBg(p){
+  let imgUrl = null;
   // أولاً: استخدم صورة الغلاف
-  if(p.coverImg) return 'background-image:url("'+p.coverImg+'");background-size:cover;background-position:center';
+  if(p.coverImg && p.coverImg.trim()) {
+    imgUrl = p.coverImg;
+  }
   // ثانياً: استخدم أول صورة من صور المقال
-  if(p.images&&p.images.length>0) return 'background-image:url("'+p.images[0].src+'");background-size:cover;background-position:center';
-  // أخيراً: استخدم اللون المتدرج
-  return 'background:'+GR[p.id%GR.length];
+  else if(p.images && Array.isArray(p.images) && p.images.length > 0) {
+    const firstImg = p.images[0];
+    if(firstImg && (firstImg.src || firstImg.url)) {
+      imgUrl = firstImg.src || firstImg.url;
+    }
+  }
+  
+  // إذا وجدنا صورة، استخدمها
+  if(imgUrl && imgUrl.trim()) {
+    return 'background-image:linear-gradient(135deg,rgba(0,0,0,.4),rgba(0,0,0,.3)),url("'+imgUrl+'");background-size:cover;background-position:center;background-repeat:no-repeat;';
+  }
+  
+  // fallback: استخدم اللون المتدرج مع overlay
+  return 'background:'+GR[p.id%GR.length]+';background-size:cover;background-position:center;';
 }
 function _nxExc(p){return (p.summary||p.content||'').replace(/[\r\n]+/g,' ').replace(/\[[^\]]*\]/g,'').slice(0,130)+'…';}
 function _nxLbl(p){return p.pinned?'📌 مثبّت':p.featured?'⭐ مميز':'🔥 رائج';}
