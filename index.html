@@ -7,8 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <!-- Jodit Editor - أفضل محرر WYSIWYG بدون API key -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/4.2.37/jodit.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jodit/4.2.37/jodit.min.js"></script>
 <style>
 /* ══ DARK THEME ══ */
 :root{
@@ -196,7 +194,33 @@ select option{background:var(--s2);}
 .back:hover{color:var(--accent);border-color:var(--accent);}
 .pdcov{height:240px;border-radius:var(--r2);display:flex;align-items:center;justify-content:center;font-size:5rem;margin-bottom:2rem;}
 .pdtitle{font-size:2.2rem;font-weight:900;line-height:1.2;margin:.8rem 0 1rem;}
-.pdcont{font-size:1rem;line-height:2;color:var(--muted2);white-space:pre-wrap;}
+.pdcont{
+  font-size:1rem;line-height:2;color:var(--muted2);
+  word-break:break-word;overflow-wrap:break-word;
+}
+.pdcont h1,.pdcont h2,.pdcont h3,.pdcont h4{font-weight:900;line-height:1.3;margin:.9em 0 .4em;color:var(--text);}
+.pdcont h1{font-size:1.85rem;}.pdcont h2{font-size:1.5rem;}.pdcont h3{font-size:1.22rem;}.pdcont h4{font-size:1.05rem;}
+.pdcont p{margin:.4em 0;}
+.pdcont a{color:var(--accent);text-decoration:underline;}
+.pdcont blockquote{border-right:4px solid var(--accent);padding:.5rem 1rem;background:rgba(79,142,247,.06);border-radius:0 var(--r) var(--r) 0;font-style:italic;color:var(--muted2);margin:.75rem 0;}
+.pdcont ul,.pdcont ol{padding-right:1.5em;margin:.4em 0;}
+.pdcont li{margin:.2em 0;}
+.pdcont code{background:var(--s3);border:1px solid var(--border);border-radius:4px;padding:.1em .35em;font-family:monospace;font-size:.85em;color:var(--accent3);}
+.pdcont pre{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;overflow-x:auto;font-family:monospace;font-size:.84rem;line-height:1.6;margin:.75rem 0;}
+.pdcont pre code{background:none;border:none;padding:0;}
+.pdcont table{width:100%;border-collapse:collapse;margin:.75rem 0;}
+.pdcont th{background:var(--s2);font-weight:800;border:1px solid var(--border);padding:.4rem .7rem;text-align:right;}
+.pdcont td{border:1px solid var(--border);padding:.4rem .7rem;}
+.pdcont hr{border:none;border-top:2px solid var(--border);margin:1.2rem 0;}
+.pdcont img{max-width:100%;border-radius:var(--r);margin:.5rem 0;display:block;}
+.pdcont figure{margin:.75rem 0;text-align:center;}
+.pdcont figcaption{font-size:.78rem;color:var(--muted);margin-top:.3rem;}
+.pdcont .wy-callout{border-radius:var(--r);padding:.75rem 1rem;margin:.6rem 0;border-right:4px solid;}
+.pdcont .wy-callout.info{background:rgba(79,142,247,.08);border-color:var(--accent);}
+.pdcont .wy-callout.warn{background:rgba(245,158,11,.08);border-color:var(--warn);}
+.pdcont .wy-callout.success{background:rgba(34,211,165,.08);border-color:var(--accent3);}
+.pdcont .wy-callout.danger{background:rgba(239,68,68,.08);border-color:#ef4444;}
+.pdcont .wy-callout.pin{background:rgba(168,85,247,.08);border-color:var(--accent2);}
 
 /* ── ADMIN LAYOUT ── */
 .aw{display:grid;grid-template-columns:var(--sidebar-w) 1fr;min-height:calc(100vh - 62px);}
@@ -475,7 +499,7 @@ textarea:focus{
   font-size:.88rem;
   line-height:1.85;
   color:#b0bcd8;
-  white-space:pre-wrap;
+  
 }
 
 /* Emoji/Color Picker */
@@ -1062,6 +1086,69 @@ textarea:focus{
 [data-theme="light"] .ed-write-pane{border-left-color:var(--border);}
 [data-theme="light"] .ed-preview-pane{background:var(--s1);}
 /* #eContent light mode handled in wysiwyg-editor section */
+/* ── Editor contenteditable styles ── */
+#eContent{
+  min-height:350px;outline:none;
+  line-height:1.8;font-size:.95rem;
+  padding:1.25rem 1.5rem;
+  font-family:'Tajawal',sans-serif;
+  color:var(--text);caret-color:var(--accent);
+  word-break:break-word;overflow-wrap:break-word;
+}
+#eContent:empty::before,
+#eContent[data-empty="true"]::before{
+  content:attr(data-placeholder);
+  color:var(--muted);pointer-events:none;
+  font-size:.92rem;
+}
+#eContent h1,#eContent h2,#eContent h3,#eContent h4{
+  font-weight:900;line-height:1.3;margin:.8em 0 .4em;
+  color:var(--text);
+}
+#eContent h1{font-size:1.9rem;}
+#eContent h2{font-size:1.55rem;}
+#eContent h3{font-size:1.25rem;}
+#eContent h4{font-size:1.05rem;}
+#eContent p{margin:.3em 0;}
+#eContent blockquote{
+  border-right:4px solid var(--accent);margin:.75rem 0;
+  padding:.5rem 1rem;background:rgba(79,142,247,.06);
+  border-radius:0 var(--r) var(--r) 0;
+  font-style:italic;color:var(--muted2);
+}
+#eContent ul,#eContent ol{margin:.4em 0;padding-right:1.5em;}
+#eContent li{margin:.2em 0;}
+#eContent a{color:var(--accent);text-decoration:underline;}
+#eContent code{
+  background:var(--s3);border:1px solid var(--border);
+  border-radius:4px;padding:.1em .35em;
+  font-family:monospace;font-size:.85em;color:var(--accent3);
+}
+#eContent pre{
+  background:var(--s2);border:1px solid var(--border);
+  border-radius:var(--r);padding:1rem;overflow-x:auto;
+  font-family:monospace;font-size:.84rem;line-height:1.6;
+  margin:.75rem 0;
+}
+#eContent pre code{background:none;border:none;padding:0;font-size:inherit;}
+#eContent table{width:100%;border-collapse:collapse;margin:.75rem 0;}
+#eContent th{background:var(--s2);font-weight:800;border:1px solid var(--border);padding:.4rem .7rem;text-align:right;}
+#eContent td{border:1px solid var(--border);padding:.4rem .7rem;}
+#eContent hr{border:none;border-top:2px solid var(--border);margin:1.2rem 0;}
+#eContent img{max-width:100%;border-radius:var(--r);margin:.5rem 0;}
+#eContent figure{margin:.75rem 0;text-align:center;}
+#eContent figcaption{font-size:.78rem;color:var(--muted);margin-top:.3rem;}
+#eContent .wy-callout{border-radius:var(--r);padding:.75rem 1rem;margin:.6rem 0;border-right:4px solid;}
+#eContent .wy-callout.info{background:rgba(79,142,247,.08);border-color:var(--accent);}
+#eContent .wy-callout.warn{background:rgba(245,158,11,.08);border-color:var(--warn);}
+#eContent .wy-callout.success{background:rgba(34,211,165,.08);border-color:var(--accent3);}
+#eContent .wy-callout.danger{background:rgba(239,68,68,.08);border-color:#ef4444;}
+#eContent .wy-callout.pin{background:rgba(168,85,247,.08);border-color:var(--accent2);}
+#eContent .wy-todo{list-style:none;padding-right:0;}
+#eContent .wy-todo li{display:flex;align-items:center;gap:.5rem;margin:.25rem 0;}
+#eContent .wy-divider{text-align:center;color:var(--muted);margin:.8rem 0;user-select:none;}
+.tbtn-on{background:rgba(79,142,247,.18)!important;color:var(--accent)!important;border-color:rgba(79,142,247,.4)!important;}
+[data-theme="light"] #eContent{color:var(--text);}
 [data-theme="light"] .ed-title-area{background:linear-gradient(135deg,var(--s1),rgba(37,99,235,.03));}
 [data-theme="light"] .ed-title-inp{color:var(--text);}
 [data-theme="light"] .ed-meta-pill{background:var(--s3);border-color:var(--border2);color:var(--muted);}
@@ -3617,6 +3704,25 @@ document.addEventListener('click', function(e){
 /* Highlight active format buttons on hover feedback */
 .tbtn.tbtn-fmt:hover{background:rgba(79,142,247,.14);}
 .tbtn.tbtn-fmt.tbtn-on{background:rgba(79,142,247,.2);color:var(--accent);border-color:rgba(79,142,247,.4);}
+/* ── Image insert button — premium style ── */
+.tbtn-img-pro{
+  display:inline-flex;align-items:center;gap:.32rem;
+  padding:.26rem .55rem;
+  background:linear-gradient(135deg,rgba(34,211,165,.12),rgba(79,142,247,.1));
+  border:1px solid rgba(34,211,165,.35);
+  border-radius:6px;color:var(--accent3);
+  font-size:.72rem;font-weight:800;cursor:pointer;
+  transition:all .18s;white-space:nowrap;
+}
+.tbtn-img-pro:hover{
+  background:linear-gradient(135deg,rgba(34,211,165,.22),rgba(79,142,247,.18));
+  border-color:var(--accent3);
+  box-shadow:0 0 10px rgba(34,211,165,.25);
+  transform:translateY(-1px);
+}
+.tbtn-img-pro svg{flex-shrink:0;transition:transform .18s;}
+.tbtn-img-pro:hover svg{transform:scale(1.15);}
+[data-theme="light"] .tbtn-img-pro{background:rgba(34,211,165,.08);border-color:rgba(34,211,165,.3);}
 
 /* Callout buttons extra tiny */
 .tb-row .tbtn[onclick*="insCallout"]{padding:.22rem .38rem;font-size:.82rem;}
@@ -8020,7 +8126,10 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
                   <button class="tbtn" onclick="wyInsTable()"         title="جدول">▦ جدول</button>
                   <button class="tbtn" onclick="wyInsDate()"          title="تاريخ اليوم">📅 تاريخ</button>
                   <button class="tbtn" onclick="openEmojiPicker()"    title="إيموجي">😊 إيموجي</button>
-                  <button class="tbtn" onclick="wyInsImage()"         title="إدراج صورة">🖼 صورة</button>
+                  <button class="tbtn tbtn-img-pro" onclick="wyInsImage()" title="إدراج صورة">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor" stroke="none"/><polyline points="21,15 16,10 5,21"/></svg>
+  <span>صورة</span>
+</button>
                   <button class="tbtn red" onclick="openVidModal()"        title="إدراج فيديو">▶️ فيديو</button>
                   <div class="tb-sep"></div>
 
@@ -8157,10 +8266,18 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
                   <div class="ftb-sep"></div>
                   <button class="ftb-btn" title="مسح التنسيق" onmousedown="event.preventDefault();wyExec('removeFormat')">✕</button>
                 </div>
-                <!-- TinyMCE Editor - Simple Textarea -->
-                <textarea id="eContent"
-                  class="wysiwyg-editor tinymce-editor"
-                  placeholder="ابدأ الكتابة هنا..."></textarea>
+                <!-- WYSIWYG contenteditable editor -->
+                <div id="eContent"
+                  class="wysiwyg-editor"
+                  contenteditable="true"
+                  dir="auto"
+                  spellcheck="true"
+                  data-placeholder="ابدأ الكتابة هنا..."
+                  oninput="edUpdate()"
+                  onmouseup="showFloatTb()"
+                  onkeyup="showFloatTb();updToolbarState()"
+                  onkeydown="wyKeyDown(event)"
+                ></div>
               </div>
 
 
@@ -11712,10 +11829,13 @@ function openPost(id){
 }
 function renderPostContent(content){
   if(!content)return'';
-  // Replace [IMG:url|caption] tags with actual images
-  return content.replace(/\[IMG:([^\|]+)\|([^\]]*)\]/g,(match,src,caption)=>{
-    return`</div><div class="post-img-wrap"><img src="${src}" alt="${caption||'صورة'}" loading="lazy"><div class="post-img-caption">${caption||'&nbsp;'}</div></div><div class="pdcont">`;
+  // Content is HTML from the contenteditable editor — return as-is
+  // Legacy: also handle [IMG:url|caption] tags if present
+  let html=content;
+  html=html.replace(/\[IMG:([^\|]+)\|([^\]]*)\]/g,(match,src,caption)=>{
+    return`<figure style="text-align:center;margin:.75rem 0"><img src="${src}" alt="${caption||'صورة'}" loading="lazy" style="max-width:100%;border-radius:8px"><figcaption style="font-size:.78rem;color:var(--muted);margin-top:.3rem">${caption||''}</figcaption></figure>`;
   });
+  return html;
 }
 function renderPostImageGallery(p){
   const imgs=p.images||[];
@@ -12097,12 +12217,8 @@ function initEditor(postId=null){
   }
   
   // تعيين المحتوى في Jodit
-  if(window.joditEditor){
-    window.joditEditor.value = contentToLoad;
-  } else {
-    const ed=document.getElementById('eContent');
-    if(ed)ed.value=contentToLoad;
-  }
+  const ed=document.getElementById('eContent');
+  if(ed){ ed.innerHTML=contentToLoad||''; if(!contentToLoad) ed.innerHTML='<p><br></p>'; }
   
   const edDate=document.getElementById('edDate');if(edDate)edDate.textContent=today();
   const edAuth=document.getElementById('edAuth');if(edAuth)edAuth.textContent=me?.name||'';
@@ -12120,7 +12236,7 @@ function initEditor(postId=null){
   // Focus on editor
   setTimeout(()=>{
     if(window.joditEditor){
-      window.joditEditor.focus();
+      
     }
   },100);
 }
@@ -12154,7 +12270,7 @@ function setEditorMode(mode,el){
   if(mode==='source'){
     const src=document.getElementById('eSourceView');
     if(src){
-      const html=window.joditEditor?window.joditEditor.value:(document.getElementById('eContent')?.value||'');
+      const html=(document.getElementById('eContent')?.innerHTML||'');
       src.value=wyPrettyHTML(html);
     }
   }
@@ -12166,45 +12282,129 @@ function swTab(t,el){setEditorMode(t,el);}
 /* ═══════════════════════════════════════════════
    WYSIWYG ENGINE — Core
 ═══════════════════════════════════════════════ */
+function wyKeyDown(e){
+  const ed=document.getElementById('eContent');
+  // Ctrl+B/I/U shortcuts
+  if(e.ctrlKey||e.metaKey){
+    if(e.key==='b'){e.preventDefault();wyExec('bold');}
+    else if(e.key==='i'){e.preventDefault();wyExec('italic');}
+    else if(e.key==='u'){e.preventDefault();wyExec('underline');}
+    else if(e.key==='k'){e.preventDefault();wyInsLink();}
+    else if(e.key==='z'){e.preventDefault();wyExec('undo');}
+    else if(e.key==='y'){e.preventDefault();wyExec('redo');}
+    else if(e.key==='h'){e.preventDefault();openFindReplace();}
+    else if(e.key==='q'){e.preventDefault();wyHeading('blockquote');}
+  }
+  // Enter in empty block: convert back to p
+  if(e.key==='Enter'){ setTimeout(updToolbarState,10); }
+  // Placeholder
+  setTimeout(()=>{
+    if(ed) ed.dataset.empty=(!ed.innerHTML||ed.innerHTML==='<br>'||ed.innerHTML==='<p><br></p>')?'true':'false';
+  },0);
+}
+function updToolbarState(){
+  const cmds=['bold','italic','underline','strikeThrough'];
+  const ids={bold:'tbBold',italic:'tbItalic',underline:'tbUnder',strikeThrough:'tbStrike'};
+  cmds.forEach(cmd=>{
+    const el=document.getElementById(ids[cmd]);
+    if(el) el.classList.toggle('tbtn-on', document.queryCommandState(cmd));
+  });
+}
 let _wyLastSel=null;
 
 function wyExec(cmd,val){
-  if(window.joditEditor){
-    window.joditEditor.focus();
-    if(_wyLastSel){const sel=window.getSelection();sel.removeAllRanges();sel.addRange(_wyLastSel);}
-    document.execCommand(cmd,false,val||null);
-  } else {
-    const ed=document.getElementById('eContent');
-    if(!ed)return;
-    ed.focus();
-    if(_wyLastSel){const sel=window.getSelection();sel.removeAllRanges();sel.addRange(_wyLastSel);}
-    document.execCommand(cmd,false,val||null);
+  const ed=document.getElementById('eContent');
+  if(!ed)return;
+  ed.focus();
+  if(_wyLastSel){
+    try{const s=window.getSelection();s.removeAllRanges();s.addRange(_wyLastSel.cloneRange());}catch(e){}
   }
+  try{
+    if(cmd==='hiliteColor'){
+      if(!document.execCommand('hiliteColor',false,val))
+        document.execCommand('backColor',false,val);
+    } else if(cmd==='fontSize' && val){
+      // fontSize via span for more control
+      const sel=window.getSelection();
+      if(sel&&!sel.isCollapsed){
+        const sizes={'1':'0.7rem','2':'0.85rem','3':'1rem','4':'1.15rem','5':'1.35rem','6':'1.6rem','7':'2rem'};
+        wyInsHTML('<span style="font-size:'+( sizes[val]||val )+'">'+sel.toString()+'</span>');
+        return;
+      }
+      document.execCommand('fontSize',false,val);
+    } else {
+      document.execCommand(cmd,false,val||null);
+    }
+  }catch(e){ console.warn('execCommand failed:',cmd,e); }
   edUpdate();
   hideFloatTb();
+  _wyLastSel=null;
 }
 
 function wyInsHTML(html){
-  if(window.joditEditor){
-    window.joditEditor.focus();
-    if(_wyLastSel){const sel=window.getSelection();sel.removeAllRanges();sel.addRange(_wyLastSel);}
-    document.execCommand('insertHTML',false,html);
-  } else {
-    const ed=document.getElementById('eContent');
-    if(!ed)return;
-    ed.focus();
-    if(_wyLastSel){const sel=window.getSelection();sel.removeAllRanges();sel.addRange(_wyLastSel);}
-    document.execCommand('insertHTML',false,html);
+  const ed=document.getElementById('eContent');
+  if(!ed)return;
+  ed.focus();
+  const sel=window.getSelection();
+  let range;
+  // Restore saved selection if it's inside editor
+  if(_wyLastSel){
+    try{
+      const r=_wyLastSel.cloneRange();
+      sel.removeAllRanges();sel.addRange(r);
+      range=sel.getRangeAt(0);
+    }catch(e){ range=null; }
+  }
+  if(!range){
+    if(sel.rangeCount>0&&ed.contains(sel.getRangeAt(0).startContainer)){
+      range=sel.getRangeAt(0);
+    } else {
+      range=document.createRange();
+      range.selectNodeContents(ed);
+      range.collapse(false);
+      sel.removeAllRanges();sel.addRange(range);
+    }
+  }
+  range.deleteContents();
+  // Build fragment via temp div (more reliable than createContextualFragment with base64)
+  const tmp=document.createElement('div');
+  tmp.innerHTML=html;
+  const frag=document.createDocumentFragment();
+  let lastNode=null;
+  while(tmp.firstChild){ lastNode=tmp.firstChild; frag.appendChild(lastNode); }
+  range.insertNode(frag);
+  // Move cursor after inserted content
+  if(lastNode){
+    const r2=document.createRange();
+    try{ r2.setStartAfter(lastNode); r2.collapse(true); sel.removeAllRanges(); sel.addRange(r2); }catch(e){}
   }
   edUpdate();
+  _wyLastSel=null;
 }
 
-/* Save selection before toolbar click */
-document.addEventListener('mousedown',function(e){
+/* Save selection whenever it changes inside editor */
+document.addEventListener('selectionchange',function(){
   const ed=document.getElementById('eContent');
-  if(ed&&ed.contains(document.activeElement)||document.activeElement===ed){
-    const sel=window.getSelection();
-    if(sel&&sel.rangeCount>0)_wyLastSel=sel.getRangeAt(0).cloneRange();
+  if(!ed)return;
+  const sel=window.getSelection();
+  if(sel&&sel.rangeCount>0){
+    try{
+      const r=sel.getRangeAt(0);
+      if(ed.contains(r.startContainer)||ed===r.startContainer)
+        _wyLastSel=r.cloneRange();
+    }catch(e){}
+  }
+});
+/* Also save on mouseup/keyup inside editor */
+document.addEventListener('mouseup',function(){
+  const ed=document.getElementById('eContent');
+  if(!ed)return;
+  const sel=window.getSelection();
+  if(sel&&sel.rangeCount>0){
+    try{
+      const r=sel.getRangeAt(0);
+      if(ed.contains(r.startContainer))_wyLastSel=r.cloneRange();
+    }catch(e){}
   }
 });
 
@@ -12212,6 +12412,7 @@ document.addEventListener('mousedown',function(e){
 function wyHeading(tag){
   const ed=document.getElementById('eContent');if(!ed)return;
   ed.focus();
+  if(_wyLastSel){try{const s=window.getSelection();s.removeAllRanges();s.addRange(_wyLastSel.cloneRange());}catch(e){}}
   document.execCommand('formatBlock',false,'<'+tag+'>');
   edUpdate();
 }
@@ -12242,7 +12443,7 @@ function wyCopyContent(){
 function wyClearEd(){
   if(confirm('مسح محتوى المقال كاملاً؟')){
     const ed=document.getElementById('eContent');
-    if(ed){ed.innerHTML='';edUpdate();}
+    if(ed){ed.innerHTML='<p><br></p>';edUpdate();ed.focus();}
   }
 }
 
@@ -12305,9 +12506,74 @@ function wyInsLink(){
 
 /* ── Image ── */
 function wyInsImage(){
-  const url=prompt('رابط الصورة (URL):','https://');if(!url)return;
-  const alt=prompt('وصف الصورة (alt):','صورة')||'صورة';
-  wyInsHTML('<figure><img src="'+escH(url)+'" alt="'+escH(alt)+'"><figcaption contenteditable="true">'+escH(alt)+'</figcaption></figure><p><br></p>');
+  // Save selection before opening modal
+  const ed=document.getElementById('eContent');
+  if(ed){
+    const sel=window.getSelection();
+    if(sel&&sel.rangeCount>0&&ed.contains(sel.getRangeAt(0).startContainer))
+      _wyLastSel=sel.getRangeAt(0).cloneRange();
+    else{
+      const r=document.createRange();r.selectNodeContents(ed);r.collapse(false);
+      _wyLastSel=r;
+    }
+  }
+  // Clear fields and open modal
+  document.getElementById('imgInsUrl').value='';
+  document.getElementById('imgInsAlt').value='';
+  document.getElementById('imgInsPreviewWrap').style.display='none';
+  const ov=document.getElementById('imgInsModalOv');
+  ov.style.display='flex';ov.style.alignItems='center';ov.style.justifyContent='center';
+  setTimeout(()=>document.getElementById('imgInsUrl').focus(),80);
+}
+function closeImgInsModal(){
+  document.getElementById('imgInsModalOv').style.display='none';
+}
+function imgInsPreview(){
+  const url=document.getElementById('imgInsUrl').value.trim();
+  const img=document.getElementById('imgInsPreviewEl');
+  const wrap=document.getElementById('imgInsPreviewWrap');
+  if(url.startsWith('http')){
+    img.src=url;
+    wrap.style.display='block';
+  } else {
+    wrap.style.display='none';
+  }
+}
+function doInsertImg(){
+  const url=document.getElementById('imgInsUrl').value.trim();
+  if(!url){toast('أدخل رابط الصورة','terr');return;}
+  const alt=document.getElementById('imgInsAlt').value.trim()||'صورة';
+  closeImgInsModal();
+  const fig=document.createElement('figure');
+  fig.style.cssText='margin:.75rem 0;text-align:center';
+  const img=document.createElement('img');
+  img.src=url; img.alt=alt;
+  img.style.cssText='max-width:100%;border-radius:8px;display:block;margin:0 auto';
+  img.onerror=function(){this.style.outline='2px solid #ef4444';this.title='تعذر تحميل الصورة';};
+  const cap=document.createElement('figcaption');
+  cap.contentEditable='true';
+  cap.style.cssText='font-size:.78rem;color:var(--muted,#888);margin-top:.3rem';
+  cap.textContent=alt;
+  fig.appendChild(img); fig.appendChild(cap);
+  const p=document.createElement('p'); p.innerHTML='<br>';
+  // Insert into editor
+  const ed=document.getElementById('eContent');
+  if(!ed)return;
+  ed.focus();
+  const sel=window.getSelection();
+  let range;
+  if(_wyLastSel){try{sel.removeAllRanges();sel.addRange(_wyLastSel.cloneRange());range=sel.getRangeAt(0);}catch(e){}}
+  if(!range){
+    if(sel.rangeCount>0&&ed.contains(sel.getRangeAt(0).startContainer)){range=sel.getRangeAt(0);}
+    else{range=document.createRange();range.selectNodeContents(ed);range.collapse(false);sel.removeAllRanges();sel.addRange(range);}
+  }
+  range.deleteContents();
+  range.insertNode(p);
+  range.insertNode(fig);
+  const r2=document.createRange();r2.setStartAfter(p);r2.collapse(true);
+  sel.removeAllRanges();sel.addRange(r2);
+  edUpdate(); _wyLastSel=null;
+  toast('✅ تم إدراج الصورة','tok');
 }
 
 /* ── Table ── */
@@ -12596,12 +12862,8 @@ function edAutoSaveDraft(){
   let content='';
   
   // الحصول على المحتوى من Jodit
-  if(window.joditEditor){
-    content = window.joditEditor.value.trim();
-  } else {
-    const ed=document.getElementById('eContent');
-    content = ed?.value?.trim() || '';
-  }
+  const edEl2=document.getElementById('eContent');
+  content=(edEl2?.innerHTML||'').trim();
   
   if(!title&&!content)return;
   edSetSaveDot('saving');
@@ -12641,15 +12903,8 @@ function updWC(){
   let text='';
   
   // الحصول على النص من Jodit
-  if(window.joditEditor){
-    const html=window.joditEditor.value;
-    const tmp=document.createElement('div');
-    tmp.innerHTML=html;
-    text=tmp.innerText||tmp.textContent||'';
-  } else {
-    const ed=document.getElementById('eContent');
-    text=ed?.value||'';
-  }
+  const edEl=document.getElementById('eContent');
+  text=edEl?.innerText||edEl?.textContent||'';
   
   const words=text.trim()?text.trim().split(/\s+/).filter(Boolean).length:0;
   const mins=Math.max(1,Math.ceil(words/200));
@@ -12752,14 +13007,9 @@ function renderLivePreview(){
   const hdr=document.getElementById('edPreviewHeader');
   if(!cont)return;
   
-  // الحصول على المحتوى من Jodit
   let html='';
-  if(window.joditEditor){
-    html = window.joditEditor.value;
-  } else {
-    const ed=document.getElementById('eContent');
-    html = ed?.value || '';
-  }
+  const ed=document.getElementById('eContent');
+  html = ed?.innerHTML || '';
   
   const title=document.getElementById('eTitle')?.value||'';
   if(hdr){
@@ -13153,12 +13403,26 @@ function updateCoverPreview(){
 function insertImgInText(id){
   const img=postImages.find(i=>i.id===id);if(!img)return;
   const cap=img.caption||img.name||'صورة';
-  const html='<figure><img src="'+img.src+'" alt="'+cap+'">'+
-    (img.caption?'<figcaption contenteditable="true">'+cap+'</figcaption>':'')+
-    '</figure>';
+  // Switch to split/write mode so editor is visible
+  const splitTab=document.querySelector('[data-vmode="split"]');
+  setEditorMode('split',splitTab);
+  // Place cursor at end of editor if not already inside
+  const ed=document.getElementById('eContent');
+  if(!ed)return;
+  const sel=window.getSelection();
+  const inEd=sel&&sel.rangeCount>0&&ed.contains(sel.getRangeAt(0).startContainer);
+  if(!_wyLastSel&&!inEd){
+    ed.focus();
+    const r=document.createRange();
+    r.selectNodeContents(ed);r.collapse(false);
+    sel.removeAllRanges();sel.addRange(r);
+    _wyLastSel=r.cloneRange();
+  }
+  // Build img HTML with inline styles (works in all browsers)
+  const src=img.src;
+  const html='<figure style="margin:.75rem 0;text-align:center"><img src="'+src+'" alt="'+escH(cap)+'" style="max-width:100%;border-radius:8px;display:block;margin:0 auto"><figcaption contenteditable="true" style="font-size:.78rem;color:var(--muted);margin-top:.3rem">'+escH(cap)+'</figcaption></figure>';
   wyInsHTML(html+'<p><br></p>');
-  swTab('write',document.querySelector('.pvt'));
-  toast('✅ تم إدراج الصورة','tinf');
+  toast('✅ تم إدراج الصورة في المحرر','tok');
 }
 function removeImage(id){
   postImages=postImages.filter(i=>i.id!==id);
@@ -13172,12 +13436,10 @@ function savePost(status){
   
   // الحصول على المحتوى من Jodit
   let content='';
-  if(window.joditEditor){
-    content = window.joditEditor.value.trim();
-  } else {
-    const ed=document.getElementById('eContent');
-    content = (ed?.value || '').trim();
-  }
+  const ed=document.getElementById('eContent');
+  content = (ed?.innerHTML || '').trim();
+  // Strip empty placeholder
+  if(content==='<p><br></p>' || content==='<br>') content='';
   
   if(!title||!content){toast('يرجى ملء العنوان والمحتوى','terr');return;}
   
@@ -14205,6 +14467,49 @@ function _buildExportHTML(data, label){
 <!-- MAKSAB_BACKUP_DATA
 ${jsonStr}
 MAKSAB_BACKUP_DATA -->
+
+<!-- ══ IMAGE INSERT MODAL ══ -->
+<div class="vid-modal-ov" id="imgInsModalOv" onclick="if(event.target===this)closeImgInsModal()" style="display:none">
+  <div class="vid-modal" style="max-width:480px">
+    <div class="vid-modal-head">
+      <div class="vid-modal-icon">🖼️</div>
+      <div style="flex:1">
+        <div style="font-size:.98rem;font-weight:900;color:var(--text)">إدراج صورة</div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">أدخل رابط الصورة لإدراجها في المحرر</div>
+      </div>
+      <button onclick="closeImgInsModal()" style="width:32px;height:32px;border-radius:50%;background:var(--s3);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .15s;flex-shrink:0" onmouseover="this.style.background='var(--danger)';this.style.color='#fff'" onmouseout="this.style.background='var(--s3)';this.style.color='var(--muted)'">✕</button>
+    </div>
+    <div class="vid-modal-body">
+      <!-- URL input -->
+      <div class="fg" style="margin-bottom:.85rem">
+        <label style="font-size:.73rem;font-weight:800;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase;margin-bottom:.4rem;display:block">رابط الصورة <span style="color:#ef4444">*</span></label>
+        <input type="url" id="imgInsUrl" placeholder="https://example.com/image.jpg"
+          style="font-size:.88rem"
+          oninput="imgInsPreview()"
+          onpaste="setTimeout(imgInsPreview,60)"
+          onkeydown="if(event.key==='Enter')doInsertImg()">
+      </div>
+      <!-- Preview -->
+      <div id="imgInsPreviewWrap" style="display:none;margin-bottom:.85rem;text-align:center;background:var(--s2);border-radius:var(--r);padding:.6rem;border:1px solid var(--border)">
+        <img id="imgInsPreviewEl" src="" alt="" style="max-width:100%;max-height:180px;border-radius:6px;object-fit:contain"
+          onerror="document.getElementById('imgInsPreviewWrap').style.display='none'"
+          onload="document.getElementById('imgInsPreviewWrap').style.display='block'">
+      </div>
+      <!-- Alt text -->
+      <div class="fg" style="margin-bottom:1.2rem">
+        <label style="font-size:.73rem;font-weight:800;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase;margin-bottom:.4rem;display:block">نص بديل (وصف)</label>
+        <input type="text" id="imgInsAlt" placeholder="وصف مختصر للصورة..." style="font-size:.88rem" onkeydown="if(event.key==='Enter')doInsertImg()">
+      </div>
+      <!-- Actions -->
+      <div style="display:flex;gap:.65rem;justify-content:flex-end">
+        <button class="btn btn-ghost" onclick="closeImgInsModal()">إلغاء</button>
+        <button class="btn btn-primary" onclick="doInsertImg()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));border:none">
+          🖼️ إدراج الصورة
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>`;
 }
@@ -16276,64 +16581,18 @@ setTimeout(applyDashLayout, 10);
 setTimeout(initJodit, 200);
 
 /* ══════════════════════════════════════════
-   JODIT EDITOR INITIALIZATION
+   EDITOR INITIALIZATION (native contenteditable)
 ══════════════════════════════════════════ */
 function initJodit(){
-  if(typeof Jodit === 'undefined') {
-      setTimeout(initJodit, 500);
-    return;
-  }
-  
-  
-  window.joditEditor = Jodit.make('#eContent', {
-    language: 'ar',
-    direction: 'rtl',
-    height: 500,
-    minHeight: 300,
-    toolbar: true,
-    toolbarAdaptive: false,
-    buttons: 'bold,italic,underline,strikethrough,eraser,separator,ul,ol,outdent,indent,separator,fontsize,fontfamily,forecolor,backcolor,separator,link,image,table,separator,undo,redo',
-    askBeforePasteHTML: false,
-    showXPathInStatusbar: false,
-    showCharsCounter: true,
-    showWordsCounter: true,
-    defaultActionOnPaste: 'insert_as_html',
-    uploader: {
-      insertImageAsBase64URI: true
-    },
-    events: {
-      change: (newContent) => {
-        edUpdate();
-      }
-    },
-    style: {
-      '.jodit-container': {
-        fontFamily: '"Tajawal", sans-serif',
-      },
-      '.jodit-wysiwyg': {
-        direction: 'rtl',
-        padding: '15px',
-        minHeight: '500px',
-        fontSize: '16px',
-        lineHeight: '1.8'
-      }
-    }
-  });
-  
+  // Jodit removed — using native contenteditable editor
+  window.joditEditor = null;
 }
 
 /* ══════════════════════════════════════════
    EDITOR EXTRA FUNCTIONS
 ══════════════════════════════════════════ */
 function insTOC(){
-  // Insert a placeholder table-of-contents block
-  const toc='[toc]\n\n';
-  const el=document.getElementById('eContent');
-  if(!el)return;
-  const s=el.selectionStart;
-  el.value=el.value.slice(0,s)+toc+el.value.slice(el.selectionEnd);
-  el.selectionStart=el.selectionEnd=s+toc.length;
-  el.focus();edUpdate();
+  wyInsHTML('<div class="toc-placeholder" contenteditable="false" style="background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:.75rem 1rem;margin:.6rem 0;font-size:.82rem;color:var(--muted2)">📚 فهرس المحتويات — سيتم إنشاؤه تلقائياً عند النشر</div><p><br></p>');
 }
 function exportMD(){
   const el=document.getElementById('eContent');
@@ -19857,6 +20116,49 @@ document.addEventListener('keydown', e => {
         <button class="btn btn-ghost" onclick="closeVidModal()">إلغاء</button>
         <button class="btn btn-primary" onclick="insertVideoEmbed()" style="gap:.4rem;background:linear-gradient(135deg,#ef4444,#f97316);border:none">
           ▶️ إدراج الفيديو
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ IMAGE INSERT MODAL ══ -->
+<div class="vid-modal-ov" id="imgInsModalOv" onclick="if(event.target===this)closeImgInsModal()" style="display:none">
+  <div class="vid-modal" style="max-width:480px">
+    <div class="vid-modal-head">
+      <div class="vid-modal-icon">🖼️</div>
+      <div style="flex:1">
+        <div style="font-size:.98rem;font-weight:900;color:var(--text)">إدراج صورة</div>
+        <div style="font-size:.72rem;color:var(--muted);margin-top:.1rem">أدخل رابط الصورة لإدراجها في المحرر</div>
+      </div>
+      <button onclick="closeImgInsModal()" style="width:32px;height:32px;border-radius:50%;background:var(--s3);border:1px solid var(--border);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all .15s;flex-shrink:0" onmouseover="this.style.background='var(--danger)';this.style.color='#fff'" onmouseout="this.style.background='var(--s3)';this.style.color='var(--muted)'">✕</button>
+    </div>
+    <div class="vid-modal-body">
+      <!-- URL input -->
+      <div class="fg" style="margin-bottom:.85rem">
+        <label style="font-size:.73rem;font-weight:800;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase;margin-bottom:.4rem;display:block">رابط الصورة <span style="color:#ef4444">*</span></label>
+        <input type="url" id="imgInsUrl" placeholder="https://example.com/image.jpg"
+          style="font-size:.88rem"
+          oninput="imgInsPreview()"
+          onpaste="setTimeout(imgInsPreview,60)"
+          onkeydown="if(event.key==='Enter')doInsertImg()">
+      </div>
+      <!-- Preview -->
+      <div id="imgInsPreviewWrap" style="display:none;margin-bottom:.85rem;text-align:center;background:var(--s2);border-radius:var(--r);padding:.6rem;border:1px solid var(--border)">
+        <img id="imgInsPreviewEl" src="" alt="" style="max-width:100%;max-height:180px;border-radius:6px;object-fit:contain"
+          onerror="document.getElementById('imgInsPreviewWrap').style.display='none'"
+          onload="document.getElementById('imgInsPreviewWrap').style.display='block'">
+      </div>
+      <!-- Alt text -->
+      <div class="fg" style="margin-bottom:1.2rem">
+        <label style="font-size:.73rem;font-weight:800;color:var(--muted2);letter-spacing:.4px;text-transform:uppercase;margin-bottom:.4rem;display:block">نص بديل (وصف)</label>
+        <input type="text" id="imgInsAlt" placeholder="وصف مختصر للصورة..." style="font-size:.88rem" onkeydown="if(event.key==='Enter')doInsertImg()">
+      </div>
+      <!-- Actions -->
+      <div style="display:flex;gap:.65rem;justify-content:flex-end">
+        <button class="btn btn-ghost" onclick="closeImgInsModal()">إلغاء</button>
+        <button class="btn btn-primary" onclick="doInsertImg()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));border:none">
+          🖼️ إدراج الصورة
         </button>
       </div>
     </div>
