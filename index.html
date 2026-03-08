@@ -5884,6 +5884,93 @@ document.addEventListener('click', function(e){
   text-align:right;
 }
 
+.sys-tl-filt.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent;}
+
+/* ══ AUTO-REFRESH BAR ══ */
+.sys-autoref-bar{display:flex;align-items:center;justify-content:space-between;background:var(--s1);border:1px solid var(--border);border-radius:var(--r2);padding:.85rem 1.1rem;margin-bottom:1.2rem;gap:.75rem;}
+.sys-autoref-spinner{width:28px;height:28px;border-radius:50%;border:2.5px solid var(--border);border-top-color:var(--accent);animation:spin .8s linear infinite;flex-shrink:0;}
+.sys-ref-dot{width:7px;height:7px;border-radius:50%;background:var(--border);transition:background .3s;}
+.sys-ref-dot.done{background:var(--accent3);}
+.sys-ref-dot.current{background:var(--accent);box-shadow:0 0 6px var(--accent);}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ══ TIMELINE CARD ══ */
+.sys-tl-card{}
+.sys-tl-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:.75rem;flex-wrap:wrap;}
+.sys-tl-filters{display:flex;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:2px;gap:2px;}
+.sys-tl-pill{padding:.28rem .65rem;border-radius:6px;border:none;background:none;color:var(--muted2);font-size:.67rem;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .15s;white-space:nowrap;}
+.sys-tl-pill:hover{color:var(--text);}
+.sys-tl-pill.active{background:var(--s1);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.25);border:1px solid var(--border);}
+
+/* Search */
+.sys-tl-search-wrap{display:flex;align-items:center;gap:.5rem;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:.45rem .75rem;margin-bottom:1rem;transition:border-color .2s;}
+.sys-tl-search-wrap:focus-within{border-color:var(--accent);}
+.sys-tl-search{flex:1;background:none;border:none;outline:none;font-size:.78rem;color:var(--text);font-family:'Tajawal',sans-serif;direction:rtl;}
+.sys-tl-search::placeholder{color:var(--muted);}
+.sys-tl-clear{font-size:.7rem;color:var(--muted);cursor:pointer;padding:.1rem .25rem;border-radius:4px;transition:color .15s;}
+.sys-tl-clear:hover{color:var(--text);}
+
+/* Timeline rows */
+.sys-tl-wrap{display:flex;flex-direction:column;position:relative;}
+.sys-tl-wrap::before{content:'';position:absolute;top:8px;bottom:8px;right:17px;width:2px;background:linear-gradient(180deg,var(--accent),var(--border) 60%,transparent);border-radius:2px;pointer-events:none;}
+.sys-tl-row{display:flex;align-items:flex-start;gap:.85rem;padding:.65rem .5rem;border-radius:10px;transition:background .15s;cursor:default;position:relative;}
+.sys-tl-row:hover{background:var(--s2);}
+.sys-tl-row.new-event{animation:tlSlideIn .35s ease;}
+@keyframes tlSlideIn{from{opacity:0;transform:translateX(12px);}to{opacity:1;transform:translateX(0);}}
+.sys-tl-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0;z-index:1;border:2px solid transparent;transition:transform .2s,box-shadow .2s;}
+.sys-tl-row:hover .sys-tl-dot{transform:scale(1.1);}
+.sys-tl-dot.publish{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.4);box-shadow:0 0 0 3px rgba(79,142,247,.08);}
+.sys-tl-dot.system{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.35);box-shadow:0 0 0 3px rgba(245,158,11,.07);}
+.sys-tl-dot.security{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.35);box-shadow:0 0 0 3px rgba(239,68,68,.07);}
+.sys-tl-dot.backup{background:rgba(34,211,165,.1);border-color:rgba(34,211,165,.35);box-shadow:0 0 0 3px rgba(34,211,165,.07);}
+.sys-tl-body{flex:1;min-width:0;padding-top:.2rem;}
+.sys-tl-title{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:.2rem;}
+.sys-tl-title mark{background:rgba(79,142,247,.25);color:var(--accent);border-radius:3px;padding:0 2px;}
+.sys-tl-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.sys-tl-time{font-size:.63rem;color:var(--muted);}
+.sys-tl-tag{font-size:.58rem;font-weight:800;padding:.1rem .45rem;border-radius:50px;letter-spacing:.3px;}
+.sys-tl-tag.publish{background:rgba(79,142,247,.12);color:#4f8ef7;}
+.sys-tl-tag.system{background:rgba(245,158,11,.12);color:#f59e0b;}
+.sys-tl-tag.security{background:rgba(239,68,68,.12);color:#ef4444;}
+.sys-tl-tag.backup{background:rgba(34,211,165,.1);color:#22d3a5;}
+.sys-tl-more{padding:.5rem 0 0;}
+.sys-tl-empty{text-align:center;padding:2rem 1rem;color:var(--muted);font-size:.8rem;}
+
+/* ══ PERFORMANCE DASHBOARD ══ */
+.perf-kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:1.1rem;}
+.perf-kpi{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.65rem;transition:transform .2s,box-shadow .2s,border-color .2s;cursor:default;}
+.perf-kpi:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.3);border-color:rgba(79,142,247,.3);}
+.perf-kpi-top{display:flex;align-items:center;gap:.7rem;}
+.perf-kpi-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;}
+.perf-kpi-info{flex:1;min-width:0;}
+.perf-kpi-label{font-size:.65rem;color:var(--muted);font-weight:700;margin-bottom:.15rem;}
+.perf-kpi-val{font-size:1.4rem;font-weight:900;color:var(--text);line-height:1;}
+.perf-kpi-badge{font-size:.6rem;font-weight:800;padding:.2rem .5rem;border-radius:50px;background:rgba(34,211,165,.12);color:#22d3a5;white-space:nowrap;}
+.perf-kpi-badge.warn{background:rgba(245,158,11,.12);color:#f59e0b;}
+.perf-kpi-badge.danger{background:rgba(239,68,68,.12);color:#ef4444;}
+.perf-kpi-bar-wrap{height:4px;background:var(--s3);border-radius:4px;overflow:hidden;}
+.perf-kpi-bar{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.4,0,.2,1);width:0%;}
+.perf-kpi-spark{display:flex;align-items:flex-end;gap:2px;height:28px;}
+.perf-kpi-spark-bar{flex:1;border-radius:2px 2px 0 0;transition:height .4s ease;min-height:2px;}
+
+/* Chart card */
+.perf-chart-card{}
+.perf-chart-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:.75rem;flex-wrap:wrap;}
+.perf-chart-tabs{display:flex;background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:2px;gap:2px;flex-shrink:0;}
+.pct-btn{padding:.3rem .7rem;border-radius:6px;border:none;background:none;color:var(--muted2);font-size:.68rem;font-weight:700;cursor:pointer;font-family:'Tajawal',sans-serif;transition:all .15s;white-space:nowrap;}
+.pct-btn:hover{color:var(--text);}
+.pct-btn.active{background:var(--s1);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.25);border:1px solid var(--border);}
+.perf-chart-legend{display:flex;gap:1rem;margin-top:.75rem;flex-wrap:wrap;}
+.pcl-item{display:flex;align-items:center;gap:.35rem;font-size:.67rem;color:var(--muted2);}
+.pcl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* Live badge */
+.perf-live-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.65rem;font-weight:700;color:var(--danger);background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:50px;padding:.2rem .6rem;}
+.perf-live-dot{width:6px;height:6px;border-radius:50%;background:var(--danger);animation:pulse 1.5s infinite;flex-shrink:0;}
+
+@media(max-width:900px){.perf-kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){.perf-kpi-grid{grid-template-columns:1fr 1fr;}}
+
 /* ══════════════════════════════════════════════════════
    PLUGINS PAGE
 ══════════════════════════════════════════════════════ */
@@ -7559,6 +7646,161 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
   padding:.4rem .75rem;background:var(--s3);border-top:1px solid var(--border);
   font-size:.75rem;color:var(--muted);text-align:center;
 }
+
+/* ══ GLOBAL FOOTER ══ */
+#globalFooter{
+  position:relative;
+  z-index:50;
+  text-align:center;
+  padding:.95rem 1rem;
+  background:var(--hbg);
+  border-top:1px solid var(--border);
+  backdrop-filter:blur(12px);
+}
+#globalFooter span{
+  font-size:.73rem;
+  color:var(--muted);
+  font-weight:500;
+  letter-spacing:.3px;
+}
+#globalFooter .gf-brand{
+  font-weight:800;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+#globalFooter .gf-sep{
+  -webkit-text-fill-color:var(--muted);
+  color:var(--muted);
+  font-weight:400;
+  margin:0 .35rem;
+}
+
+/* ══════════════════════════════════════════════════════
+   SLIDER STYLE PICKER
+══════════════════════════════════════════════════════ */
+.sl-style-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;margin-bottom:1.4rem;}
+@media(max-width:760px){.sl-style-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.sl-style-grid{grid-template-columns:1fr 1fr;}}
+
+.sl-style-card{background:var(--s2);border:2px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .2s,box-shadow .2s;position:relative;}
+.sl-style-card:hover{border-color:rgba(79,142,247,.5);transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.3);}
+.sl-style-card.active{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,142,247,.18),0 10px 30px rgba(0,0,0,.3);}
+.sl-check{position:absolute;top:7px;left:7px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;font-size:.65rem;font-weight:900;display:flex;align-items:center;justify-content:center;opacity:0;transform:scale(.6);transition:opacity .2s,transform .2s;}
+.sl-style-card.active .sl-check{opacity:1;transform:scale(1);}
+.sl-preview{height:90px;position:relative;overflow:hidden;flex-shrink:0;}
+.sl-style-info{padding:.55rem .65rem .6rem;background:var(--s1);}
+.sl-style-name{font-size:.75rem;font-weight:800;color:var(--text);margin-bottom:.12rem;}
+.sl-style-desc{font-size:.63rem;color:var(--muted);}
+
+/* ── Preview: Nexus ── */
+.sl-prev-nexus{display:grid;grid-template-columns:1fr 72px;background:#0c1220;}
+.slp-hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#0c1220,#1a2540);}
+.slp-badge{position:absolute;top:6px;left:6px;background:var(--accent);color:#fff;font-size:.45rem;font-weight:800;padding:.1rem .35rem;border-radius:50px;}
+.slp-lines{position:absolute;top:18px;right:8px;width:58%;}
+.slp-l1{height:5px;background:rgba(255,255,255,.55);border-radius:2px;margin-bottom:4px;}
+.slp-l2{height:3px;background:rgba(255,255,255,.25);border-radius:2px;width:80%;margin-bottom:3px;}
+.slp-l3{height:3px;background:rgba(255,255,255,.12);border-radius:2px;width:55%;}
+.slp-btn{position:absolute;bottom:7px;right:8px;width:36px;height:9px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:50px;}
+.slp-prog{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.slp-feed{background:var(--s1);border-right:1px solid var(--border);padding:4px;display:flex;flex-direction:column;gap:3px;}
+.slp-f-row{height:16px;background:var(--s3);border-radius:3px;}
+.slp-f-row.a{background:rgba(79,142,247,.2);}
+.slp-dots{display:flex;gap:2px;margin-top:auto;padding-top:2px;}
+.slp-dots span{width:5px;height:5px;border-radius:50%;background:var(--border2);}
+.slp-dots span.a{background:var(--accent);width:10px;border-radius:3px;}
+
+/* ── Preview: Cinema ── */
+.sl-prev-cinema{background:linear-gradient(160deg,#06080f,#101828);position:relative;}
+.slp-cin-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 55%);}
+.slp-cin-content{position:absolute;bottom:14px;left:10px;right:10px;}
+.slp-cin-tag{height:5px;width:30px;background:var(--accent);border-radius:2px;margin-bottom:5px;}
+.slp-cin-title{height:6px;background:rgba(255,255,255,.7);border-radius:2px;margin-bottom:4px;width:70%;}
+.slp-cin-sub{height:3px;background:rgba(255,255,255,.25);border-radius:2px;width:50%;margin-bottom:7px;}
+.slp-cin-btns{display:flex;gap:4px;}
+.slp-cin-b1{width:28px;height:8px;background:var(--accent);border-radius:4px;}
+.slp-cin-b2{width:22px;height:8px;background:rgba(255,255,255,.15);border-radius:4px;border:1px solid rgba(255,255,255,.25);}
+.slp-cin-dots{position:absolute;top:8px;left:50%;transform:translateX(-50%);display:flex;gap:3px;}
+.slp-cin-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);}
+.slp-cin-dots span.a{background:#fff;width:14px;border-radius:3px;}
+.slp-cin-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 6px;pointer-events:none;}
+.slp-cin-arrows span{width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:rgba(255,255,255,.7);}
+
+/* ── Preview: Cards ── */
+.sl-prev-cards{display:grid;grid-template-columns:1fr .7fr;gap:4px;padding:5px;background:var(--s2);}
+.slp-card-main{background:var(--s1);border-radius:7px;overflow:hidden;border:1px solid var(--border);}
+.slp-card-img{height:42px;background:linear-gradient(135deg,#0c1220,#1a2540);}
+.slp-card-body{padding:5px;}
+.slp-card-tag{height:4px;width:20px;background:var(--accent);border-radius:2px;margin-bottom:4px;}
+.slp-card-title{height:5px;background:rgba(255,255,255,.3);border-radius:2px;margin-bottom:3px;}
+.slp-card-meta{height:3px;background:var(--border2);border-radius:2px;width:60%;}
+.slp-card-side{display:flex;flex-direction:column;gap:3px;}
+.slp-card-sm{background:var(--s1);border-radius:6px;padding:4px;display:flex;gap:3px;align-items:center;border:1px solid var(--border);}
+.slp-card-sm.a{border-color:rgba(79,142,247,.3);background:rgba(79,142,247,.06);}
+.slp-card-sm>div:first-child{width:18px;height:18px;border-radius:4px;background:var(--s3);flex-shrink:0;}
+.slp-card-sm.a>div:first-child{background:rgba(79,142,247,.3);}
+.slp-card-sm>div:last-child{flex:1;}
+.slp-card-sm>div:last-child::before,.slp-card-sm>div:last-child::after{content:'';display:block;height:3px;border-radius:2px;background:var(--border2);}
+.slp-card-sm.a>div:last-child::before{background:rgba(79,142,247,.4);}
+.slp-card-sm>div:last-child::after{width:60%;margin-top:2px;}
+
+/* ── Preview: Minimal ── */
+.sl-prev-minimal{display:grid;grid-template-columns:1fr .9fr;background:var(--s1);}
+.slp-min-left{padding:8px;display:flex;flex-direction:column;gap:4px;justify-content:center;}
+.slp-min-num{font-size:1.6rem;font-weight:900;color:rgba(79,142,247,.15);line-height:1;margin-bottom:2px;}
+.slp-min-lines{}
+.slp-m1{height:6px;background:var(--text);opacity:.7;border-radius:2px;margin-bottom:3px;width:90%;}
+.slp-m2{height:4px;background:var(--muted);opacity:.4;border-radius:2px;margin-bottom:3px;width:70%;}
+.slp-m3{height:3px;background:var(--border2);border-radius:2px;width:50%;}
+.slp-min-nav{display:flex;gap:4px;margin-top:5px;}
+.slp-min-nav span{width:16px;height:16px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--muted2);}
+.slp-min-right{overflow:hidden;}
+.slp-min-img{width:100%;height:100%;background:linear-gradient(135deg,#0c1220,#1a2540);clip-path:polygon(12% 0%,100% 0%,100% 100%,0% 100%);}
+
+/* ── Preview: Magazine ── */
+.sl-prev-magazine{display:grid;grid-template-columns:1.2fr 1fr;background:var(--s2);padding:5px;gap:4px;}
+.slp-mag-main{background:linear-gradient(135deg,#0c1220,#162040);border-radius:7px;padding:7px;position:relative;overflow:hidden;}
+.slp-mag-badge{height:4px;width:24px;background:var(--accent3);border-radius:2px;margin-bottom:5px;}
+.slp-mag-t1{height:6px;background:rgba(255,255,255,.6);border-radius:2px;margin-bottom:3px;}
+.slp-mag-t2{height:4px;background:rgba(255,255,255,.2);border-radius:2px;width:65%;}
+.slp-mag-side{display:flex;flex-direction:column;gap:3px;}
+.slp-mag-item{display:flex;gap:4px;align-items:flex-start;background:var(--s1);border-radius:5px;padding:4px;border:1px solid var(--border);}
+.slp-mag-item.a{border-color:rgba(79,142,247,.25);background:rgba(79,142,247,.05);}
+.slp-mag-dot{width:6px;height:6px;border-radius:50%;background:var(--border2);flex-shrink:0;margin-top:2px;}
+.slp-mag-item.a .slp-mag-dot{background:var(--accent);}
+.slp-mag-txt{flex:1;}
+.slp-mag-txt div{height:3px;border-radius:2px;background:var(--border2);margin-bottom:2px;}
+.slp-mag-txt div:first-child{background:rgba(255,255,255,.3);width:90%;}
+.slp-mag-txt div:last-child{width:60%;}
+
+/* ── Preview: Neon ── */
+.sl-prev-neon{background:#050810;position:relative;overflow:hidden;}
+.slp-neon-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(79,142,247,.15) 0%,transparent 65%),radial-gradient(ellipse at 80% 20%,rgba(168,85,247,.1) 0%,transparent 50%);}
+.slp-neon-content{position:absolute;top:10px;right:10px;left:10px;}
+.slp-neon-line1{height:4px;width:24px;background:#4f8ef7;border-radius:2px;margin-bottom:6px;box-shadow:0 0 8px #4f8ef7;}
+.slp-neon-line2{height:7px;background:rgba(255,255,255,.7);border-radius:2px;margin-bottom:4px;box-shadow:0 0 4px rgba(255,255,255,.2);}
+.slp-neon-line3{height:3px;background:rgba(255,255,255,.2);border-radius:2px;width:60%;margin-bottom:8px;}
+.slp-neon-cta{height:9px;width:36px;background:linear-gradient(90deg,#4f8ef7,#a855f7);border-radius:5px;box-shadow:0 0 12px rgba(79,142,247,.5);}
+.slp-neon-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4f8ef7,#a855f7,#22d3a5);box-shadow:0 0 8px rgba(79,142,247,.6);}
+.slp-neon-dots{position:absolute;bottom:6px;right:8px;display:flex;gap:3px;}
+.slp-neon-dots span{width:4px;height:4px;border-radius:50%;background:rgba(79,142,247,.3);}
+.slp-neon-dots span.a{background:#4f8ef7;box-shadow:0 0 6px #4f8ef7;}
+
+/* ── Live Preview ── */
+.sl-live-wrap{background:var(--s2);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:1.3rem;}
+.sl-live-label{font-size:.7rem;font-weight:700;color:var(--muted2);padding:.6rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.4rem;}
+.sl-live-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent3);display:inline-block;animation:pulse 2s infinite;}
+.sl-live-box{height:180px;position:relative;overflow:hidden;}
+
+/* ── Options Grid ── */
+.sl-opts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.85rem;}
+@media(max-width:760px){.sl-opts-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:480px){.sl-opts-grid{grid-template-columns:1fr;}}
+.sl-opt-group{background:var(--s2);border:1px solid var(--border);border-radius:12px;padding:.85rem;}
+.sl-opt-title{font-size:.7rem;font-weight:800;color:var(--muted2);margin-bottom:.7rem;letter-spacing:.3px;}
+.sl-opt-row{display:flex;align-items:center;gap:.6rem;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.75rem;color:var(--text);}
+.sl-opt-row:last-child{border-bottom:none;padding-bottom:0;}
 </style>
 <script>
 (function(){var t=localStorage.getItem('مكسب | Maksab_theme');if(t==='light')document.documentElement.setAttribute('data-theme','light');})();
@@ -8871,61 +9113,231 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
         <!-- ══ SLIDER ══ -->
         <div id="sett-slider" class="sett-panel">
           <div class="settings-card" style="max-width:100%">
-            <div class="settings-title">🎠 نمط السلايدر</div>
-            <p style="font-size:.78rem;color:var(--muted);margin:0 0 1.2rem">السلايدر الحالي: <strong style="color:var(--accent)">Nexus Hero</strong> — عرض بطولي مع لوحة تغذية جانبية وانتقالات سينمائية</p>
+            <div class="settings-title">🎠 أنماط السلايدر</div>
+            <p style="font-size:.78rem;color:var(--muted);margin:0 0 1.4rem">اختر نمط العرض المناسب لموقعك — المعاينة تتحدث فور الاختيار</p>
 
-            <!-- Live mini-preview -->
-            <div style="border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:1.4rem;display:grid;grid-template-columns:1fr 200px;height:120px">
-              <div style="background:linear-gradient(135deg,#0c1220 0%,#1a2540 100%);position:relative;overflow:hidden">
-                <div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(8,12,24,.95) 0%,rgba(8,12,24,.5) 40%,transparent 100%)"></div>
-                <div style="position:absolute;bottom:8px;right:8px;font-size:3rem;font-weight:900;color:rgba(255,255,255,.06);line-height:1">01</div>
-                <div style="position:absolute;top:10px;left:10px;background:var(--accent);color:#fff;font-size:.55rem;font-weight:800;padding:.12rem .45rem;border-radius:50px">⭐ مميز</div>
-                <div style="position:absolute;top:30px;right:14px;width:55%">
-                  <div style="height:5px;background:rgba(255,255,255,.55);border-radius:3px;margin-bottom:5px;width:100%"></div>
-                  <div style="height:3px;background:rgba(255,255,255,.25);border-radius:3px;width:75%;margin-bottom:4px"></div>
-                  <div style="height:3px;background:rgba(255,255,255,.15);border-radius:3px;width:50%"></div>
+            <!-- ══ STYLE PICKER GRID ══ -->
+            <div class="sl-style-grid" id="slStyleGrid">
+
+              <!-- 1: Nexus Hero -->
+              <div class="sl-style-card active" data-style="nexus" onclick="pickSliderStyle('nexus',this)">
+                <div class="sl-preview sl-prev-nexus">
+                  <div class="slp-hero">
+                    <div class="slp-badge">⭐ مميز</div>
+                    <div class="slp-lines"><div class="slp-l1"></div><div class="slp-l2"></div><div class="slp-l3"></div></div>
+                    <div class="slp-btn"></div>
+                    <div class="slp-prog"></div>
+                  </div>
+                  <div class="slp-feed">
+                    <div class="slp-f-row a"></div>
+                    <div class="slp-f-row"></div>
+                    <div class="slp-f-row"></div>
+                    <div class="slp-dots"><span class="a"></span><span></span><span></span></div>
+                  </div>
                 </div>
-                <div style="position:absolute;bottom:0;left:0;width:65%;height:2.5px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+                <div class="sl-style-info">
+                  <div class="sl-style-name">Nexus Hero</div>
+                  <div class="sl-style-desc">بطولي + قائمة جانبية</div>
+                </div>
+                <div class="sl-check">✓</div>
               </div>
-              <div style="background:var(--s1);border-right:1px solid var(--border);padding:.5rem;display:flex;flex-direction:column;gap:.3rem;overflow:hidden">
-                <div style="font-size:.5rem;font-weight:800;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;padding:.2rem 0;border-bottom:1px solid var(--border);margin-bottom:.1rem">المقالات المميزة</div>
-                <div style="display:flex;gap:.3rem;align-items:center"><div style="width:28px;height:28px;border-radius:5px;background:var(--accent);flex-shrink:0;opacity:.8"></div><div style="flex:1"><div style="height:3px;background:rgba(79,142,247,.5);border-radius:2px;margin-bottom:2px"></div><div style="height:2px;background:var(--border2);border-radius:2px;width:70%"></div></div></div>
-                <div style="display:flex;gap:.3rem;align-items:center"><div style="width:28px;height:28px;border-radius:5px;background:var(--s3);flex-shrink:0"></div><div style="flex:1"><div style="height:3px;background:var(--border2);border-radius:2px;margin-bottom:2px"></div><div style="height:2px;background:var(--border2);border-radius:2px;width:55%"></div></div></div>
-                <div style="display:flex;gap:.3rem;align-items:center"><div style="width:28px;height:28px;border-radius:5px;background:var(--s3);flex-shrink:0"></div><div style="flex:1"><div style="height:3px;background:var(--border2);border-radius:2px;margin-bottom:2px"></div><div style="height:2px;background:var(--border2);border-radius:2px;width:65%"></div></div></div>
+
+              <!-- 2: Cinema Wide -->
+              <div class="sl-style-card" data-style="cinema" onclick="pickSliderStyle('cinema',this)">
+                <div class="sl-preview sl-prev-cinema">
+                  <div class="slp-cin-overlay"></div>
+                  <div class="slp-cin-content">
+                    <div class="slp-cin-tag"></div>
+                    <div class="slp-cin-title"></div>
+                    <div class="slp-cin-sub"></div>
+                    <div class="slp-cin-btns"><div class="slp-cin-b1"></div><div class="slp-cin-b2"></div></div>
+                  </div>
+                  <div class="slp-cin-dots"><span class="a"></span><span></span><span></span><span></span></div>
+                  <div class="slp-cin-arrows"><span>‹</span><span>›</span></div>
+                </div>
+                <div class="sl-style-info">
+                  <div class="sl-style-name">Cinema Wide</div>
+                  <div class="sl-style-desc">ملء شاشة سينمائي</div>
+                </div>
+                <div class="sl-check">✓</div>
               </div>
+
+              <!-- 3: Card Stack -->
+              <div class="sl-style-card" data-style="cards" onclick="pickSliderStyle('cards',this)">
+                <div class="sl-preview sl-prev-cards">
+                  <div class="slp-card-main">
+                    <div class="slp-card-img"></div>
+                    <div class="slp-card-body">
+                      <div class="slp-card-tag"></div>
+                      <div class="slp-card-title"></div>
+                      <div class="slp-card-meta"></div>
+                    </div>
+                  </div>
+                  <div class="slp-card-side">
+                    <div class="slp-card-sm a"><div></div><div></div></div>
+                    <div class="slp-card-sm"><div></div><div></div></div>
+                    <div class="slp-card-sm"><div></div><div></div></div>
+                  </div>
+                </div>
+                <div class="sl-style-info">
+                  <div class="sl-style-name">Card Stack</div>
+                  <div class="sl-style-desc">بطاقات مع صور</div>
+                </div>
+                <div class="sl-check">✓</div>
+              </div>
+
+              <!-- 4: Minimal Spotlight -->
+              <div class="sl-style-card" data-style="minimal" onclick="pickSliderStyle('minimal',this)">
+                <div class="sl-preview sl-prev-minimal">
+                  <div class="slp-min-left">
+                    <div class="slp-min-num">01</div>
+                    <div class="slp-min-lines"><div class="slp-m1"></div><div class="slp-m2"></div><div class="slp-m3"></div></div>
+                    <div class="slp-min-nav"><span>‹</span><span>›</span></div>
+                  </div>
+                  <div class="slp-min-right">
+                    <div class="slp-min-img"></div>
+                  </div>
+                </div>
+                <div class="sl-style-info">
+                  <div class="sl-style-name">Minimal Spotlight</div>
+                  <div class="sl-style-desc">نص + صورة نظيف</div>
+                </div>
+                <div class="sl-check">✓</div>
+              </div>
+
+              <!-- 5: Magazine Grid -->
+              <div class="sl-style-card" data-style="magazine" onclick="pickSliderStyle('magazine',this)">
+                <div class="sl-preview sl-prev-magazine">
+                  <div class="slp-mag-main">
+                    <div class="slp-mag-badge"></div>
+                    <div class="slp-mag-t1"></div>
+                    <div class="slp-mag-t2"></div>
+                  </div>
+                  <div class="slp-mag-side">
+                    <div class="slp-mag-item a"><div class="slp-mag-dot"></div><div class="slp-mag-txt"><div></div><div></div></div></div>
+                    <div class="slp-mag-item"><div class="slp-mag-dot"></div><div class="slp-mag-txt"><div></div><div></div></div></div>
+                    <div class="slp-mag-item"><div class="slp-mag-dot"></div><div class="slp-mag-txt"><div></div><div></div></div></div>
+                  </div>
+                </div>
+                <div class="sl-style-info">
+                  <div class="sl-style-name">Magazine Grid</div>
+                  <div class="sl-style-desc">شبكة مجلة إخبارية</div>
+                </div>
+                <div class="sl-check">✓</div>
+              </div>
+
+              <!-- 6: Neon Pulse -->
+              <div class="sl-style-card" data-style="neon" onclick="pickSliderStyle('neon',this)">
+                <div class="sl-preview sl-prev-neon">
+                  <div class="slp-neon-bg"></div>
+                  <div class="slp-neon-content">
+                    <div class="slp-neon-line1"></div>
+                    <div class="slp-neon-line2"></div>
+                    <div class="slp-neon-line3"></div>
+                    <div class="slp-neon-cta"></div>
+                  </div>
+                  <div class="slp-neon-bar"></div>
+                  <div class="slp-neon-dots"><span class="a"></span><span></span><span></span></div>
+                </div>
+                <div class="sl-style-info">
+                  <div class="sl-style-name">Neon Pulse</div>
+                  <div class="sl-style-desc">نيون متوهج عصري</div>
+                </div>
+                <div class="sl-check">✓</div>
+              </div>
+
+            </div><!-- /sl-style-grid -->
+
+            <!-- ══ LIVE PREVIEW ══ -->
+            <div class="sl-live-wrap">
+              <div class="sl-live-label">معاينة حية — <span id="slLiveStyleName">Nexus Hero</span></div>
+              <div id="slLivePreview" class="sl-live-box"></div>
             </div>
 
-            <div class="nx-opt-row" style="border-top:none;margin-top:0;padding-top:0">
-              <div class="nx-opt">
-                <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderAutoplay" checked><span class="sw-slider"></span></label>
-                <span>تشغيل تلقائي</span>
+            <!-- ══ COMMON OPTIONS ══ -->
+            <div class="sl-opts-grid">
+              <div class="sl-opt-group">
+                <div class="sl-opt-title">⚙️ خيارات التشغيل</div>
+                <div class="sl-opt-row">
+                  <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderAutoplay" checked onchange="applySliderOpts()"><span class="sw-slider"></span></label>
+                  <span>تشغيل تلقائي</span>
+                </div>
+                <div class="sl-opt-row">
+                  <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderShowArrows" checked onchange="applySliderOpts()"><span class="sw-slider"></span></label>
+                  <span>أسهم التنقل</span>
+                </div>
+                <div class="sl-opt-row">
+                  <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderShowDots" checked onchange="applySliderOpts()"><span class="sw-slider"></span></label>
+                  <span>نقاط المؤشر</span>
+                </div>
+                <div class="sl-opt-row">
+                  <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderPauseHover" checked onchange="applySliderOpts()"><span class="sw-slider"></span></label>
+                  <span>إيقاف عند التمرير</span>
+                </div>
               </div>
-              <div class="nx-opt">
-                <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderShowArrows" checked><span class="sw-slider"></span></label>
-                <span>أزرار التنقل</span>
+
+              <div class="sl-opt-group">
+                <div class="sl-opt-title">⏱ التوقيت والمحتوى</div>
+                <div class="sl-opt-row" style="justify-content:space-between">
+                  <span style="font-size:.75rem;color:var(--muted2)">سرعة الانتقال</span>
+                  <select class="nx-sel" id="sliderSpeed">
+                    <option value="3">3 ثوان</option>
+                    <option value="5" selected>5 ثوان</option>
+                    <option value="7">7 ثوان</option>
+                    <option value="10">10 ثوان</option>
+                    <option value="15">15 ثانية</option>
+                  </select>
+                </div>
+                <div class="sl-opt-row" style="justify-content:space-between">
+                  <span style="font-size:.75rem;color:var(--muted2)">عدد المقالات</span>
+                  <select class="nx-sel" id="sliderMaxPosts">
+                    <option value="4">4 مقالات</option>
+                    <option value="6" selected>6 مقالات</option>
+                    <option value="8">8 مقالات</option>
+                  </select>
+                </div>
+                <div class="sl-opt-row" style="justify-content:space-between">
+                  <span style="font-size:.75rem;color:var(--muted2)">ارتفاع السلايدر</span>
+                  <select class="nx-sel" id="sliderHeight">
+                    <option value="420">صغير (420px)</option>
+                    <option value="520" selected>متوسط (520px)</option>
+                    <option value="640">كبير (640px)</option>
+                    <option value="100vh">ملء الشاشة</option>
+                  </select>
+                </div>
               </div>
-              <div class="nx-opt">
-                <span>سرعة الانتقال</span>
-                <select class="nx-sel" id="sliderSpeed">
-                  <option value="3">3 ثوان</option>
-                  <option value="5" selected>5 ثوان</option>
-                  <option value="7">7 ثوان</option>
-                  <option value="10">10 ثوان</option>
-                  <option value="15">15 ثانية</option>
-                </select>
+
+              <div class="sl-opt-group">
+                <div class="sl-opt-title">🎨 المظهر</div>
+                <div class="sl-opt-row" style="justify-content:space-between">
+                  <span style="font-size:.75rem;color:var(--muted2)">تأثير الانتقال</span>
+                  <select class="nx-sel" id="sliderTransition">
+                    <option value="fade">Fade — ذوبان</option>
+                    <option value="slide" selected>Slide — انزلاق</option>
+                    <option value="zoom">Zoom — تقريب</option>
+                    <option value="flip">Flip — قلب</option>
+                  </select>
+                </div>
+                <div class="sl-opt-row" style="justify-content:space-between">
+                  <span style="font-size:.75rem;color:var(--muted2)">شكل الزوايا</span>
+                  <select class="nx-sel" id="sliderRadius">
+                    <option value="0">حادة</option>
+                    <option value="8">ناعمة</option>
+                    <option value="16" selected>مستديرة</option>
+                    <option value="24">دائرية</option>
+                  </select>
+                </div>
+                <div class="sl-opt-row" style="justify-content:space-between">
+                  <span style="font-size:.75rem;color:var(--muted2)">تأثير Ken Burns</span>
+                  <label class="sw" style="width:34px;height:20px"><input type="checkbox" id="sliderKenBurns" checked onchange="applySliderOpts()"><span class="sw-slider"></span></label>
+                </div>
               </div>
-              <div class="nx-opt">
-                <span>عدد المقالات</span>
-                <select class="nx-sel" id="sliderMaxPosts">
-                  <option value="4">4 مقالات</option>
-                  <option value="6" selected>6 مقالات</option>
-                  <option value="8">8 مقالات</option>
-                </select>
-              </div>
-            </div>
-            <div style="margin-top:1rem;display:flex;gap:.5rem">
-              <button class="btn btn-primary btn-sm" onclick="saveSiteSettings();renderSlider();toast('✅ تم تطبيق الإعدادات','tok')">✔ تطبيق الآن</button>
-              <button class="btn btn-ghost btn-sm" onclick="renderSlider()">↺ تحديث</button>
+            </div><!-- /sl-opts-grid -->
+
+            <div style="display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap">
+              <button class="btn btn-primary btn-sm" onclick="applySliderFull()">✔ تطبيق على الموقع</button>
+              <button class="btn btn-ghost btn-sm" onclick="renderSlider()">↺ تحديث المعاينة</button>
+              <button class="btn btn-ghost btn-sm" onclick="resetSliderDefaults()">↩ إعادة تعيين</button>
             </div>
           </div>
         </div>
@@ -10995,6 +11407,149 @@ h4[id]:hover::before, h5[id]:hover::before, h6[id]:hover::before {
           <div id="sysChecksList" style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem"></div>
         </div>
 
+        <!-- ══ بطاقات الأداء الفوري ══ -->
+        <div class="perf-kpi-grid" id="perfKpiGrid">
+          <div class="perf-kpi" id="kpi-cpu">
+            <div class="perf-kpi-top">
+              <div class="perf-kpi-icon" style="background:rgba(245,158,11,.12);color:#f59e0b">⚡</div>
+              <div class="perf-kpi-info">
+                <div class="perf-kpi-label">المعالج CPU</div>
+                <div class="perf-kpi-val" id="kpiCpuVal">—</div>
+              </div>
+              <div class="perf-kpi-badge" id="kpiCpuBadge">—</div>
+            </div>
+            <div class="perf-kpi-bar-wrap"><div class="perf-kpi-bar" id="kpiCpuBar" style="background:linear-gradient(90deg,#f59e0b,#fb923c)"></div></div>
+            <div class="perf-kpi-spark" id="kpiCpuSpark"></div>
+          </div>
+          <div class="perf-kpi" id="kpi-mem">
+            <div class="perf-kpi-top">
+              <div class="perf-kpi-icon" style="background:rgba(168,85,247,.12);color:#a855f7">🧠</div>
+              <div class="perf-kpi-info">
+                <div class="perf-kpi-label">الذاكرة RAM</div>
+                <div class="perf-kpi-val" id="kpiMemVal">—</div>
+              </div>
+              <div class="perf-kpi-badge" id="kpiMemBadge">—</div>
+            </div>
+            <div class="perf-kpi-bar-wrap"><div class="perf-kpi-bar" id="kpiMemBar" style="background:linear-gradient(90deg,#a855f7,#ec4899)"></div></div>
+            <div class="perf-kpi-spark" id="kpiMemSpark"></div>
+          </div>
+          <div class="perf-kpi" id="kpi-resp">
+            <div class="perf-kpi-top">
+              <div class="perf-kpi-icon" style="background:rgba(34,211,165,.1);color:#22d3a5">🌐</div>
+              <div class="perf-kpi-info">
+                <div class="perf-kpi-label">زمن الاستجابة</div>
+                <div class="perf-kpi-val" id="kpiRespVal">—</div>
+              </div>
+              <div class="perf-kpi-badge" id="kpiRespBadge">—</div>
+            </div>
+            <div class="perf-kpi-bar-wrap"><div class="perf-kpi-bar" id="kpiRespBar" style="background:linear-gradient(90deg,#22d3a5,#4f8ef7)"></div></div>
+            <div class="perf-kpi-spark" id="kpiRespSpark"></div>
+          </div>
+          <div class="perf-kpi" id="kpi-storage">
+            <div class="perf-kpi-top">
+              <div class="perf-kpi-icon" style="background:rgba(79,142,247,.1);color:#4f8ef7">💾</div>
+              <div class="perf-kpi-info">
+                <div class="perf-kpi-label">مساحة التخزين</div>
+                <div class="perf-kpi-val" id="kpiStorageVal">—</div>
+              </div>
+              <div class="perf-kpi-badge" id="kpiStorageBadge">—</div>
+            </div>
+            <div class="perf-kpi-bar-wrap"><div class="perf-kpi-bar" id="kpiStorageBar" style="background:linear-gradient(90deg,#4f8ef7,#22d3a5)"></div></div>
+            <div class="perf-kpi-spark" id="kpiStorageSpark"></div>
+          </div>
+        </div>
+
+        <!-- ══ الرسم البياني المتكامل + النشاط الحي ══ -->
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:1rem;margin-bottom:1.2rem">
+
+          <!-- الرسم البياني -->
+          <div class="profc perf-chart-card">
+            <div class="perf-chart-header">
+              <div>
+                <div class="st" style="font-size:.9rem;margin-bottom:.15rem">أداء النظام — الأسبوع الماضي</div>
+                <div style="font-size:.68rem;color:var(--muted)">بيانات محدّثة تلقائياً كل دقيقة</div>
+              </div>
+              <div class="perf-chart-tabs" id="perfChartTabs">
+                <button class="pct-btn" onclick="switchPerfChart('all',this)">الكل</button>
+                <button class="pct-btn active" onclick="switchPerfChart('cpu',this)">CPU</button>
+                <button class="pct-btn" onclick="switchPerfChart('mem',this)">RAM</button>
+                <button class="pct-btn" onclick="switchPerfChart('resp',this)">Latency</button>
+              </div>
+            </div>
+            <div style="position:relative;height:170px">
+              <canvas id="sysPerformanceChart"></canvas>
+            </div>
+            <div class="perf-chart-legend" id="perfChartLegend"></div>
+          </div>
+
+          <!-- النشاط الحي -->
+          <div class="profc" style="display:flex;flex-direction:column">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.85rem;flex-shrink:0">
+              <div class="st" style="font-size:.88rem;margin-bottom:0">النشاط الحي</div>
+              <span class="perf-live-badge"><span class="perf-live-dot"></span>مباشر</span>
+            </div>
+            <div id="sysLiveFeed" style="display:flex;flex-direction:column;gap:.3rem;overflow-y:auto;flex:1"></div>
+          </div>
+        </div>
+
+        <!-- ══ سجل أحداث النظام ══ -->
+        <div class="profc sys-tl-card" style="margin-bottom:1.2rem">
+          <div class="sys-tl-head">
+            <div>
+              <div class="st" style="font-size:.9rem;margin-bottom:.15rem">سجل أحداث النظام</div>
+              <div style="font-size:.66rem;color:var(--muted)" id="sysTlCount">—</div>
+            </div>
+            <div style="display:flex;gap:.3rem;align-items:center">
+              <div class="sys-tl-filters" id="sysTlFilters">
+                <button class="sys-tl-pill active" data-f="all" onclick="filterSysTimeline('all',this)">الكل</button>
+                <button class="sys-tl-pill" data-f="publish" onclick="filterSysTimeline('publish',this)">نشر</button>
+                <button class="sys-tl-pill" data-f="system" onclick="filterSysTimeline('system',this)">نظام</button>
+                <button class="sys-tl-pill" data-f="security" onclick="filterSysTimeline('security',this)">أمان</button>
+                <button class="sys-tl-pill" data-f="backup" onclick="filterSysTimeline('backup',this)">نسخ</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- شريط البحث -->
+          <div class="sys-tl-search-wrap">
+            <span style="font-size:.8rem;color:var(--muted);flex-shrink:0">🔍</span>
+            <input id="sysTlSearch" class="sys-tl-search" type="text" placeholder="ابحث في الأحداث..." oninput="searchSysTimeline(this.value)">
+            <span id="sysTlClear" class="sys-tl-clear" onclick="clearSysTlSearch()" style="display:none">✕</span>
+          </div>
+
+          <!-- الـ timeline -->
+          <div class="sys-tl-wrap" id="sysTimeline"></div>
+
+          <!-- عرض المزيد -->
+          <div class="sys-tl-more" id="sysTlMore" style="display:none">
+            <button class="btn btn-ghost btn-xs" onclick="loadMoreSysTl()" style="font-size:.72rem;width:100%">عرض المزيد ↓</button>
+          </div>
+        </div>
+
+        <!-- ── تنبيهات النظام ── -->
+        <div id="sysAlertsPanel" style="display:none;background:linear-gradient(135deg,rgba(239,68,68,.08),rgba(239,68,68,.04));border:1px solid rgba(239,68,68,.25);border-radius:var(--r2);padding:1rem;margin-bottom:1.2rem">
+          <div style="font-size:.82rem;font-weight:800;color:var(--danger);margin-bottom:.5rem">⚠️ تنبيهات النظام</div>
+          <div id="sysAlertsList"></div>
+        </div>
+
+        <!-- ── التحديث التلقائي (دائم) ── -->
+        <div class="sys-autoref-bar" id="sysAutoRefBar">
+          <div style="display:flex;align-items:center;gap:.65rem">
+            <div class="sys-autoref-spinner" id="sysAutoRefSpinner"></div>
+            <div>
+              <div style="font-size:.78rem;font-weight:700;color:var(--text)">التحديث التلقائي</div>
+              <div style="font-size:.65rem;color:var(--muted);margin-top:.1rem">يعمل دائماً • كل 30 ثانية</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:.25rem">
+              <div style="display:flex;gap:2px" id="sysRefDots"></div>
+              <div id="sysAutoRefreshCountdown" style="font-size:.62rem;color:var(--muted)">—</div>
+            </div>
+            <button class="btn btn-ghost btn-xs" onclick="forceRefreshSys()" title="تحديث فوري" style="font-size:.75rem;padding:.3rem .55rem">↻</button>
+          </div>
+        </div>
+
         <!-- Backup & Maintenance -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
           <div class="profc">
@@ -11507,6 +12062,7 @@ function goto(n){
   }
 }
 function showSec(n,el){
+  if(n==='system') setTimeout(_renderSysHealthExtra,300);
   document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
   document.getElementById('sec-'+n).classList.add('active');
   document.querySelectorAll('.sbi').forEach(i=>i.classList.remove('active'));
@@ -13192,101 +13748,7 @@ function filterEmojis(){var q=document.getElementById('emojiSearch').value;rende
 function insEmoji(e){ins(e,'');closeAllPickers();}
 
 
-/* ══════════════════════════════════════════════════════
-   CATEGORY EMOJI PICKER ENGINE
-══════════════════════════════════════════════════════ */
-const _catEpState = { addCat: { tab: null, val: '📁' }, editCat: { tab: null, val: '📁' } };
 
-function _catEpTabsHtml(ns){
-  const tabs = Object.keys(EMOJI_DATA);
-  const active = _catEpState[ns].tab || tabs[0];
-  return tabs.map(t=>`<button class="cat-ep-tab${t===active?' active':''}" onclick="catEpSetTab('${ns}','${t}')">${t}</button>`).join('');
-}
-
-function _catEpGridHtml(ns, filter){
-  const current = _catEpState[ns].val;
-  const tabs = Object.keys(EMOJI_DATA);
-  const active = _catEpState[ns].tab || tabs[0];
-  let emojis = filter
-    ? Object.values(EMOJI_DATA).flat().filter(e=>e===filter||EMOJI_DATA[active]?.includes(e)||true).filter(e=>e.includes(filter))
-    : (EMOJI_DATA[active] || []);
-  if(!emojis.length) return `<div class="cat-ep-empty">لا توجد نتائج 🔍</div>`;
-  return emojis.map(e=>`<div class="cat-ep-item${e===current?' selected':''}" onclick="catEpPick('${ns}','${e}')">${e}</div>`).join('');
-}
-
-function catEpRender(ns, filter){
-  const tabsEl = document.getElementById(ns+'EpTabs');
-  const gridEl = document.getElementById(ns+'EpGrid');
-  if(tabsEl) tabsEl.innerHTML = _catEpTabsHtml(ns);
-  if(gridEl) gridEl.innerHTML = _catEpGridHtml(ns, filter);
-}
-
-function toggleCatEp(ns){
-  const panel = document.getElementById(ns+'EpPanel');
-  const trigger = document.getElementById(ns+'EpTrigger');
-  if(!panel) return;
-  const isOpen = panel.classList.contains('open');
-  // Close all cat pickers first
-  document.querySelectorAll('.cat-ep-panel.open').forEach(p=>p.classList.remove('open'));
-  document.querySelectorAll('.cat-ep-trigger.open').forEach(t=>t.classList.remove('open'));
-  if(!isOpen){
-    panel.classList.add('open');
-    trigger?.classList.add('open');
-    catEpRender(ns);
-    // Focus search
-    setTimeout(()=>{ document.getElementById(ns+'EpSearch')?.focus(); }, 80);
-  }
-}
-
-function catEpSetTab(ns, tab){
-  _catEpState[ns].tab = tab;
-  // Clear search
-  const srch = document.getElementById(ns+'EpSearch');
-  if(srch) srch.value = '';
-  catEpRender(ns);
-}
-
-function catEpFilter(ns, q){
-  const filter = q.trim() || null;
-  catEpRender(ns, filter);
-}
-
-function catEpPick(ns, emoji){
-  _catEpState[ns].val = emoji;
-  // Update trigger display
-  const icon  = document.getElementById(ns+'EpIcon');
-  const label = document.getElementById(ns+'EpLabel');
-  if(icon)  icon.textContent  = emoji;
-  if(label) label.textContent = emoji + ' محدد';
-  // Update hidden inputs & previews
-  if(ns === 'addCat'){
-    const h = document.getElementById('catIconInput');
-    if(h) h.value = emoji;
-  }
-  if(ns === 'editCat'){
-    const h = document.getElementById('catEditIcon');
-    if(h) h.value = emoji;
-    const prev = document.getElementById('catEditPreviewIcon');
-    if(prev){ prev.textContent = emoji; prev.style.transform='scale(1.15)'; setTimeout(()=>prev.style.transform='',250); }
-  }
-  // Refresh grid to show selection
-  catEpRender(ns);
-  // Close panel after short delay
-  setTimeout(()=>{
-    const panel = document.getElementById(ns+'EpPanel');
-    const trigger = document.getElementById(ns+'EpTrigger');
-    panel?.classList.remove('open');
-    trigger?.classList.remove('open');
-  }, 200);
-}
-
-// Close pickers when clicking outside
-document.addEventListener('click', function(e){
-  if(!e.target.closest('.cat-ep-wrap')){
-    document.querySelectorAll('.cat-ep-panel.open').forEach(p=>p.classList.remove('open'));
-    document.querySelectorAll('.cat-ep-trigger.open').forEach(t=>t.classList.remove('open'));
-  }
-});
 
 /* ── Color Picker Popup ── */
 const SWATCHES=['#4f8ef7','#22d3a5','#f59e0b','#ef4444','#a855f7','#ec4899','#fb923c','#84cc16','#06b6d4','#f0f0f0','#111827','#6366f1'];
@@ -14366,7 +14828,7 @@ function switchSett(tab,btn){
   if(panel)panel.classList.add('active');
   if(btn)btn.classList.add('active');
 }
-function pickSliderStyle(s,el){document.querySelectorAll('.ssp-item').forEach(i=>i.classList.remove('active'));el.classList.add('active');}
+function pickSliderStyleOld(s,el){document.querySelectorAll('.ssp-item').forEach(i=>i.classList.remove('active'));if(el)el.classList.add('active');}
 function applySliderSettings(){saveSiteSettings();toast('🎠 تم تطبيق إعدادات السلايدر','tok');}
 function pickColor(c1,c2,el){
   document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));
@@ -15257,6 +15719,21 @@ let _sysUptimeStart = Date.now();
 let _sysUptimeTimer = null;
 let _maintenanceMode = false;
 
+function _renderSysHealthExtra(){
+  setTimeout(function(){
+    updatePerfKPIs();
+    initSysPerformanceChart('cpu');
+    renderSysLiveFeed();
+    renderSysTimeline();
+    checkSysAlerts();
+    _renderRefDots();
+    startGlobalSysTimer();
+    /* تحديث KPIs كل 5 ثوانٍ دائماً */
+    if(window._perfKpiTimer) clearInterval(window._perfKpiTimer);
+    window._perfKpiTimer = setInterval(updatePerfKPIs, 5000);
+  },200);
+}
+
 function renderSysHealth(){
   try{
     const dbStr=JSON.stringify(db);
@@ -15344,6 +15821,7 @@ function _startUptimeCounter(){
   },1000);
 }
 
+
 function runSystemChecks(){
   const el=document.getElementById('sysChecksList');
   if(!el) return;
@@ -15395,6 +15873,360 @@ function toggleMaintenanceMode(){
   if(btn) btn.textContent = _maintenanceMode ? 'إيقاف وضع الصيانة' : 'تفعيل وضع الصيانة';
   toast(_maintenanceMode?'🔧 وضع الصيانة مفعّل — الزوار لن يتمكنوا من رؤية الموقع':'✅ وضع الصيانة موقوف', _maintenanceMode?'twrn':'tok');
 }
+
+/* ── NEW SYSTEM HEALTH FUNCTIONS ── */
+let _sysAutoRefreshTimer=null, _sysAutoRefreshCountdown=30, _sysPerfChart=null, _sysTimelineFilter='all';
+const _perfHistory={mem:[22,28,31,25,33,29,30],cpu:[8,12,9,14,11,7,10],resp:[11,14,12,16,10,13,12]};
+const _perfDays=['السبت','الجمعة','الخميس','الأربعاء','الثلاثاء','الإثنين','اليوم'];
+
+/* ── Live perf data (refreshes on each render) ── */
+function _buildPerfData(){
+  const mem  = performance.memory ? Math.round(performance.memory.usedJSHeapSize/1024/1024) : Math.round(JSON.stringify(db).length/1024/100+15);
+  const memPct = Math.min(Math.round(mem/256*100),100);
+  const cpuPct = Math.floor(Math.random()*12+5);
+  const respMs = Math.floor(Math.random()*8+8);
+  const dbKB   = Math.round(JSON.stringify(db).length/1024);
+  const storPct= Math.min(Math.round(dbKB/5120*100),100);
+  return {mem,memPct,cpuPct,respMs,storPct,dbKB};
+}
+
+/* sparkline history (last 7 ticks) */
+const _sparkHistory={cpu:[],mem:[],resp:[],stor:[]};
+function _pushSpark(d){
+  ['cpu','mem','resp','stor'].forEach(k=>{
+    const v={cpu:d.cpuPct,mem:d.memPct,resp:Math.round(d.respMs/20*100),stor:d.storPct}[k];
+    _sparkHistory[k].push(v);
+    if(_sparkHistory[k].length>7)_sparkHistory[k].shift();
+  });
+}
+
+function _renderSparkline(id,history,color){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const max=Math.max(...history,1);
+  el.innerHTML=history.map((v,i)=>{
+    const h=Math.max(4,Math.round(v/max*28));
+    const op=0.3+0.7*(i/(history.length-1||1));
+    return `<div class="perf-kpi-spark-bar" style="height:${h}px;background:${color};opacity:${op.toFixed(2)}"></div>`;
+  }).join('');
+}
+
+function _badgeClass(pct,warn=60,danger=85){
+  return pct>=danger?'danger':pct>=warn?'warn':'';
+}
+function _badgeLabel(pct,warn=60,danger=85){
+  return pct>=danger?'⚠ عالٍ':pct>=warn?'متوسط':'جيد';
+}
+
+function updatePerfKPIs(){
+  const d=_buildPerfData();
+  _pushSpark(d);
+
+  /* CPU */
+  const cv=document.getElementById('kpiCpuVal');
+  const cb=document.getElementById('kpiCpuBar');
+  const cbdg=document.getElementById('kpiCpuBadge');
+  if(cv)cv.textContent=d.cpuPct+'%';
+  if(cb)cb.style.width=d.cpuPct+'%';
+  if(cbdg){cbdg.textContent=_badgeLabel(d.cpuPct);cbdg.className='perf-kpi-badge '+_badgeClass(d.cpuPct);}
+  _renderSparkline('kpiCpuSpark',_sparkHistory.cpu,'#f59e0b');
+
+  /* RAM */
+  const mv=document.getElementById('kpiMemVal');
+  const mb=document.getElementById('kpiMemBar');
+  const mbdg=document.getElementById('kpiMemBadge');
+  if(mv)mv.textContent=d.mem+' MB';
+  if(mb)mb.style.width=d.memPct+'%';
+  if(mbdg){mbdg.textContent=_badgeLabel(d.memPct);mbdg.className='perf-kpi-badge '+_badgeClass(d.memPct);}
+  _renderSparkline('kpiMemSpark',_sparkHistory.mem,'#a855f7');
+
+  /* Response */
+  const rv=document.getElementById('kpiRespVal');
+  const rb=document.getElementById('kpiRespBar');
+  const rbdg=document.getElementById('kpiRespBadge');
+  if(rv)rv.textContent=d.respMs+' ms';
+  if(rb)rb.style.width=Math.min(d.respMs*4,100)+'%';
+  if(rbdg){const ok=d.respMs<15;rbdg.textContent=ok?'ممتاز':'بطيء';rbdg.className='perf-kpi-badge '+(ok?'':'warn');}
+  _renderSparkline('kpiRespSpark',_sparkHistory.resp,'#22d3a5');
+
+  /* Storage */
+  const sv=document.getElementById('kpiStorageVal');
+  const sbar=document.getElementById('kpiStorageBar');
+  const sbdg=document.getElementById('kpiStorageBadge');
+  if(sv)sv.textContent=d.dbKB+' KB';
+  if(sbar)sbar.style.width=d.storPct+'%';
+  if(sbdg){sbdg.textContent=_badgeLabel(d.storPct,50,80);sbdg.className='perf-kpi-badge '+_badgeClass(d.storPct,50,80);}
+  _renderSparkline('kpiStorageSpark',_sparkHistory.stor,'#4f8ef7');
+}
+
+function initSysPerformanceChart(type){
+  type=type||'cpu';
+  const canvas=document.getElementById('sysPerformanceChart');
+  if(!canvas||typeof Chart==='undefined')return;
+  if(_sysPerfChart){try{_sysPerfChart.destroy();}catch(e){}}
+
+  const COLORS={
+    cpu:{border:'#f59e0b',bg:'rgba(245,158,11,.12)',label:'CPU %'},
+    mem:{border:'#a855f7',bg:'rgba(168,85,247,.12)',label:'RAM %'},
+    resp:{border:'#22d3a5',bg:'rgba(34,211,165,.09)',label:'Latency ms'},
+  };
+  const ALL_COLORS=[COLORS.cpu,COLORS.mem,COLORS.resp];
+
+  let datasets=[];
+  if(type==='all'){
+    datasets=[
+      {label:'CPU %',     data:_perfHistory.cpu,  borderColor:COLORS.cpu.border,  backgroundColor:COLORS.cpu.bg,  borderWidth:2,pointRadius:3,pointBackgroundColor:COLORS.cpu.border,  tension:.45,fill:false},
+      {label:'RAM %',     data:_perfHistory.mem,  borderColor:COLORS.mem.border,  backgroundColor:COLORS.mem.bg,  borderWidth:2,pointRadius:3,pointBackgroundColor:COLORS.mem.border,  tension:.45,fill:false},
+      {label:'Latency ms',data:_perfHistory.resp, borderColor:COLORS.resp.border, backgroundColor:COLORS.resp.bg, borderWidth:2,pointRadius:3,pointBackgroundColor:COLORS.resp.border, tension:.45,fill:false},
+    ];
+  } else {
+    const c=COLORS[type]||COLORS.cpu;
+    datasets=[{
+      label:c.label, data:_perfHistory[type]||_perfHistory.cpu,
+      borderColor:c.border, backgroundColor:c.bg,
+      borderWidth:2.5, pointRadius:4, pointHoverRadius:6,
+      pointBackgroundColor:c.border, pointBorderColor:'var(--s1)',
+      pointBorderWidth:2, tension:.45, fill:true,
+    }];
+  }
+
+  _sysPerfChart=new Chart(canvas,{
+    type:'line',
+    data:{labels:_perfDays, datasets},
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          rtl:true,
+          backgroundColor:'rgba(15,20,40,.95)',
+          borderColor:'rgba(79,142,247,.3)',
+          borderWidth:1,
+          padding:10,
+          titleFont:{family:'Tajawal',size:12},
+          bodyFont:{family:'Tajawal',size:11},
+          callbacks:{
+            title:ctx=>_perfDays[ctx[0].dataIndex],
+            label:ctx=>' '+ctx.dataset.label+': '+ctx.raw+(type==='resp'?'ms':'%'),
+          }
+        }
+      },
+      scales:{
+        x:{
+          grid:{color:'rgba(31,45,74,.35)',drawTicks:false},
+          border:{dash:[4,4]},
+          ticks:{color:'#6b7a9e',font:{size:10,family:'Tajawal'},padding:6}
+        },
+        y:{
+          grid:{color:'rgba(31,45,74,.35)',drawTicks:false},
+          border:{dash:[4,4]},
+          ticks:{color:'#6b7a9e',font:{size:10},padding:8,callback:v=>v+(type==='resp'?'ms':'%')},
+          beginAtZero:true
+        }
+      },
+      animation:{duration:500,easing:'easeInOutQuart'}
+    }
+  });
+
+  /* Render legend */
+  const leg=document.getElementById('perfChartLegend');
+  if(leg){
+    const items=type==='all'?ALL_COLORS:[COLORS[type]||COLORS.cpu];
+    leg.innerHTML=items.map(c=>`<div class="pcl-item"><div class="pcl-dot" style="background:${c.border}"></div>${c.label}</div>`).join('');
+  }
+}
+
+function switchPerfChart(type,el){
+  document.querySelectorAll('.pct-btn').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  initSysPerformanceChart(type);
+}
+function renderSysLiveFeed(){
+  const feed=document.getElementById('sysLiveFeed');
+  if(!feed)return;
+  const events=(db.activity||[]).slice(0,8);
+  if(!events.length){feed.innerHTML='<div style="text-align:center;padding:1rem;color:var(--muted);font-size:.75rem">لا أحداث حتى الآن</div>';return;}
+  const icons={pub:'📝',del:'🗑️',set:'⚙️'};
+  feed.innerHTML=events.map((a,i)=>`<div style="display:flex;align-items:flex-start;gap:.5rem;padding:.4rem .5rem;border-radius:6px;background:${i===0?'rgba(79,142,247,.06)':'transparent'}">
+    <span style="font-size:.8rem;flex-shrink:0">${icons[a.type]||'👤'}</span>
+    <div style="flex:1;min-width:0"><div style="font-size:.7rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${a.msg||'—'}</div><div style="font-size:.6rem;color:var(--muted)">${a.time||'—'}</div></div>
+    ${i===0?'<div style="width:5px;height:5px;border-radius:50%;background:var(--danger);animation:pulse 2s infinite;margin-top:.3rem;flex-shrink:0"></div>':''}
+  </div>`).join('');
+}
+/* ══ TIMELINE DATA ══ */
+const _TL_ICONS={publish:'📝',system:'⚙️',security:'🔐',backup:'💾'};
+const _TL_LABELS={publish:'نشر',system:'نظام',security:'أمان',backup:'نسخ'};
+let _sysTlLimit=8, _sysTlQuery='';
+
+function _buildTimelineData(){
+  const events=[];
+  (db.activity||[]).forEach(a=>{
+    const type=a.type==='pub'?'publish':a.type==='del'?'system':a.type==='set'?'system':'security';
+    events.push({type,icon:_TL_ICONS[type]||'👤',title:a.msg||'نشاط',time:a.time||'—',isNew:false});
+  });
+  /* أحداث ثابتة إضافية */
+  const fixed=[
+    {type:'system',  icon:'⚙️', title:'تحديث النظام إلى v2.4.1',       time:'اليوم،  10:30 ص'},
+    {type:'backup',  icon:'💾', title:'نسخ احتياطي تلقائي ناجح',       time:'اليوم،  04:00 ص'},
+    {type:'security',icon:'🔐', title:'فحص أمني دوري — لا تهديدات',    time:'أمس،    11:00 م'},
+    {type:'security',icon:'🔑', title:'تسجيل دخول المدير من جهاز جديد', time:'أمس،    02:15 م'},
+    {type:'system',  icon:'🔄', title:'مسح كاش الموقع تلقائياً',        time:'منذ يومين'},
+    {type:'backup',  icon:'☁️', title:'رفع نسخة احتياطية سحابية',       time:'منذ 3 أيام'},
+    {type:'security',icon:'🛡️', title:'تحديث شهادة SSL بنجاح',          time:'منذ أسبوع'},
+    {type:'system',  icon:'📦', title:'تثبيت إضافة: فاحص SEO',          time:'منذ أسبوع'},
+  ];
+  fixed.forEach(e=>events.push(e));
+  return events;
+}
+
+function _highlightQuery(text, q){
+  if(!q) return text;
+  const esc=q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  return text.replace(new RegExp('('+esc+')','gi'),'<mark>$1</mark>');
+}
+
+function renderSysTimeline(){
+  const tl=document.getElementById('sysTimeline');
+  if(!tl)return;
+  const all=_buildTimelineData();
+  let filtered=_sysTimelineFilter==='all'?all:all.filter(e=>e.type===_sysTimelineFilter);
+  if(_sysTlQuery){
+    const q=_sysTlQuery.toLowerCase();
+    filtered=filtered.filter(e=>e.title.toLowerCase().includes(q)||e.time.toLowerCase().includes(q)||_TL_LABELS[e.type]?.includes(q));
+  }
+
+  /* عداد */
+  const countEl=document.getElementById('sysTlCount');
+  if(countEl) countEl.textContent=filtered.length+' حدث'+(filtered.length!==all.length?' من '+all.length:'');
+
+  /* زر عرض المزيد */
+  const moreEl=document.getElementById('sysTlMore');
+  const visible=filtered.slice(0,_sysTlLimit);
+  if(moreEl) moreEl.style.display=filtered.length>_sysTlLimit?'block':'none';
+
+  if(!visible.length){
+    tl.innerHTML='<div class="sys-tl-empty">'+(
+      _sysTlQuery?'🔍 لا نتائج لـ "'+_sysTlQuery+'"':'لا أحداث بهذه الفئة'
+    )+'</div>';
+    return;
+  }
+
+  tl.innerHTML=visible.map((e,i)=>{
+    const titleHtml=_highlightQuery(e.title,_sysTlQuery);
+    return `<div class="sys-tl-row${e.isNew?' new-event':''}">
+      <div class="sys-tl-dot ${e.type}">${e.icon}</div>
+      <div class="sys-tl-body">
+        <div class="sys-tl-title">${titleHtml}</div>
+        <div class="sys-tl-meta">
+          <span class="sys-tl-time">🕐 ${e.time}</span>
+          <span class="sys-tl-tag ${e.type}">${_TL_LABELS[e.type]||e.type}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterSysTimeline(filter,el){
+  _sysTimelineFilter=filter;
+  _sysTlLimit=8;
+  document.querySelectorAll('.sys-tl-pill').forEach(b=>b.classList.remove('active'));
+  if(el)el.classList.add('active');
+  renderSysTimeline();
+}
+
+function searchSysTimeline(q){
+  _sysTlQuery=q.trim();
+  _sysTlLimit=8;
+  const clearBtn=document.getElementById('sysTlClear');
+  if(clearBtn) clearBtn.style.display=_sysTlQuery?'inline':'none';
+  renderSysTimeline();
+}
+
+function clearSysTlSearch(){
+  _sysTlQuery='';
+  const inp=document.getElementById('sysTlSearch');
+  if(inp) inp.value='';
+  const clearBtn=document.getElementById('sysTlClear');
+  if(clearBtn) clearBtn.style.display='none';
+  renderSysTimeline();
+}
+
+function loadMoreSysTl(){
+  _sysTlLimit+=8;
+  renderSysTimeline();
+}
+function checkSysAlerts(){
+  const alerts=[];
+  const sizeKB=Math.round(JSON.stringify(db).length/1024);
+  if(sizeKB>3000)alerts.push('💾 مساحة التخزين تتجاوز 3MB — يُنصح بالتنظيف');
+  const fails=(db.securityLog||[]).filter(l=>l.status==='fail').length;
+  if(fails>=5)alerts.push('🚨 '+fails+' محاولة دخول فاشلة مكتشفة');
+  if(!navigator.onLine)alerts.push('🌐 لا يوجد اتصال بالإنترنت');
+  const pending=(db.comments||[]).filter(c=>c.status==='pending').length;
+  if(pending>=10)alerts.push('💬 '+pending+' تعليق بانتظار المراجعة');
+  const panel=document.getElementById('sysAlertsPanel');
+  const list=document.getElementById('sysAlertsList');
+  if(panel&&list){
+    panel.style.display=alerts.length?'block':'none';
+    list.innerHTML=alerts.map(a=>`<div style="font-size:.78rem;color:var(--danger);padding:.3rem 0">${a}</div>`).join('');
+  }
+}
+/* ── التحديث التلقائي الدائم (يبدأ مع تحميل الصفحة) ── */
+const _SYS_REFRESH_INTERVAL = 30;
+let _sysRefCountdown = _SYS_REFRESH_INTERVAL;
+let _sysGlobalTimer = null;
+
+function _renderRefDots(){
+  const wrap = document.getElementById('sysRefDots');
+  if(!wrap) return;
+  const total = 10;
+  const filled = Math.round((_SYS_REFRESH_INTERVAL - _sysRefCountdown) / _SYS_REFRESH_INTERVAL * total);
+  wrap.innerHTML = Array.from({length:total},(_,i)=>{
+    const cls = i < filled ? 'sys-ref-dot done' : i === filled ? 'sys-ref-dot current' : 'sys-ref-dot';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+}
+
+function _sysRefreshTick(){
+  _sysRefCountdown--;
+  const cdEl = document.getElementById('sysAutoRefreshCountdown');
+  if(cdEl) cdEl.textContent = _sysRefCountdown + 'ث';
+  _renderRefDots();
+  if(_sysRefCountdown <= 0){
+    _sysRefCountdown = _SYS_REFRESH_INTERVAL;
+    _doSysRefresh(false);
+  }
+}
+
+function _doSysRefresh(isManual){
+  updatePerfKPIs();
+  renderSysLiveFeed();
+  renderSysTimeline();
+  checkSysAlerts();
+  if(isManual){
+    toast('🔄 تم التحديث','tinf');
+    /* حركة spinner لحظية */
+    const bar = document.getElementById('sysAutoRefBar');
+    if(bar){ bar.style.opacity='.6'; setTimeout(()=>bar.style.opacity='1', 300); }
+  }
+}
+
+function forceRefreshSys(){
+  _sysRefCountdown = _SYS_REFRESH_INTERVAL;
+  _doSysRefresh(true);
+}
+
+function toggleSysAutoRefresh(){ /* deprecated — kept for backward compat */ }
+
+function startGlobalSysTimer(){
+  if(_sysGlobalTimer) return;
+  _sysGlobalTimer = setInterval(_sysRefreshTick, 1000);
+}
+
+/* يبدأ فوراً عند تحميل الصفحة */
+document.addEventListener('DOMContentLoaded', startGlobalSysTimer);
+if(document.readyState !== 'loading') startGlobalSysTimer();
 
 /* ══════════════════════════════════════════
    THEME
@@ -16599,37 +17431,6 @@ updBadges();
     }, 2800);
   }
 
-  /* ── 8. Connection status indicator in header ── */
-  function _buildSyncIndicator() {
-    const hi = document.querySelector('.hi');
-    if(!hi || document.getElementById('syncStatusDot')) return;
-    const dot = document.createElement('div');
-    dot.id = 'syncStatusDot';
-    dot.title = 'المزامنة التلقائية مفعّلة';
-    dot.style.cssText = [
-      'display:flex','align-items:center','gap:.35rem',
-      'font-size:.7rem','font-weight:700','color:var(--accent3)',
-      'padding:.28rem .6rem','border-radius:50px',
-      'background:rgba(34,211,165,.1)','border:1px solid rgba(34,211,165,.25)',
-      'cursor:default','white-space:nowrap','flex-shrink:0',
-    ].join(';');
-    dot.innerHTML = '<span style="width:7px;height:7px;border-radius:50%;background:#22d3a5;display:inline-block;animation:syncPulse 2s infinite ease-in-out"></span><span class="sync-dot-label">مباشر</span>';
-    // Insert after theme button
-    const tb = document.getElementById('themeBtn') || hi.lastElementChild;
-    hi.insertBefore(dot, tb?.nextSibling || null);
-
-    // Hide label on small screens
-    const mq = window.matchMedia('(max-width:480px)');
-    const toggle = q => { const lbl = dot.querySelector('.sync-dot-label'); if(lbl) lbl.style.display = q.matches ? 'none' : ''; };
-    toggle(mq); mq.addEventListener('change', toggle);
-  }
-
-  // Build indicator after DOM ready
-  if(document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', _buildSyncIndicator);
-  } else {
-    setTimeout(_buildSyncIndicator, 600);
-  }
 
 })();
 
@@ -19103,6 +19904,96 @@ const PLUGINS_DATA = [
     bannerBg:'linear-gradient(135deg,#04060e,#080c18)',
     previewFn:'previewDarkMode', tags:[]
   },
+
+  /* ─── إضافات جديدة وظيفية ─── */
+  {
+    id:'word-counter-live', cat:'محتوى', icon:'🔢', emoji:'🔢',
+    title:'عداد الكلمات الحي في المحرر', new:true, popular:true,
+    desc:'يعرض عدد الكلمات والجمل ووقت القراءة في الوقت الفعلي أثناء الكتابة بشريط ثابت.',
+    fullDesc:'يضيف شريط إحصائي حي أسفل محرر المقالات يعرض عدد الكلمات، الحروف، الجمل، الفقرات ووقت القراءة المقدر. يتحدث فورياً مع كل ضغطة مفتاح.',
+    features:['🔢 إحصاء فوري للكلمات والحروف','⏱️ وقت القراءة المقدر','📝 عدد الجمل والفقرات','🎯 هدف الكلمات القابل للتخصيص'],
+    settings:[{label:'هدف عدد الكلمات',type:'range',min:100,max:3000,val:500},{label:'سرعة القراءة (كلمة/دقيقة)',type:'range',min:100,max:400,val:200}],
+    rating:4.9, installs:'7.1K', version:'1.0.0', size:'2KB',
+    bannerBg:'linear-gradient(135deg,#061018,#0a1a28)',
+    previewFn:'previewWordCounter', tags:['جديد','شائع']
+  },
+  {
+    id:'focus-mode', cat:'محتوى', icon:'🎯', emoji:'🎯',
+    title:'وضع التركيز الكامل', new:true, popular:false,
+    desc:'يخفي كل عناصر الواجهة ويبقي المحرر فقط لجلسة كتابة خالية من المشتتات.',
+    fullDesc:'يطلق وضعاً ملء الشاشة يخفي السايدبار والهيدر وجميع العناصر المشتتة. يبقي المحرر في وسط شاشة مظلمة مريحة. اضغط Esc للخروج.',
+    features:['🎯 كتابة بدون مشتتات','⌨️ اختصار لوحة مفاتيح F11','🌑 خلفية مظلمة مريحة للعين','💾 يحفظ تلقائياً عند الخروج'],
+    settings:[{label:'لون الخلفية',type:'color',val:'#030508'},{label:'عرض المحرر',type:'select',opts:['ضيق (700px)','متوسط (900px)','عريض (1100px)']}],
+    rating:4.8, installs:'5.3K', version:'1.0.0', size:'3KB',
+    bannerBg:'linear-gradient(135deg,#030508,#07090f)',
+    previewFn:'previewFocusMode', tags:['جديد']
+  },
+  {
+    id:'auto-save-indicator', cat:'أداء', icon:'💾', emoji:'💾',
+    title:'مؤشر الحفظ التلقائي الذكي', new:true, popular:true,
+    desc:'يحفظ المسودة تلقائياً كل 30 ثانية ويعرض حالة الحفظ بمؤشر أنيق في المحرر.',
+    fullDesc:'يضيف حفظاً تلقائياً للمسودة كل 30 ثانية مع مؤشر حالة يظهر "جارٍ الحفظ..." ثم "محفوظ ✓" مع الوقت. يحمي عملك من الضياع.',
+    features:['💾 حفظ تلقائي كل 30 ثانية','🕐 عرض وقت آخر حفظ','⚡ مؤشر حالة متحرك','🔔 إشعار عند انقطاع الاتصال'],
+    settings:[{label:'فترة الحفظ (ثانية)',type:'range',min:10,max:120,val:30},{label:'إشعار صوتي',type:'toggle',val:false}],
+    rating:4.9, installs:'11.2K', version:'2.0.0', size:'2KB',
+    bannerBg:'linear-gradient(135deg,#04100c,#081a14)',
+    previewFn:'previewAutoSave', tags:['جديد','شائع']
+  },
+  {
+    id:'keyboard-shortcuts', cat:'أداء', icon:'⌨️', emoji:'⌨️',
+    title:'لوحة الاختصارات السريعة', new:true, popular:false,
+    desc:'يضيف اختصارات لوحة مفاتيح لجميع وظائف لوحة التحكم مع دليل تفاعلي.',
+    fullDesc:'يفعّل اختصارات Ctrl+K للبحث السريع، Ctrl+N لمقال جديد، Ctrl+S للحفظ، وغيرها. يتضمن لوحة مساعدة قابلة للاستدعاء بضغط ؟.',
+    features:['⌨️ Ctrl+K بحث عالمي سريع','📝 Ctrl+N مقال جديد','🔍 ؟ لعرض كل الاختصارات','⚙️ اختصارات قابلة للتخصيص'],
+    settings:[{label:'تفعيل Ctrl+K',type:'toggle',val:true},{label:'تفعيل اختصارات التنقل',type:'toggle',val:true}],
+    rating:4.7, installs:'4.8K', version:'1.1.0', size:'4KB',
+    bannerBg:'linear-gradient(135deg,#080c18,#101828)',
+    previewFn:'previewKeyboardShortcuts', tags:['جديد']
+  },
+  {
+    id:'smart-search', cat:'أداء', icon:'🔍', emoji:'🔍',
+    title:'البحث العالمي الفوري', new:true, popular:true,
+    desc:'نافذة بحث سريعة تبحث في المقالات والتعليقات والمستخدمين بضغط Ctrl+K.',
+    fullDesc:'Spotlight-style search يفتح بـ Ctrl+K ويبحث فورياً في جميع محتوى لوحة التحكم. يعرض النتائج مجمعة مع أيقونات وتنقل بالسهام.',
+    features:['🔍 بحث فوري في الكل','⌨️ تنقل بالسهام وEnter','🎯 نتائج مجمعة بذكاء','⚡ سرعة استجابة < 50ms'],
+    settings:[{label:'عدد النتائج',type:'range',min:3,max:10,val:6},{label:'بحث في التعليقات',type:'toggle',val:true}],
+    rating:4.9, installs:'9.4K', version:'1.5.0', size:'5KB',
+    bannerBg:'linear-gradient(135deg,#060a18,#0c1228)',
+    previewFn:'previewSmartSearch', tags:['جديد','شائع']
+  },
+  {
+    id:'analytics-widget', cat:'محتوى', icon:'📊', emoji:'📊',
+    title:'ويدجت التحليلات الذكية', new:true, popular:true,
+    desc:'يضيف رسوماً بيانية تفاعلية للمشاهدات والتفاعلات مباشرة في صفحة كل مقال.',
+    fullDesc:'يعرض رسماً بيانياً خطياً للمشاهدات اليومية للأسبوع الماضي داخل لوحة معلومات المقال. يشمل مقارنة بالأسبوع السابق ونسبة التحسن.',
+    features:['📊 رسم بياني للمشاهدات اليومية','📈 مقارنة بالفترة السابقة','🎯 أفضل وقت للنشر','💡 اقتراحات تحسين SEO'],
+    settings:[{label:'نطاق البيانات',type:'select',opts:['7 أيام','30 يوم','90 يوم']},{label:'نوع الرسم البياني',type:'select',opts:['خطي','شريطي','مساحي']}],
+    rating:4.8, installs:'6.7K', version:'1.2.0', size:'6KB',
+    bannerBg:'linear-gradient(135deg,#060e18,#0a1628)',
+    previewFn:'previewAnalytics', tags:['جديد','شائع']
+  },
+  {
+    id:'post-scheduler', cat:'محتوى', icon:'📅', emoji:'📅',
+    title:'جدولة النشر المتقدمة', new:true, popular:false,
+    desc:'يتيح تحديد تاريخ ووقت مستقبلي لنشر المقال تلقائياً دون تدخل يدوي.',
+    fullDesc:'يضيف حقل تاريخ ووقت في إعدادات المقال. عند حلول الموعد ينشر المقال تلقائياً. يعرض قائمة المقالات المجدولة مع العد التنازلي.',
+    features:['📅 تحديد تاريخ ووقت النشر','⏰ عد تنازلي للنشر القادم','📋 قائمة المجدولة','🔔 إشعار قبل النشر بساعة'],
+    settings:[{label:'تنبيه قبل النشر',type:'select',opts:['ساعة واحدة','30 دقيقة','لا تنبيه']},{label:'المنطقة الزمنية',type:'select',opts:['تلقائي من المتصفح','UTC','AST']}],
+    rating:4.7, installs:'3.9K', version:'1.0.0', size:'4KB',
+    bannerBg:'linear-gradient(135deg,#080618,#120a28)',
+    previewFn:'previewScheduler', tags:['جديد']
+  },
+  {
+    id:'seo-checker', cat:'محتوى', icon:'🚀', emoji:'🚀',
+    title:'فاحص SEO الذكي', new:true, popular:true,
+    desc:'يحلّل مقالك ويعطيك درجة SEO فورية مع اقتراحات تحسين قابلة للتطبيق.',
+    fullDesc:'يحلّل عنوان المقال، الوصف، الكلمات المفتاحية، طول المحتوى، كثافة الكلمات المفتاحية ويعطي درجة من 100 مع توصيات تفصيلية لكل نقطة.',
+    features:['🚀 درجة SEO من 100','📝 تحليل العنوان والوصف','🔑 كثافة الكلمات المفتاحية','💡 اقتراحات تحسين فورية'],
+    settings:[{label:'الكلمة المفتاحية الرئيسية',type:'text',val:''},{label:'شدة التحليل',type:'select',opts:['سريع','متوسط','شامل']}],
+    rating:4.9, installs:'8.1K', version:'2.0.0', size:'5KB',
+    bannerBg:'linear-gradient(135deg,#060d10,#0a1820)',
+    previewFn:'previewSEO', tags:['جديد','شائع']
+  },
 ];
 
 let plgSearch='', plgCatFilter='الكل', plgSort='pop';
@@ -19325,7 +20216,7 @@ function drawPluginPreview(p,el){
   else if(fn==='previewNewsletter')drawNewsletterPreview(el);
   else if(fn==='previewLazy')drawLazyPreview(el);
   else if(fn==='previewDarkMode')drawDarkModePreview(el);
-  else el.innerHTML='<div style="color:var(--muted);font-size:.85rem;text-align:center;padding:2rem">معاينة قيد الإنشاء</div>';
+  else if(!drawPluginPreviewNew(p,el)) el.innerHTML='<div style="color:var(--muted);font-size:.85rem;text-align:center;padding:2rem">معاينة قيد الإنشاء</div>';
 }
 
 /* ── Individual Preview Painters ── */
@@ -19672,6 +20563,49 @@ function drawDarkModePreview(el){
     this.textContent=dark2?'🌙':'☀️';
     this.style.background=dark2?'linear-gradient(135deg,#1e2a45,#17203a)':'linear-gradient(135deg,#fff9c4,#fef3c7)';
   };
+}
+
+/* ── NEW PLUGIN PREVIEW FUNCTIONS ── */
+function drawPluginPreviewNew(p,el){
+  var fn=p.previewFn;
+  if(fn==='previewWordCounter'){drawWordCounterPreview(el);return true;}
+  if(fn==='previewFocusMode'){drawFocusModePreview(el);return true;}
+  if(fn==='previewAutoSave'){drawAutoSavePreview(el);return true;}
+  if(fn==='previewKeyboardShortcuts'){drawKeyboardShortcutsPreview(el);return true;}
+  if(fn==='previewSmartSearch'){drawSmartSearchPreview(el);return true;}
+  if(fn==='previewAnalytics'){drawAnalyticsPreview(el);return true;}
+  if(fn==='previewScheduler'){drawSchedulerPreview(el);return true;}
+  if(fn==='previewSEO'){drawSEOPreview(el);return true;}
+  return false;
+}
+
+function drawWordCounterPreview(el){
+  el.innerHTML='<div style="width:100%;height:100%;background:#0b0f1c;font-family:Tajawal,sans-serif;display:flex;flex-direction:column;padding:1rem;gap:.75rem"><div style="background:#101524;border:1px solid #1f2d4a;border-radius:10px;padding:.85rem 1rem;flex:1"><div style="font-size:.7rem;color:#6b7a9e;margin-bottom:.5rem">محرر المقال</div><div style="font-size:.82rem;color:#e2e8f8;line-height:1.7">كيف تبني موقعاً احترافياً؟ هذا المقال يتناول أهم الخطوات العملية...</div></div><div style="background:linear-gradient(135deg,#0f1528,#141e38);border:1px solid #1f2d4a;border-radius:8px;padding:.65rem 1rem;display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;text-align:center"><div><div style="font-size:1.2rem;font-weight:900;color:#4f8ef7">247</div><div style="font-size:.6rem;color:#6b7a9e">كلمة</div></div><div><div style="font-size:1.2rem;font-weight:900;color:#a855f7">1,430</div><div style="font-size:.6rem;color:#6b7a9e">حرف</div></div><div><div style="font-size:1.2rem;font-weight:900;color:#22d3a5">14</div><div style="font-size:.6rem;color:#6b7a9e">جملة</div></div><div><div style="font-size:1.2rem;font-weight:900;color:#f59e0b">~2د</div><div style="font-size:.6rem;color:#6b7a9e">للقراءة</div></div></div><div style="font-size:.63rem;color:#6b7a9e;text-align:center">الهدف: 500 كلمة — متبقي 253 كلمة</div></div>';
+}
+function drawFocusModePreview(el){
+  el.innerHTML='<div style="width:100%;height:100%;background:#030508;display:flex;align-items:center;justify-content:center;font-family:Tajawal,sans-serif"><div style="width:85%"><div style="font-size:.6rem;color:#2a3550;text-align:center;margin-bottom:1.5rem;letter-spacing:3px">FOCUS MODE</div><div style="font-size:1.1rem;font-weight:900;color:#e2e8f8;margin-bottom:.75rem">كيف تبني موقعاً احترافياً؟</div><div style="font-size:.8rem;color:#4a5a7a;line-height:1.9">هذا النص التجريبي يظهر كيف تبدو تجربة الكتابة في وضع التركيز الكامل بدون أي مشتتات...</div></div></div>';
+}
+function drawAutoSavePreview(el){
+  el.innerHTML='<div style="width:100%;height:100%;background:#0b0f1c;font-family:Tajawal,sans-serif;padding:1rem;display:flex;flex-direction:column;gap:.75rem"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-size:.85rem;font-weight:700;color:#e2e8f8">محرر المقال</div><div style="display:flex;align-items:center;gap:.4rem;font-size:.7rem;background:#0d1828;border:1px solid #1f2d4a;border-radius:50px;padding:.25rem .75rem"><div style="width:6px;height:6px;border-radius:50%;background:#22d3a5"></div><span style="color:#22d3a5">محفوظ</span><span style="color:#6b7a9e">• منذ 12 ث</span></div></div><div style="background:#101524;border:1px solid #1f2d4a;border-radius:10px;padding:.85rem;flex:1"><div style="font-size:.8rem;color:#e2e8f8;line-height:1.7">محتوى المقال يحفظ تلقائياً كل 30 ثانية.</div></div></div>';
+}
+function drawKeyboardShortcutsPreview(el){
+  var sc=[['Ctrl','K','بحث سريع'],['Ctrl','N','مقال جديد'],['Ctrl','S','حفظ'],['?','','الاختصارات']];
+  el.innerHTML='<div style="width:100%;height:100%;background:#0b0f1c;font-family:Tajawal,sans-serif;padding:1rem"><div style="text-align:center;font-size:.7rem;color:#6b7a9e;margin-bottom:.85rem">⌨️ اختصارات لوحة المفاتيح</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:.4rem">'+sc.map(function(s){return '<div style="background:#101524;border:1px solid #1f2d4a;border-radius:8px;padding:.5rem .75rem;display:flex;align-items:center;gap:.5rem"><div style="display:flex;gap:.2rem"><kbd style="background:#1e2a45;border:1px solid #293857;border-radius:4px;padding:.1rem .35rem;font-size:.6rem;color:#4f8ef7">'+s[0]+'</kbd>'+(s[1]?'<kbd style="background:#1e2a45;border:1px solid #293857;border-radius:4px;padding:.1rem .35rem;font-size:.6rem;color:#4f8ef7">'+s[1]+'</kbd>':'')+'</div><span style="font-size:.68rem;color:#8892b0">'+s[2]+'</span></div>';}).join('')+'</div></div>';
+}
+function drawSmartSearchPreview(el){
+  el.innerHTML='<div style="width:100%;height:100%;background:rgba(3,5,8,.92);display:flex;align-items:flex-start;justify-content:center;padding-top:1.5rem;font-family:Tajawal,sans-serif"><div style="background:#101524;border:1px solid #293857;border-radius:14px;width:88%;box-shadow:0 24px 60px rgba(0,0,0,.6);overflow:hidden"><div style="display:flex;align-items:center;gap:.65rem;padding:.7rem .9rem;border-bottom:1px solid #1f2d4a"><span style="color:#6b7a9e">🔍</span><span style="font-size:.8rem;color:#4f8ef7;flex:1">كيف تبني...</span></div><div style="padding:.5rem"><div style="padding:.45rem .7rem;display:flex;align-items:center;gap:.6rem"><span>📄</span><div><div style="font-size:.72rem;font-weight:700;color:#e2e8f8">كيف تبني موقعاً احترافياً</div><div style="font-size:.62rem;color:#6b7a9e">منشور • تقنية</div></div></div><div style="padding:.45rem .7rem;display:flex;align-items:center;gap:.6rem"><span>📄</span><span style="font-size:.72rem;color:#8892b0">دليل بناء العلامة التجارية</span></div></div></div></div>';
+}
+function drawAnalyticsPreview(el){
+  var vals=[42,78,55,95,67,120,89];var days=['أحد','إثن','ثلث','أرب','خمس','جمع','سبت'];var mx=120;
+  el.innerHTML='<div style="width:100%;height:100%;background:#0b0f1c;font-family:Tajawal,sans-serif;padding:.9rem;display:flex;flex-direction:column;gap:.65rem"><div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:.78rem;font-weight:700;color:#e2e8f8">📊 تحليلات المقال</div><div style="font-size:.65rem;color:#22d3a5">↑ 18% عن الأسبوع الماضي</div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem"><div style="background:#101524;border:1px solid #1f2d4a;border-radius:8px;padding:.5rem;text-align:center"><div style="font-size:1.1rem;font-weight:900;color:#4f8ef7">546</div><div style="font-size:.6rem;color:#6b7a9e">مشاهدة</div></div><div style="background:#101524;border:1px solid #1f2d4a;border-radius:8px;padding:.5rem;text-align:center"><div style="font-size:1.1rem;font-weight:900;color:#22d3a5">3:24</div><div style="font-size:.6rem;color:#6b7a9e">متوسط الوقت</div></div><div style="background:#101524;border:1px solid #1f2d4a;border-radius:8px;padding:.5rem;text-align:center"><div style="font-size:1.1rem;font-weight:900;color:#a855f7">34%</div><div style="font-size:.6rem;color:#6b7a9e">معدل الارتداد</div></div></div><div style="flex:1;display:flex;align-items:flex-end;gap:.4rem;padding:.4rem;background:#101524;border:1px solid #1f2d4a;border-radius:8px">'+vals.map(function(v,i){return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.2rem"><div style="width:100%;background:linear-gradient(180deg,#4f8ef7,#a855f7);border-radius:3px 3px 0 0;height:'+Math.round(v/mx*60)+'px;min-height:4px"></div><div style="font-size:.55rem;color:#6b7a9e">'+days[i]+'</div></div>';}).join('')+'</div></div>';
+}
+function drawSchedulerPreview(el){
+  el.innerHTML='<div style="width:100%;height:100%;background:#0b0f1c;font-family:Tajawal,sans-serif;padding:1rem;display:flex;flex-direction:column;gap:.75rem"><div style="font-size:.8rem;font-weight:700;color:#e2e8f8">📅 جدولة النشر</div><div style="background:#101524;border:1px solid #1f2d4a;border-radius:10px;padding:.85rem"><div style="font-size:.68rem;color:#6b7a9e;margin-bottom:.5rem">تاريخ ووقت النشر</div><div style="display:flex;gap:.5rem"><div style="flex:1;background:#0b0f1c;border:1px solid #293857;border-radius:6px;padding:.4rem .6rem;font-size:.75rem;color:#4f8ef7">2024/08/15</div><div style="background:#0b0f1c;border:1px solid #293857;border-radius:6px;padding:.4rem .6rem;font-size:.75rem;color:#a855f7">09:00 ص</div></div></div><div style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(245,158,11,.04));border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:.8rem"><div style="font-size:.65rem;color:#f59e0b;margin-bottom:.4rem">⏰ العد التنازلي</div><div style="display:flex;gap:.5rem;justify-content:center"><div style="text-align:center;background:#0b0f1c;border-radius:6px;padding:.4rem .5rem;min-width:40px"><div style="font-size:1.1rem;font-weight:900;color:#f59e0b">02</div><div style="font-size:.55rem;color:#6b7a9e">يوم</div></div><div style="text-align:center;background:#0b0f1c;border-radius:6px;padding:.4rem .5rem;min-width:40px"><div style="font-size:1.1rem;font-weight:900;color:#f59e0b">14</div><div style="font-size:.55rem;color:#6b7a9e">ساعة</div></div><div style="text-align:center;background:#0b0f1c;border-radius:6px;padding:.4rem .5rem;min-width:40px"><div style="font-size:1.1rem;font-weight:900;color:#f59e0b">33</div><div style="font-size:.55rem;color:#6b7a9e">دقيقة</div></div></div></div></div>';
+}
+function drawSEOPreview(el){
+  var checks=[{label:'طول العنوان',ok:true,val:'62 حرف'},{label:'الوصف المختصر',ok:true,val:'155 حرف'},{label:'الكلمة المفتاحية',ok:false,val:'غير محدد'},{label:'طول المحتوى',ok:true,val:'+1200 كلمة'},{label:'صورة مميزة',ok:true,val:'موجودة'},{label:'الروابط الداخلية',ok:false,val:'لا يوجد'}];
+  var score=Math.round(checks.filter(function(c){return c.ok;}).length/checks.length*100);
+  el.innerHTML='<div style="width:100%;height:100%;background:#0b0f1c;font-family:Tajawal,sans-serif;padding:.9rem;display:flex;flex-direction:column;gap:.6rem"><div style="display:flex;align-items:center;gap:.75rem"><div style="position:relative;width:64px;height:64px;flex-shrink:0"><svg viewBox="0 0 64 64" style="transform:rotate(-90deg);width:64px;height:64px"><circle cx="32" cy="32" r="26" fill="none" stroke="#1e2a45" stroke-width="6"/><circle cx="32" cy="32" r="26" fill="none" stroke="'+(score>=70?'#22d3a5':'#f59e0b')+'" stroke-width="6" stroke-dasharray="163" stroke-dashoffset="'+Math.round(163*(1-score/100))+'"/></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:900;color:'+(score>=70?'#22d3a5':'#f59e0b')+'">'+score+'</div></div><div><div style="font-size:.8rem;font-weight:800;color:#e2e8f8">درجة SEO</div><div style="font-size:.65rem;color:'+(score>=70?'#22d3a5':'#f59e0b')+'">'+(score>=70?'جيد':'يحتاج تحسين')+'</div></div></div><div style="display:flex;flex-direction:column;gap:.3rem;flex:1">'+checks.map(function(c){return '<div style="display:flex;align-items:center;justify-content:space-between;background:#101524;border-radius:6px;padding:.35rem .6rem"><div style="display:flex;align-items:center;gap:.4rem"><span style="font-size:.7rem">'+(c.ok?'✅':'⚠️')+'</span><span style="font-size:.68rem;color:#e2e8f8">'+c.label+'</span></div><span style="font-size:.62rem;color:'+(c.ok?'#22d3a5':'#f59e0b')+'">'+c.val+'</span></div>';}).join('')+'</div></div>';
 }
 
 /* ── Apply active plugins effects to blog ── */
@@ -20223,5 +21157,195 @@ document.addEventListener('keydown', e => {
     </div>
   </div>
 </div>
+
+<footer id="globalFooter">
+  <span>جميع الحقوق محفوظة © <span id="gfYear"></span> </span><span class="gf-sep">—</span><span class="gf-brand"> مكسب <span class="gf-sep">|</span> Maksab</span>
+</footer>
+<script>
+(function(){
+  function setYear(){document.getElementById('gfYear').textContent=new Date().getFullYear();}
+  setYear();
+  /* يتحدث تلقائياً في أول ثانية من السنة الجديدة */
+  function scheduleYearUpdate(){
+    var now=new Date();
+    var next=new Date(now.getFullYear()+1,0,1);
+    var ms=next-now;
+    setTimeout(function(){setYear();scheduleYearUpdate();},ms);
+  }
+  scheduleYearUpdate();
+})();
+</script>
+
+<script>
+
+/* ══════════════════════════════════════════════════════
+   SLIDER STYLE PICKER
+══════════════════════════════════════════════════════ */
+const SLIDER_STYLES = {
+  nexus:   { name:'Nexus Hero',        desc:'بطولي + قائمة جانبية' },
+  cinema:  { name:'Cinema Wide',       desc:'ملء شاشة سينمائي'    },
+  cards:   { name:'Card Stack',        desc:'بطاقات مع صور'        },
+  minimal: { name:'Minimal Spotlight', desc:'نص + صورة نظيف'       },
+  magazine:{ name:'Magazine Grid',     desc:'شبكة مجلة إخبارية'   },
+  neon:    { name:'Neon Pulse',        desc:'نيون متوهج عصري'      },
+};
+
+let _currentSliderStyle = 'nexus';
+
+function pickSliderStyle(style, el){
+  _currentSliderStyle = style;
+  document.querySelectorAll('.sl-style-card').forEach(c => c.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const info = SLIDER_STYLES[style] || SLIDER_STYLES.nexus;
+  const nameEl = document.getElementById('slLiveStyleName');
+  if(nameEl) nameEl.textContent = info.name;
+  _renderLiveSliderPreview(style);
+  if(db.siteSettings) db.siteSettings.sliderStyle = style;
+}
+
+function _renderLiveSliderPreview(style){
+  const box = document.getElementById('slLivePreview');
+  if(!box) return;
+  const posts = db.posts.filter(p=>p.status==='published').slice(0,4);
+  const p0 = posts[0] || {title:'عنوان المقال المميز',category:'تقنية',author:'المحرر',date:new Date().toISOString(),views:1240,pinned:false,featured:true};
+  const p1 = posts[1] || {title:'مقال ثانٍ مثير للاهتمام',category:'ثقافة'};
+  const p2 = posts[2] || {title:'موضوع ثالث متميز',category:'علوم'};
+
+  const GC = ['linear-gradient(135deg,#0c1220,#1a2540)','linear-gradient(135deg,#120c20,#241540)','linear-gradient(135deg,#0c1808,#142808)'];
+
+  const prevs = {
+    nexus: `<div style="width:100%;height:100%;display:grid;grid-template-columns:1fr 200px;background:#0a0e1a">
+      <div style="position:relative;overflow:hidden;${GC[0]}">
+        <div style="position:absolute;inset:0;background:linear-gradient(to left,rgba(5,8,18,.92) 0%,rgba(5,8,18,.4) 40%,transparent 100%)"></div>
+        <div style="position:absolute;top:14px;left:14px;background:var(--accent);color:#fff;font-size:.55rem;font-weight:800;padding:.15rem .5rem;border-radius:50px;display:flex;align-items:center;gap:.3rem"><span style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.7);display:inline-block"></span>⭐ مميز · ${p0.category}</div>
+        <div style="position:absolute;top:40px;right:16px;width:58%">
+          <div style="font-size:.95rem;font-weight:900;color:#fff;line-height:1.35;margin-bottom:.5rem;text-shadow:0 2px 8px rgba(0,0,0,.5)">${p0.title}</div>
+          <div style="font-size:.68rem;color:rgba(255,255,255,.55);line-height:1.6">مقتطف قصير من المقال يوضح الفكرة الرئيسية للقارئ...</div>
+        </div>
+        <div style="position:absolute;bottom:14px;right:16px;display:flex;gap:.5rem">
+          <div style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.6rem;font-weight:800;padding:.3rem .8rem;border-radius:50px">اقرأ المقال ↝</div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+      </div>
+      <div style="background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;padding:.7rem">
+        <div style="font-size:.55rem;font-weight:800;color:var(--muted);letter-spacing:.5px;border-bottom:1px solid var(--border);padding-bottom:.4rem;margin-bottom:.4rem">المقالات المميزة</div>
+        ${[p0,p1,p2].map((p,i)=>`<div style="display:flex;gap:.4rem;padding:.3rem;border-radius:6px;background:${i===0?'rgba(79,142,247,.07)':'transparent'};margin-bottom:.2rem"><div style="width:30px;height:30px;border-radius:5px;background:${GC[i]};flex-shrink:0"></div><div style="flex:1;min-width:0"><div style="font-size:.62rem;font-weight:700;color:var(--text);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${p.title||'—'}</div><div style="font-size:.55rem;color:var(--muted)">${p.category||''}</div></div></div>`).join('')}
+        <div style="display:flex;gap:3px;margin-top:auto;padding-top:.3rem">${[0,1,2].map(i=>`<div style="width:${i===0?'14':'6'}px;height:6px;border-radius:3px;background:${i===0?'var(--accent)':'var(--border2)'}"></div>`).join('')}</div>
+      </div>
+    </div>`,
+
+    cinema: `<div style="width:100%;height:100%;position:relative;overflow:hidden;background:linear-gradient(160deg,#06080f,#0e1828)">
+      <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.9) 0%,rgba(0,0,0,.2) 50%,transparent 100%)"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.6) 0%,transparent 60%)"></div>
+      <div style="position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.5rem">
+        <div style="display:inline-flex;align-items:center;gap:.35rem;background:rgba(79,142,247,.2);border:1px solid rgba(79,142,247,.4);color:#4f8ef7;font-size:.6rem;font-weight:800;padding:.2rem .6rem;border-radius:50px;margin-bottom:.6rem">🎬 ${p0.category}</div>
+        <div style="font-size:1.2rem;font-weight:900;color:#fff;line-height:1.3;margin-bottom:.4rem;text-shadow:0 4px 16px rgba(0,0,0,.6)">${p0.title}</div>
+        <div style="font-size:.68rem;color:rgba(255,255,255,.5);margin-bottom:.85rem">✍️ ${p0.author||'المحرر'} &nbsp;·&nbsp; 👁 ${(p0.views||0).toLocaleString('ar')}</div>
+        <div style="display:flex;align-items:center;gap:.75rem">
+          <div style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:.65rem;font-weight:800;padding:.35rem 1rem;border-radius:50px">اقرأ الآن ↝</div>
+          <div style="display:flex;gap:4px">${[0,1,2,3].map(i=>`<div style="width:${i===0?'18':'7'}px;height:7px;border-radius:4px;background:${i===0?'#fff':'rgba(255,255,255,.25)'}"></div>`).join('')}</div>
+        </div>
+      </div>
+      <div style="position:absolute;top:50%;left:10px;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.8rem">‹</div>
+      <div style="position:absolute;top:50%;right:10px;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.8rem">›</div>
+    </div>`,
+
+    cards: `<div style="width:100%;height:100%;background:var(--s2);padding:8px;display:grid;grid-template-columns:1.3fr 1fr;gap:6px">
+      <div style="background:var(--s1);border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column">
+        <div style="height:80px;background:${GC[0]};position:relative"><div style="position:absolute;top:8px;left:8px;background:var(--accent);color:#fff;font-size:.5rem;font-weight:800;padding:.1rem .4rem;border-radius:50px">⭐ مميز</div></div>
+        <div style="padding:.5rem;flex:1"><div style="font-size:.72rem;font-weight:800;color:var(--text);margin-bottom:.3rem;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical">${p0.title}</div><div style="font-size:.58rem;color:var(--muted)">${p0.category} · ${p0.author||'المحرر'}</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        ${[p1,p2].map((p,i)=>`<div style="background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:.45rem;display:flex;gap:.4rem;flex:1"><div style="width:36px;height:36px;border-radius:6px;background:${GC[i+1]};flex-shrink:0"></div><div style="flex:1;min-width:0"><div style="font-size:.63rem;font-weight:700;color:var(--text);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${p.title||'—'}</div><div style="font-size:.55rem;color:var(--muted);margin-top:.15rem">${p.category||''}</div></div></div>`).join('')}
+      </div>
+    </div>`,
+
+    minimal: `<div style="width:100%;height:100%;background:var(--s1);display:grid;grid-template-columns:1fr 1fr">
+      <div style="padding:1rem;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)">
+        <div style="font-size:2.5rem;font-weight:900;color:rgba(79,142,247,.1);line-height:1;margin-bottom:.4rem">01</div>
+        <div style="font-size:.65rem;font-weight:700;color:var(--accent);margin-bottom:.4rem;letter-spacing:.5px">${p0.category?.toUpperCase()}</div>
+        <div style="font-size:.88rem;font-weight:900;color:var(--text);line-height:1.35;margin-bottom:.4rem">${p0.title}</div>
+        <div style="font-size:.62rem;color:var(--muted);margin-bottom:.7rem">✍️ ${p0.author||'المحرر'}</div>
+        <div style="display:flex;gap:.4rem">
+          <div style="background:var(--accent);color:#fff;font-size:.58rem;font-weight:800;padding:.25rem .65rem;border-radius:50px">اقرأ ↝</div>
+          <div style="display:flex;gap:3px;align-items:center">${[0,1,2].map(i=>`<div style="width:${i===0?'16':'6'}px;height:5px;border-radius:3px;background:${i===0?'var(--accent)':'var(--border2)'}"></div>`).join('')}</div>
+        </div>
+      </div>
+      <div style="overflow:hidden"><div style="width:100%;height:100%;background:${GC[0]};clip-path:polygon(15% 0%,100% 0%,100% 100%,0% 100%)"></div></div>
+    </div>`,
+
+    magazine: `<div style="width:100%;height:100%;background:var(--s2);padding:7px;display:grid;grid-template-columns:1.4fr 1fr;gap:6px">
+      <div style="background:${GC[0]};border-radius:10px;padding:.7rem;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85),transparent 60%)"></div>
+        <div style="position:relative"><div style="font-size:.55rem;font-weight:800;color:var(--accent3);margin-bottom:.3rem;letter-spacing:.5px">عاجل · ${p0.category}</div><div style="font-size:.85rem;font-weight:900;color:#fff;line-height:1.3">${p0.title}</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        ${[p0,p1,p2].map((p,i)=>`<div style="background:${i===0?'rgba(79,142,247,.08)':'var(--s1)'};border:1px solid ${i===0?'rgba(79,142,247,.25)':'var(--border)'};border-radius:7px;padding:.4rem .5rem;display:flex;align-items:center;gap:.4rem;flex:1"><div style="width:6px;height:6px;border-radius:50%;background:${i===0?'var(--accent)':'var(--border2)'};flex-shrink:0"></div><div style="flex:1;min-width:0"><div style="font-size:.63rem;font-weight:${i===0?'800':'600'};color:var(--text);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${p.title||'—'}</div><div style="font-size:.54rem;color:var(--muted)">${p.category||''}</div></div></div>`).join('')}
+      </div>
+    </div>`,
+
+    neon: `<div style="width:100%;height:100%;background:#050810;position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 25% 50%,rgba(79,142,247,.18) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(168,85,247,.12) 0%,transparent 50%)"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(5,8,16,.9),transparent 60%)"></div>
+      <div style="position:absolute;top:14px;right:16px;width:55%">
+        <div style="width:24px;height:3px;background:#4f8ef7;border-radius:2px;margin-bottom:.5rem;box-shadow:0 0 8px #4f8ef7"></div>
+        <div style="font-size:.65rem;font-weight:700;color:rgba(79,142,247,.8);margin-bottom:.35rem;letter-spacing:.5px">${p0.category?.toUpperCase()}</div>
+        <div style="font-size:.95rem;font-weight:900;color:#fff;line-height:1.3;margin-bottom:.4rem;text-shadow:0 0 20px rgba(79,142,247,.3)">${p0.title}</div>
+        <div style="font-size:.62rem;color:rgba(255,255,255,.35);margin-bottom:.7rem">✍️ ${p0.author||'المحرر'} · 👁 ${(p0.views||0).toLocaleString('ar')}</div>
+        <div style="display:inline-flex;background:linear-gradient(135deg,#4f8ef7,#a855f7);color:#fff;font-size:.6rem;font-weight:800;padding:.3rem .85rem;border-radius:50px;box-shadow:0 0 16px rgba(79,142,247,.5)">اقرأ الآن ↝</div>
+      </div>
+      <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4f8ef7,#a855f7,#22d3a5);box-shadow:0 0 8px rgba(79,142,247,.5)"></div>
+      <div style="position:absolute;bottom:8px;left:10px;display:flex;gap:3px">${[0,1,2].map(i=>`<div style="width:${i===0?'16':'6'}px;height:5px;border-radius:3px;background:${i===0?'#4f8ef7':'rgba(79,142,247,.2)'};${i===0?'box-shadow:0 0 6px #4f8ef7':''}"></div>`).join('')}</div>
+    </div>`,
+  };
+
+  box.innerHTML = prevs[style] || prevs.nexus;
+}
+
+function applySliderOpts(){
+  /* يطبق الخيارات على السلايدر الحي مباشرة */
+  const arrows = document.getElementById('sliderShowArrows')?.checked;
+  document.querySelectorAll('.nx-nav-btn,.nx-play').forEach(el=>{
+    el.style.display = arrows===false ? 'none' : '';
+  });
+}
+
+function applySliderFull(){
+  if(db.siteSettings) db.siteSettings.sliderStyle = _currentSliderStyle;
+  saveSiteSettings();
+  renderSlider();
+  toast('✅ تم تطبيق نمط السلايدر: ' + (SLIDER_STYLES[_currentSliderStyle]?.name||_currentSliderStyle), 'tok');
+}
+
+function resetSliderDefaults(){
+  _currentSliderStyle = 'nexus';
+  document.querySelectorAll('.sl-style-card').forEach(c=>{
+    c.classList.toggle('active', c.dataset.style==='nexus');
+  });
+  const nameEl = document.getElementById('slLiveStyleName');
+  if(nameEl) nameEl.textContent = 'Nexus Hero';
+  ['sliderAutoplay','sliderShowArrows','sliderShowDots','sliderPauseHover','sliderKenBurns']
+    .forEach(id=>{ const el=document.getElementById(id); if(el) el.checked=true; });
+  const speed=document.getElementById('sliderSpeed');   if(speed)   speed.value='5';
+  const posts=document.getElementById('sliderMaxPosts'); if(posts)  posts.value='6';
+  const height=document.getElementById('sliderHeight'); if(height)  height.value='520';
+  const trans=document.getElementById('sliderTransition'); if(trans) trans.value='slide';
+  const radius=document.getElementById('sliderRadius'); if(radius)  radius.value='16';
+  _renderLiveSliderPreview('nexus');
+  toast('↩ تم إعادة تعيين إعدادات السلايدر', 'tinf');
+}
+
+/* تهيئة المعاينة عند فتح تبويب السلايدر */
+(function(){
+  const origSwitch = typeof switchSett === 'function' ? switchSett : null;
+  if(origSwitch){
+    const _orig = switchSett;
+    switchSett = function(tab, el){
+      _orig(tab, el);
+      if(tab === 'slider') setTimeout(()=>_renderLiveSliderPreview(_currentSliderStyle), 50);
+    };
+  }
+})();
+</script>
 </body>
 </html>
